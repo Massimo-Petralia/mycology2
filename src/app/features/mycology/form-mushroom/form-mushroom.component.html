@@ -1,6 +1,94 @@
 <mat-expansion-panel expanded="true">
-<mat-expansion-panel-header>
+  <mat-expansion-panel-header>
     <mat-panel-title>Mushroom</mat-panel-title>
     <mat-panel-description>Characteristics</mat-panel-description>
-</mat-expansion-panel-header>
+  </mat-expansion-panel-header>
+  <form [formGroup]="formMushroom">
+    <mat-expansion-panel class="subForm-container" expanded="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>Taxonomy</mat-panel-title>
+        <mat-panel-description
+          >Systematic nomenclature</mat-panel-description
+        >
+      </mat-expansion-panel-header>
+      <form formGroupName="taxonomy" class="flex-taxonomy">
+        <mat-form-field>
+          <label #specieslabel for="species" className="">Species</label>
+          <input
+            id="species"
+            matInput
+            type="text"
+            formControlName="species"
+            (focus)="specieslabel.className = 'isFocused'"
+            (blur)="specieslabel.className = ''"
+          />
+        </mat-form-field>
+  
+        <mat-form-field>
+          <label #genderlabel for="gender" className="">Gender</label>
+          <input
+            id="gender"
+            matInput
+            type="text"
+            formControlName="gender"
+            (focus)="genderlabel.className = 'isFocused'"
+            (blur)="genderlabel.className = ''"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <label #familylabel for="family" className="">Family</label>
+          <input
+            id="family"
+            matInput
+            type="text"
+            formControlName="family"
+            (focus)="familylabel.className = 'isFocused'"
+            (blur)="familylabel.className = ''"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <label #orderlabel for="order" className="">Order</label>
+          <input
+            id="order"
+            matInput
+            type="text"
+            formControlName="order"
+            (focus)="orderlabel.className = 'isFocused'"
+            (blur)="orderlabel.className = ''"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <label #synonymouslabel for="synonymous" className=""
+            >Synonymous</label
+          >
+          <input
+            id="synonymous"
+            matInput
+            type="text"
+            formControlName="synonymous"
+            (focus)="synonymouslabel.className = 'isFocused'"
+            (blur)="synonymouslabel.className = ''"
+          />
+        </mat-form-field>
+        <mat-form-field>
+            <label #aalabel for="AA" className="">A.A.</label>
+            <input
+              id="AA"
+              matInput
+              type="text"
+              formControlName="AA"
+              (focus)="aalabel.className = 'isFocused'"
+              (blur)="aalabel.className = ''"
+            />
+          </mat-form-field>
+      </form>
+    </mat-expansion-panel>
+    <mat-expansion-panel class="subForm-container" expanded="true">
+        <mat-expansion-panel-header>
+            <mat-panel-title>Morphology</mat-panel-title>
+            <mat-panel-description>Macroscopic characteristics</mat-panel-description>
+        </mat-expansion-panel-header>
+        
+    </mat-expansion-panel>
+  </form>
 </mat-expansion-panel>
