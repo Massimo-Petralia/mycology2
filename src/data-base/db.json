@@ -1,6 +1,33 @@
 {
-    
-        "mushrooms": [],
-        "iconographies": []
-    
-}       
+  "mushrooms": [],
+  "iconographies": [
+    {
+      "id": "amanita_muscaria",
+      "name": "Amanita muscaria"
+    },
+    {
+      "id": "macrolepiota_procera",
+      "name": "macrolepiota procera"
+    },
+    {
+      "id": "macrolepiota-procera",
+      "name": "macrolepiota procera"
+    },
+    {
+      "id": "amanita-falloide",
+      "name": "Amanita falloide"
+    },
+    {
+      "id": "fungo-pop",
+      "name": "Fungo pop"
+    },
+    {
+      "id": "fungo-strange",
+      "name": "Fungo strange"
+    },
+    {
+      "id": "fungo-lanterna",
+      "name": "Fungo lanterna"
+    }
+  ]
+}
