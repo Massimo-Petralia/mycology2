@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { MatTableModule } from '@angular/material/table'
 
 @Component({
   selector: 'app-mushroom-table',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [MatTableModule],
   templateUrl: './mushroom-table.component.html',
   styleUrl: './mushroom-table.component.scss'
 })
