@@ -3,7 +3,7 @@ import { MushroomTablePageComponent } from './features/mycology/mushroom-table-p
 import { FormMushroomPageComponent } from './features/mycology/form-mushroom-page/form-mushroom-page.component';
 
 export const routes: Routes = [
-    {path: 'mushrooms/page/:pagenumber', component: MushroomTablePageComponent},
+    {path: 'mushrooms/page/:page', component: MushroomTablePageComponent},
     {path: 'mushroom/:id/page/:page', component: FormMushroomPageComponent},
     {path: '', redirectTo: 'mushrooms/page/1', pathMatch: 'prefix'},
     
