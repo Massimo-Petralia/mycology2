@@ -1,17 +1,34 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  ViewChild,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormArray } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { IconographicContainer, Iconography } from '../models/mycology.models';
 import { CommonModule } from '@angular/common';
+import { MatInputModule } from '@angular/material/input';
+import { TextFieldModule } from '@angular/cdk/text-field';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-form-iconography',
   standalone: true,
-  imports: [CommonModule,  ReactiveFormsModule, MatCardModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatCardModule,
+    MatInputModule,
+    TextFieldModule,
+    MatButtonModule,
+  ],
   templateUrl: './form-iconography.component.html',
   styleUrl: './form-iconography.component.scss',
 })
-export class FormIconographyComponent {
+export class FormIconographyComponent implements OnChanges {
   @ViewChild('inputfile') inputfileElem!: ElementRef<HTMLInputElement>;
   constructor(private formBuilder: FormBuilder) {}
 
@@ -31,6 +48,8 @@ export class FormIconographyComponent {
     return this.formIconography.get('formiconographyarray') as FormArray;
   }
 
+  ngOnChanges(changes: SimpleChanges): void {}
+
   handleFiles() {
     const files = Array.from(
       this.inputfileElem.nativeElement.files as FileList
@@ -47,10 +66,17 @@ export class FormIconographyComponent {
           description: '',
           imageURL: imageURL,
         };
-        this.iconographicContainer.iconographyarray = [
-          ...this.iconographicContainer.iconographyarray,
-          iconography,
-        ];
+        const control = this.formBuilder.control<string>(
+          iconography.description
+        );
+        this.formiconographyarray.push(control);
+        this.iconographicContainer = {
+          ...this.iconographicContainer,
+          iconographyarray: [
+            ...this.iconographicContainer.iconographyarray,
+            iconography,
+          ],
+        };
       };
       reader.readAsDataURL(file);
     }

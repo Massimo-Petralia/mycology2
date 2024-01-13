@@ -1,9 +1,26 @@
 <input #inputfile type="file" multiple (change)="handleFiles()">
-
-<div formArrayName="formiconographyarray">
-    <h2>Iconography gallery</h2>
-    <form *ngFor="let iconography of formiconographyarray.controls; let i = index">
+<div [formGroup]="formIconography">
+    <div formArrayName="formiconographyarray">
+        <h2>Iconography gallery</h2>
+        <div *ngFor="let iconography of formiconographyarray.controls; let i = index">
+            <div *ngFor="let iconography of iconographicContainer.iconographyarray.slice(i, i+1)">
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-subtitle>Image N°{{i+1}}</mat-card-subtitle>
+                    </mat-card-header>
+                    <img mat-card-image [src]="iconography.imageURL" alt="">
+                    <mat-card-content>
+                        <mat-form-field>
+                            <mat-label>Description</mat-label>
+                            <textarea matInput [formControlName]="i" cdkTextareaAutosize></textarea>
+                        </mat-form-field>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button mat-stroked-button>Remove</button>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+        </div>
     
-    </form>
-
+    </div>
 </div>
