@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Mushroom } from '../models/mycology.models';
 import { MatExpansionModule } from '@angular/material/expansion'
@@ -15,6 +15,8 @@ import { TextFieldModule } from '@angular/cdk/text-field';
 export class FormMushroomComponent {
   constructor(private formbuilder: FormBuilder) {}
   @Input() mushroom!: Mushroom;
+
+  @Output() create = new EventEmitter<Mushroom>()
 
   formMushroom = this.formbuilder.group({
     taxonomy: this.formbuilder.group({
@@ -43,4 +45,14 @@ export class FormMushroomComponent {
       cystidia: this.formbuilder.control<string>(''),
     }),
   });
+
+
+  onCreate(){
+    if(!this.formMushroom.valid){
+      window.alert('You must specify a name in the Species field of the Taxonomy form')
+      return
+    } else {
+      //this.create.emit(this.formMushroom.value)
+    }
+  }
 }
