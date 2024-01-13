@@ -4,11 +4,11 @@
         <h2>Iconography gallery</h2>
         <div *ngFor="let iconography of formiconographyarray.controls; let i = index">
             <div *ngFor="let iconography of iconographicContainer.iconographyarray.slice(i, i+1)">
-                <mat-card>
+                <mat-card class="card">
                     <mat-card-header>
                         <mat-card-subtitle>Image N°{{i+1}}</mat-card-subtitle>
                     </mat-card-header>
-                    <img mat-card-image [src]="iconography.imageURL" alt="">
+                    <img #img mat-card-image [src]="iconography.imageURL" alt="" class="" (click)="img.classList.toggle('fullsize-img')">
                     <mat-card-content>
                         <mat-form-field>
                             <mat-label>Description</mat-label>
