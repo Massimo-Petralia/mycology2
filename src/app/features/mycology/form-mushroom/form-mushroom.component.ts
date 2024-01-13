@@ -3,11 +3,12 @@ import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Mushroom } from '../models/mycology.models';
 import { MatExpansionModule } from '@angular/material/expansion'
 import { MatInputModule } from '@angular/material/input'
+import { TextFieldModule } from '@angular/cdk/text-field';
 
 @Component({
   selector: 'app-form-mushroom',
   standalone: true,
-  imports: [ReactiveFormsModule, MatExpansionModule, MatInputModule],
+  imports: [ReactiveFormsModule, MatExpansionModule, MatInputModule, TextFieldModule],
   templateUrl: './form-mushroom.component.html',
   styleUrl: './form-mushroom.component.scss',
 })
