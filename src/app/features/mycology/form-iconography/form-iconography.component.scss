@@ -22,3 +22,9 @@ mat-form-field {
     box-sizing: content-box;
     width: 100%;
   }
+
+  .flex-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
