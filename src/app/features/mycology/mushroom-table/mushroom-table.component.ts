@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatTableModule } from '@angular/material/table'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-mushroom-table',
@@ -9,5 +10,10 @@ import { MatTableModule } from '@angular/material/table'
   styleUrl: './mushroom-table.component.scss'
 })
 export class MushroomTableComponent {
+  constructor(private router: Router){}
+@Input()  page: number = 1
 
+goToMushroom(){
+  this.router.navigate([`mushroom/:id/page`, this.page])
+}
 }

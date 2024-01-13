@@ -11,8 +11,8 @@ export const initialState: MycologyState = {
 };
 
 export interface Taxonomy {
-  AA: string | null;
   species: string | null;
+  AA: string | null;
   gender: string | null;
   family: string | null;
   order: string | null;

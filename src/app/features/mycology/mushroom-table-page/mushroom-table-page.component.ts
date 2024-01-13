@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MushroomTableComponent } from '../mushroom-table/mushroom-table.component';
-import { MatPaginatorModule } from '@angular/material/paginator'
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator'
 import { Store } from '@ngrx/store';
 import * as MycologyActions from '../mycology-state/mycology.actions';
 import { MycologyState } from '../models/mycology.models';
@@ -22,4 +22,9 @@ export class MushroomTablePageComponent implements OnInit {
 ngOnInit(): void {
   this.store.dispatch(MycologyActions.loadMushroomsRequest({pageIndex: this.page}))
 }
+
+handlePagination(pageEvent: PageEvent) {
+  
+}
+
 }
