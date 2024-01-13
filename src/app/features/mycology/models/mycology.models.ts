@@ -56,6 +56,5 @@ export interface Iconography {
 export interface IconographicContainer {
   id?: number;
   mushroomID?: number;
-  name?: string;
   iconographyarray: Iconography[];
 }
