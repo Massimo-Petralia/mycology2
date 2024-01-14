@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { Mushroom } from "../models/mycology.models";
+import { IconographicContainer, Mushroom } from "../models/mycology.models";
 
 export const loadMushroomsRequest = createAction(
     '[Mushroom Table Page] Load Paginated Mushroom Table Request',
@@ -13,4 +13,32 @@ export const loadMushroomsSucces = createAction(
 
 export const loadMushroomsFailed = createAction(
     '[Mushrooms API] Load Paginated Mushroom Table Failed'
+)
+
+export const createMushroom = createAction(
+    '[Form Mushroom Page] Create Mushroom Request',
+    props<Mushroom>()
+)
+
+export const createMushroomSucces = createAction(
+    '[Mushroom API] Create Mushroom Succes',
+    props<Mushroom>()
+)
+
+export const createMushroomFailed = createAction(
+    '[Mushroom API] Create Mushroom Failed'
+)
+
+export const createIconographyRequest = createAction(
+    '[Form Iconography Page] Create Iconography Request',
+    props<{mushroomID: number, iconographicContainer: IconographicContainer}>()
+)
+
+export const createIconographySucces = createAction(
+    '[Iconography API] Create Iconography Succes',
+    props<IconographicContainer>()
+)
+
+export const createIconographyFailed = createAction(
+    '[Iconography API] Create Iconography Failed'
 )
