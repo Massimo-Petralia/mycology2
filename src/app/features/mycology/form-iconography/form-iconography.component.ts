@@ -5,6 +5,8 @@ import {
   ViewChild,
   OnChanges,
   SimpleChanges,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormArray } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
