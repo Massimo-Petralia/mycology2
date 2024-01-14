@@ -5,8 +5,6 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatInputModule } from '@angular/material/input';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { MatButtonModule } from '@angular/material/button';
-import { FormIconographyPageComponent } from '../form-iconography-page/form-iconography-page.component';
-import { FormIconographyComponent } from '../form-iconography/form-iconography.component';
 
 @Component({
   selector: 'app-form-mushroom',
@@ -17,14 +15,12 @@ import { FormIconographyComponent } from '../form-iconography/form-iconography.c
     MatInputModule,
     TextFieldModule,
     MatButtonModule,
-    FormIconographyPageComponent
   ],
   templateUrl: './form-mushroom.component.html',
   styleUrl: './form-mushroom.component.scss',
 })
 export class FormMushroomComponent {
   constructor(private formbuilder: FormBuilder) {}
-@ViewChild('FormIconographyComponent') formIconographyComponent!: FormIconographyComponent
 
   @Input() mushroom!: Mushroom;
 
@@ -58,7 +54,6 @@ export class FormMushroomComponent {
   });
 
   onCreate() {
-    const iconographicContainer: IconographicContainer = {iconographyarray: this.formIconographyComponent.formiconographyarray.value}
     if (!this.formMushroom.valid) {
       window.alert(
         'You must specify a name in the Species field of the Taxonomy form'

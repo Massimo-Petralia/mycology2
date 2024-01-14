@@ -14,6 +14,6 @@ export class MushroomTableComponent {
 @Input()  page: number = 1
 
 goToMushroom(){
-  this.router.navigate([`mushroom/:id/page`, this.page])
+  this.router.navigate([`mycology/mushroom/:id/page`, this.page])
 }
 }
