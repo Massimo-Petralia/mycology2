@@ -1,50 +1,57 @@
-<input #inputfile type="file" multiple (change)="handleFiles()" />
-<div [formGroup]="formIconography">
-  <h2>Iconography gallery</h2>
-  <div formArrayName="formiconographyarray" class="flex-container">
-    <div
-      *ngFor="let iconography of formiconographyarray.controls; let i = index"
-    >
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>Iconography</mat-panel-title>
+    <mat-panel-description>Image gallery</mat-panel-description>
+  </mat-expansion-panel-header>
+  <input #inputfile hidden class="hiddenButton" type="file" multiple (change)="handleFiles()" />
+  <button mat-stroked-button (click)="inputfile.click()">Choose File/s</button>
+  <div [formGroup]="formIconography">
+    <div formArrayName="formiconographyarray" class="flex-container">
       <div
-        *ngFor="
-          let iconography of iconographicContainer.iconographyarray.slice(
-            i,
-            i + 1
-          )
-        "
+        *ngFor="let iconography of formiconographyarray.controls; let i = index"
       >
-        <div #cardcontainer>
-          <mat-card #card class="card">
-            <mat-card-header>
-              <mat-card-subtitle>Image N°{{ i + 1 }}</mat-card-subtitle>
-            </mat-card-header>
-            <img
-              #img
-              mat-card-image
-              [src]="iconography.imageURL"
-              alt=""
-              class=""
-              (click)="
-                img.classList.toggle('fullsize-img');
-                cardcontainer.scrollIntoView({ behavior: 'smooth' })
-              "
-            />
-            <mat-card-content>
-              <mat-form-field>
-                <mat-label>Description</mat-label>
-                <textarea
-                  matInput
-                  [formControlName]="i"
-                  cdkTextareaAutosize
-                ></textarea>
-              </mat-form-field>
-            </mat-card-content>
-            <mat-card-actions>
-              <button mat-stroked-button>Remove</button>
-            </mat-card-actions>
-          </mat-card>
+        <div
+          *ngFor="
+            let iconography of iconographicContainer.iconographyarray.slice(
+              i,
+              i + 1
+            )
+          "
+        >
+          <div #cardcontainer>
+            <mat-card #card class="card">
+              <mat-card-header>
+                <mat-card-subtitle>Image N°{{ i + 1 }}</mat-card-subtitle>
+              </mat-card-header>
+              <img
+                id="{{ i }}"
+                #img
+                mat-card-image
+                [src]="iconography.imageURL"
+                alt=""
+                class=""
+                (click)="
+                  img.classList.toggle('fullsize-img');
+                  cardcontainer.scrollIntoView({ behavior: 'smooth' })
+                "
+              />
+              <mat-card-content>
+                <mat-form-field>
+                  <mat-label>Description</mat-label>
+                  <textarea
+                    matInput
+                    [formControlName]="i"
+                    cdkTextareaAutosize
+                  ></textarea>
+                </mat-form-field>
+              </mat-card-content>
+              <mat-card-actions>
+                <button mat-stroked-button>Remove</button>
+              </mat-card-actions>
+            </mat-card>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</mat-expansion-panel>
