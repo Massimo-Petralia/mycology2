@@ -1,14 +1,23 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Mushroom } from '../models/mycology.models';
-import { MatExpansionModule } from '@angular/material/expansion'
-import { MatInputModule } from '@angular/material/input'
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatInputModule } from '@angular/material/input';
 import { TextFieldModule } from '@angular/cdk/text-field';
+import { MatButtonModule } from '@angular/material/button';
+import { FormIconographyPageComponent } from '../form-iconography-page/form-iconography-page.component';
 
 @Component({
   selector: 'app-form-mushroom',
   standalone: true,
-  imports: [ReactiveFormsModule, MatExpansionModule, MatInputModule, TextFieldModule],
+  imports: [
+    ReactiveFormsModule,
+    MatExpansionModule,
+    MatInputModule,
+    TextFieldModule,
+    MatButtonModule,
+    FormIconographyPageComponent
+  ],
   templateUrl: './form-mushroom.component.html',
   styleUrl: './form-mushroom.component.scss',
 })
@@ -16,7 +25,7 @@ export class FormMushroomComponent {
   constructor(private formbuilder: FormBuilder) {}
   @Input() mushroom!: Mushroom;
 
-  @Output() create = new EventEmitter<Mushroom>()
+  @Output() create = new EventEmitter<Mushroom>();
 
   formMushroom = this.formbuilder.group({
     taxonomy: this.formbuilder.group({
@@ -25,8 +34,7 @@ export class FormMushroomComponent {
       family: this.formbuilder.control<string>(''),
       order: this.formbuilder.control<string>(''),
       synonymous: this.formbuilder.control<string>(''),
-      AA: this.formbuilder.control<string>('')
-
+      AA: this.formbuilder.control<string>(''),
     }),
     morphology: this.formbuilder.group({
       cap: this.formbuilder.control<string>(''),
@@ -46,11 +54,12 @@ export class FormMushroomComponent {
     }),
   });
 
-
-  onCreate(){
-    if(!this.formMushroom.valid){
-      window.alert('You must specify a name in the Species field of the Taxonomy form')
-      return
+  onCreate() {
+    if (!this.formMushroom.valid) {
+      window.alert(
+        'You must specify a name in the Species field of the Taxonomy form'
+      );
+      return;
     } else {
       //this.create.emit(this.formMushroom.value)
     }
