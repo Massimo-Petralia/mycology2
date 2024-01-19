@@ -12,22 +12,23 @@ img {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+img:hover {
+  cursor: pointer;
+}
+
 .fullsize-img {
   max-width: 100%;
   height: 100%;
 }
 
 mat-form-field {
-    box-sizing: content-box;
-    width: 100%;
-  }
+  box-sizing: content-box;
+  width: 100%;
+}
 
-  .flex-container{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-  }
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
 
-  img:hover{
-    cursor: pointer;
-  }

@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { CustomImgComponent } from '../custom-img/custom-img.component';
 @Component({
   selector: 'app-form-iconography',
   standalone: true,
@@ -17,7 +18,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatInputModule,
     TextFieldModule,
     MatButtonModule,
-    MatExpansionModule
+    MatExpansionModule,
+    CustomImgComponent,
   ],
   templateUrl: './form-iconography.component.html',
   styleUrl: './form-iconography.component.scss',
@@ -53,22 +55,12 @@ export class FormIconographyComponent {
       const reader = new FileReader();
       reader.onload = (event: ProgressEvent<FileReader>) => {
         const imageURL = (event.target as FileReader).result as string;
-        const iconography: Iconography = {
-          id: counter++,
-          description: '',
-          imageURL: imageURL,
-        };
-        const control = this.formBuilder.control<string>(
-          iconography.description
-        );
-        this.formiconographyarray.push(control);
-        this.iconographicContainer = {
-          ...this.iconographicContainer,
-          iconographyarray: [
-            ...this.iconographicContainer.iconographyarray,
-            iconography,
-          ],
-        };
+       
+        (this.formIconography.controls.formiconographyarray as FormArray).push(this.formBuilder.group({
+          imageURL: this.formBuilder.control<string>(imageURL),
+          description: this.formBuilder.control<string>('')
+        }))
+
       };
       reader.readAsDataURL(file);
     }
