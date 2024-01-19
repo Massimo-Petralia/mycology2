@@ -1,1 +1,11 @@
-<img #img (click)="(img.classList.toggle('fullsize-img'))" mat-card-image [src]="value"/>
+<div #container>
+  <img
+    #img
+    mat-card-image
+    [src]="value"
+    (click)="
+      img.classList.toggle('fullsize-img');
+      container.parentElement?.parentElement?.scrollIntoView({behavior: 'smooth'})
+    "
+  />
+</div>
