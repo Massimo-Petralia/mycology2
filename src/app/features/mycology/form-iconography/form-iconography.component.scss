@@ -5,21 +5,8 @@
   border-radius: 10px;
 }
 
-img {
-  max-width: 400px;
-  height: 400px;
-  object-fit: contain;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-img:hover {
-  cursor: pointer;
-}
 
-.fullsize-img {
-  max-width: 100%;
-  height: 100%;
-}
+
 
 mat-form-field {
   box-sizing: content-box;
