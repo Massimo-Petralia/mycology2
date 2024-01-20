@@ -1,11 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  Input,
-  ViewChild,
-  OnChanges,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormArray } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { IconographicContainer, Iconography } from '../models/mycology.models';
@@ -13,6 +6,8 @@ import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { MatButtonModule } from '@angular/material/button';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { CustomImgComponent } from '../custom-img/custom-img.component';
 @Component({
   selector: 'app-form-iconography',
   standalone: true,
@@ -23,11 +18,13 @@ import { MatButtonModule } from '@angular/material/button';
     MatInputModule,
     TextFieldModule,
     MatButtonModule,
+    MatExpansionModule,
+    CustomImgComponent,
   ],
   templateUrl: './form-iconography.component.html',
   styleUrl: './form-iconography.component.scss',
 })
-export class FormIconographyComponent implements OnChanges {
+export class FormIconographyComponent {
   @ViewChild('inputfile') inputfileElem!: ElementRef<HTMLInputElement>;
   constructor(private formBuilder: FormBuilder) {}
 
@@ -47,8 +44,6 @@ export class FormIconographyComponent implements OnChanges {
     return this.formIconography.get('formiconographyarray') as FormArray;
   }
 
-  ngOnChanges(changes: SimpleChanges): void {}
-
   handleFiles() {
     const files = Array.from(
       this.inputfileElem.nativeElement.files as FileList
@@ -60,22 +55,12 @@ export class FormIconographyComponent implements OnChanges {
       const reader = new FileReader();
       reader.onload = (event: ProgressEvent<FileReader>) => {
         const imageURL = (event.target as FileReader).result as string;
-        const iconography: Iconography = {
-          id: counter++,
-          description: '',
-          imageURL: imageURL,
-        };
-        const control = this.formBuilder.control<string>(
-          iconography.description
-        );
-        this.formiconographyarray.push(control);
-        this.iconographicContainer = {
-          ...this.iconographicContainer,
-          iconographyarray: [
-            ...this.iconographicContainer.iconographyarray,
-            iconography,
-          ],
-        };
+       
+        (this.formIconography.controls.formiconographyarray as FormArray).push(this.formBuilder.group({
+          imageURL: this.formBuilder.control<string>(imageURL),
+          description: this.formBuilder.control<string>('')
+        }))
+
       };
       reader.readAsDataURL(file);
     }

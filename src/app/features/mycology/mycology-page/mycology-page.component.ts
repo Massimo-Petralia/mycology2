@@ -1,15 +1,16 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormMushroomComponent } from '../form-mushroom/form-mushroom.component';
 import { Mushroom } from '../models/mycology.models';
+import { FormIconographyComponent } from '../form-iconography/form-iconography.component';
 
 @Component({
-  selector: 'app-form-mushroom-page',
+  selector: 'app-mycology-page',
   standalone: true,
-  imports: [FormMushroomComponent],
-  templateUrl: './form-mushroom-page.component.html',
-  styleUrl: './form-mushroom-page.component.scss',
+  imports: [FormMushroomComponent, FormIconographyComponent],
+  templateUrl: './mycology-page.component.html',
+  styleUrl: './mycology-page.component.scss',
 })
-export class FormMushroomPageComponent implements OnInit {
+export class MycologyPageComponent implements OnInit {
   @Input() set page(pagenumber: number) {
     this.currentpage = pagenumber;
   }

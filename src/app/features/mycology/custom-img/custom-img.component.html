@@ -1,0 +1,12 @@
+<div #container>
+  <img
+    #img
+    [src]="value"
+    (click)="
+      img.classList.toggle('fullsize-img');
+      container.parentElement?.parentElement?.scrollIntoView({
+        behavior: 'smooth'
+      })
+    "
+  />
+</div>

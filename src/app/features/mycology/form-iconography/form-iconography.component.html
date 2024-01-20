@@ -1,40 +1,38 @@
-<input #inputfile type="file" multiple (change)="handleFiles()" />
-<div [formGroup]="formIconography">
-  <h2>Iconography gallery</h2>
-  <div formArrayName="formiconographyarray" class="flex-container">
-    <div
-      *ngFor="let iconography of formiconographyarray.controls; let i = index"
-    >
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>Iconography</mat-panel-title>
+    <mat-panel-description>Image gallery</mat-panel-description>
+  </mat-expansion-panel-header>
+  <input
+    #inputfile
+    hidden
+    class="hiddenButton"
+    type="file"
+    multiple
+    (change)="handleFiles()"
+  />
+  <button mat-stroked-button (click)="inputfile.click()">Choose File/s</button>
+  <div [formGroup]="formIconography">
+    <div formArrayName="formiconographyarray" class="flex-container">
       <div
         *ngFor="
-          let iconography of iconographicContainer.iconographyarray.slice(
-            i,
-            i + 1
-          )
+          let _iconography of formiconographyarray.controls;
+          let i = index
         "
       >
-        <div #cardcontainer>
+        <div [formGroupName]="i">
           <mat-card #card class="card">
             <mat-card-header>
               <mat-card-subtitle>Image N°{{ i + 1 }}</mat-card-subtitle>
             </mat-card-header>
-            <img
-              #img
-              mat-card-image
-              [src]="iconography.imageURL"
-              alt=""
-              class=""
-              (click)="
-                img.classList.toggle('fullsize-img');
-                cardcontainer.scrollIntoView({ behavior: 'smooth' })
-              "
-            />
+            <app-custom-img 
+            mat-card-image formControlName="imageURL"></app-custom-img>
             <mat-card-content>
               <mat-form-field>
                 <mat-label>Description</mat-label>
                 <textarea
                   matInput
-                  [formControlName]="i"
+                  formControlName="description"
                   cdkTextareaAutosize
                 ></textarea>
               </mat-form-field>
@@ -47,4 +45,4 @@
       </div>
     </div>
   </div>
-</div>
+</mat-expansion-panel>

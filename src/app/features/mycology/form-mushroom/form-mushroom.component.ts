@@ -1,11 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
-import { Mushroom } from '../models/mycology.models';
+import { IconographicContainer, Mushroom } from '../models/mycology.models';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatInputModule } from '@angular/material/input';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { MatButtonModule } from '@angular/material/button';
-import { FormIconographyPageComponent } from '../form-iconography-page/form-iconography-page.component';
 
 @Component({
   selector: 'app-form-mushroom',
@@ -16,13 +15,13 @@ import { FormIconographyPageComponent } from '../form-iconography-page/form-icon
     MatInputModule,
     TextFieldModule,
     MatButtonModule,
-    FormIconographyPageComponent
   ],
   templateUrl: './form-mushroom.component.html',
   styleUrl: './form-mushroom.component.scss',
 })
 export class FormMushroomComponent {
   constructor(private formbuilder: FormBuilder) {}
+
   @Input() mushroom!: Mushroom;
 
   @Output() create = new EventEmitter<Mushroom>();
