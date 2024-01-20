@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Mushroom } from '../models/mycology.models';
+import { IconographicContainer, Iconography, Mushroom } from '../models/mycology.models';
 import { Observable, catchError } from 'rxjs';
 
 const mushroomsDataURL = 'http://localhost:3000/mushrooms';
@@ -22,6 +22,24 @@ export class MycologyService {
   return this.http.get<Response>(`${mushroomsDataURL}?_page=${pageIndex}`).pipe(
     catchError((error)=> {
       console.error('get request failed', error)
+      throw error
+    })
+  )
+}
+
+createMushroom(mushroom: Mushroom){
+  return this.http.post<Mushroom>(mushroomsDataURL, mushroom).pipe(
+    catchError((error)=>{
+      console.error('post mushroom failed', error)
+      throw error
+    })
+  )
+}
+
+createIconography(iconographicContainer: IconographicContainer){
+  return this.http.post<Iconography>(iconographiesDataURL, iconographicContainer).pipe(
+    catchError((error)=>{
+      console.error('post iconographicContainer failed')
       throw error
     })
   )

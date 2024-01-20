@@ -31,7 +31,7 @@ export const createMushroomFailed = createAction(
 
 export const createIconographyRequest = createAction(
     '[Form Iconography Page] Create Iconography Request',
-    props<{mushroomID: number, iconographicContainer: IconographicContainer}>()
+    props<IconographicContainer>()
 )
 
 export const createIconographySucces = createAction(
