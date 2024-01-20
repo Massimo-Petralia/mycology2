@@ -58,3 +58,20 @@ export class CreateMushroomEffects {
     )
   );
 }
+
+@Injectable()
+export class CreateIconographyEffects {
+    constructor(
+        private actions$: Actions,
+        private mycologyService: MycologyService
+      ) {}
+
+   createIconography$ = createEffect(()=> this.actions$.pipe(
+    ofType(MycologyActions.createIconographyRequest),
+    filter((iconographicContainer)=> (iconographicContainer && iconographicContainer.iconographyarray.length !== 0)),
+    switchMap((iconographicContainer)=> this.mycologyService.createIconography(iconographicContainer).pipe(
+        map((iconographicContainer)=> MycologyActions.createIconographySucces(iconographicContainer)),
+        catchError(()=> of(MycologyActions.loadMushroomsFailed()))
+    ))
+   ))   
+}

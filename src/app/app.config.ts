@@ -13,7 +13,11 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 
 import { provideHttpClient, withFetch } from '@angular/common/http';
 
-import { LoadMushroomsEffects } from '../app/features/mycology/mycology-state/mycology.effects'
+import {
+  LoadMushroomsEffects,
+  CreateMushroomEffects,
+  CreateIconographyEffects,
+} from '../app/features/mycology/mycology-state/mycology.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -22,8 +26,12 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch()),
     provideStore(),
     provideState('mycology', mycologyReducer),
-    provideEffects(LoadMushroomsEffects),
+    provideEffects(
+      LoadMushroomsEffects,
+      CreateMushroomEffects,
+      CreateIconographyEffects
+    ),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
-    provideAnimations()
-],
+    provideAnimations(),
+  ],
 };
