@@ -24,7 +24,7 @@ export class FormMushroomComponent {
 
   @Input() mushroom!: Mushroom;
 
-  @Output() create = new EventEmitter<Mushroom>();
+  @Output() create = new EventEmitter();
 
   formMushroom = this.formbuilder.group({
     taxonomy: this.formbuilder.group({
@@ -60,7 +60,8 @@ export class FormMushroomComponent {
       );
       return;
     } else {
-      //this.create.emit(this.formMushroom.value)
+      console.log('form mushroom value structure: ', this.formMushroom.value)
+      this.create.emit()
     }
   }
 }
