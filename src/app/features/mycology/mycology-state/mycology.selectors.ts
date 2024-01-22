@@ -12,3 +12,13 @@ export const selectItemsFeature = createSelector(
     selectFeature,
     ({items})=> items
 )
+
+export const selectMushroomFeature = createSelector(
+    selectFeature,
+    ({mushroom}) => mushroom
+)
+
+export const selectIconographyFeature = createSelector(
+    selectFeature,
+    ({iconographicContainer}) => iconographicContainer
+)

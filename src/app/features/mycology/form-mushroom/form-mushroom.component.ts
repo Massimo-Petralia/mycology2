@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { IconographicContainer, Mushroom } from '../models/mycology.models';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -19,12 +19,21 @@ import { MatButtonModule } from '@angular/material/button';
   templateUrl: './form-mushroom.component.html',
   styleUrl: './form-mushroom.component.scss',
 })
-export class FormMushroomComponent {
+export class FormMushroomComponent implements OnChanges {
   constructor(private formbuilder: FormBuilder) {}
 
-  @Input() mushroom!: Mushroom;
+  @Input() mushroom!: Mushroom|undefined;
 
   @Output() create = new EventEmitter();
+
+
+ngOnChanges(changes: SimpleChanges): void {
+  const {mushroom} = changes
+  if(mushroom) {
+    this.formMushroom.patchValue(this.mushroom!)
+
+  }
+}
 
   formMushroom = this.formbuilder.group({
     taxonomy: this.formbuilder.group({

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
-import { catchError, exhaustMap, filter, map, of, switchMap, from } from 'rxjs';
+import { catchError, exhaustMap, filter, map, of, switchMap, from, mergeMap } from 'rxjs';
 import { MycologyService } from '../services/mycology.service';
 import * as MycologyActions from '../mycology-state/mycology.actions';
 
@@ -95,14 +95,20 @@ export class LoadMushroomEffects {
   loadMushroom$ = createEffect(() =>
     this.actions$.pipe(
       ofType(MycologyActions.loadMushroomRequest),
-      switchMap(({ id }) =>
+     exhaustMap(({ id }) =>
         this.mycologyService.getMushroom(id).pipe(
-          map((mushroom) => MycologyActions.loadMushroomSucces(mushroom)),
-          filter((mushroom) => mushroom.haveIconography === true),
-          map((mushroom) =>
-            MycologyActions.loadIconographyRequest({ mushroomID: mushroom.id })
-          ),
-          catchError(() => of(MycologyActions.loadMushroomFailed()))
+          // map((mushroom) => MycologyActions.loadMushroomSucces(mushroom),
+          // ),
+          // filter((mushroom) => mushroom.haveIconography === true),
+          // map((mushroom) =>
+          //   MycologyActions.loadIconographyRequest({ mushroomID: mushroom.id })
+          // ),
+          // catchError(() => of(MycologyActions.loadMushroomFailed()))
+          mergeMap((mushroom)=> [
+            MycologyActions.loadMushroomSucces(mushroom),
+            ...(mushroom.haveIconography ? [MycologyActions.loadIconographyRequest({mushroomID: mushroom.id})]: [])
+          ]),
+          catchError(()=> of(MycologyActions.loadMushroomFailed()))
         )
       )
     )

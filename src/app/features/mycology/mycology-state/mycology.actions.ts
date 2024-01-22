@@ -44,7 +44,7 @@ export const createIconographyFailed = createAction(
 //-----------------------------------------------------------------------------------------------------------------------------------------------------
 export const loadMushroomRequest = createAction(
     '[Form Mushroom Page] Load Mushroom Request',
-    props<{id: number}>()
+    props<{id: string}>()
 )
 
 export const loadMushroomSucces = createAction(
@@ -58,7 +58,7 @@ export const loadMushroomFailed = createAction(
 
 export const loadIconographyRequest = createAction(
     '[Load Mushroom Effects] Load Iconography Request',
-    props<{mushroomID: number | undefined}>()
+    props<{mushroomID: string | undefined}>()
 )
 
 export const  loadIconographySucces = createAction(

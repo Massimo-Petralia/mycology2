@@ -25,7 +25,7 @@
         "pileipellis": "",
         "cystidia": "da ispezionare"
       },
-      "id": 2,
+      "id": "2",
       "haveIconography": false
     },
     {
@@ -83,6 +83,34 @@
         "cystidia": ""
       },
       "haveIconography": true
+    },
+    {
+      "id": "dfac",
+      "taxonomy": {
+        "species": "cristo",
+        "gender": "",
+        "family": "",
+        "order": "",
+        "synonymous": "",
+        "AA": ""
+      },
+      "morphology": {
+        "cap": "",
+        "gills": "",
+        "stalk": "",
+        "flesh": ""
+      },
+      "features": {
+        "habitat": "",
+        "edibility": "",
+        "note": ""
+      },
+      "microscopicFeatures": {
+        "spores": "",
+        "pileipellis": "",
+        "cystidia": ""
+      },
+      "haveIconography": false
     }
   ],
   "iconographies": [

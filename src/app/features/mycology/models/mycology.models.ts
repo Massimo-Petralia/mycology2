@@ -41,7 +41,7 @@ export interface MicroscopicFeatures {
 }
 
 export interface Mushroom {
-  id?: number;
+  id?: string;
   taxonomy: Taxonomy;
   morphology: Morphology;
   features: Features;
@@ -56,7 +56,7 @@ export interface Iconography {
 }
 
 export interface IconographicContainer {
-  id?: number;
-  mushroomID?: number;
+  id?: string;
+  mushroomID?: string;
   formiconographyarray: Iconography[];
 }
