@@ -1,10 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { MushroomTableComponent } from '../mushroom-table/mushroom-table.component';
-import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { Store } from '@ngrx/store';
 import * as MycologyActions from '../mycology-state/mycology.actions';
 import { Mushroom, MycologyState } from '../models/mycology.models';
-import { selectFeature } from '../mycology-state/mycology.selectors';
 import {
   selectMushroomsFeature,
   selectItemsFeature,
@@ -18,10 +17,17 @@ import { Router } from '@angular/router';
   templateUrl: './mushroom-table-page.component.html',
   styleUrl: './mushroom-table-page.component.scss',
 })
-export class MushroomTablePageComponent implements OnInit, OnDestroy {
+export class MushroomTablePageComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(private store: Store<MycologyState>, private router: Router) {}
+  @ViewChild('paginator') paginator!: MatPaginator
 
-  page: number = 1;
+  currentpage: number = 1;
+
+  @Input() set page(pagenumber: number) {
+    if (pagenumber !== 1) {
+      this.currentpage = pagenumber;
+    }
+  }
 
   mushrooms$ = this.store.select(selectMushroomsFeature);
   mushrooms: Mushroom[] = [];
@@ -34,25 +40,33 @@ export class MushroomTablePageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.store.dispatch(
-      MycologyActions.loadMushroomsRequest({ pageIndex: this.page })
+      MycologyActions.loadMushroomsRequest({ pageIndex: this.currentpage })
     );
     this.subs.add(
       this.mushrooms$.subscribe((mushrooms) => {
         this.mushrooms = mushrooms;
       })
     );
-    this.items$ = this.store.select(selectItemsFeature)
+    this.items$ = this.store.select(selectItemsFeature);
     this.subs.add(
-      this.items$.subscribe(items => {
-        this.items = items
+      this.items$.subscribe((items) => {
+        this.items = items;
       })
-    )
+    );
+  }
+
+  ngAfterViewInit(): void {
+    if(this.currentpage !== 1){
+      this.paginator.pageIndex = this.currentpage-1
+    }
   }
 
   handlePagination(pageEvent: PageEvent) {
-    this.page = pageEvent.pageIndex+1
-    this.store.dispatch(MycologyActions.loadMushroomsRequest({pageIndex: this.page}))
-    this.router.navigate(['mushrooms/page', this.page])
+    this.currentpage = pageEvent.pageIndex + 1;
+    this.store.dispatch(
+      MycologyActions.loadMushroomsRequest({ pageIndex: this.currentpage })
+    );
+    this.router.navigate(['mushrooms/page', this.currentpage]);
   }
 
   ngOnDestroy(): void {

@@ -10,6 +10,7 @@ export interface MycologyPayload {
     mushroom: Mushroom;
     iconographicContaine: IconographicContainer|null
 }
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-mycology-page',
   standalone: true,
@@ -22,7 +23,7 @@ export interface MycologyPayload {
   styleUrl: './mycology-page.component.scss',
 })
 export class MycologyPageComponent implements OnInit {
-  constructor(private store: Store) {}
+  constructor(private store: Store, private router: Router) {}
 
   @Input() set page(pagenumber: number) {
     this.currentpage = pagenumber;
@@ -50,5 +51,6 @@ export class MycologyPageComponent implements OnInit {
         this.formIconographyComponent.formIconography.value as IconographicContainer,
     }
     this.store.dispatch(MycologyActions.createMushroomRequest(createMushroomPayload))
+    this.router.navigate(['mushrooms/page', this.currentpage])
   }
 }
