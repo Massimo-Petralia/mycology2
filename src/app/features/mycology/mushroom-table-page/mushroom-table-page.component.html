@@ -1,2 +1,2 @@
-<mat-paginator pageSize="10" (page)="handlePagination($event)"></mat-paginator>
+<mat-paginator pageSize="10" [length]="items" (page)="handlePagination($event)"></mat-paginator>
 <app-mushroom-table [page]="page" [mushrooms]="mushrooms"></app-mushroom-table>

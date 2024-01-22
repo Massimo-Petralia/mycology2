@@ -7,3 +7,8 @@ export const selectMushroomsFeature = createSelector(
     selectFeature,
     ({mushrooms})=> mushrooms
 )
+
+export const selectItemsFeature = createSelector(
+    selectFeature,
+    ({items})=> items
+)
