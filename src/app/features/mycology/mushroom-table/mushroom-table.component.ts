@@ -27,4 +27,9 @@ export class MushroomTableComponent {
   handleSortChanges(sortEvent: Sort) {
    this.mushrooms = [...this.mushrooms].reverse()
   }
+
+  onMushroom(id: number){
+    this.router.navigate([`mycology/page/${this.page}/mushroom/${id}`])
+  }
+
 }
