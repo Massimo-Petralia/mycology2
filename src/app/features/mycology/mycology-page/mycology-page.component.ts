@@ -45,12 +45,26 @@ export class MycologyPageComponent implements OnInit {
   ngOnInit(): void {}
 
   onCreate() {
-    const createMushroomPayload= {
-      mushroom: this.formMushroomComponent.formMushroom.value as Mushroom,
-      iconographicContainer: 
-        this.formIconographyComponent.formIconography.value as IconographicContainer,
+    if(this.formIconographyComponent.formIconography.controls.formiconographyarray.length !==0) {
+      const mushroom: Mushroom = {...this.formMushroomComponent.formMushroom.value as Mushroom, haveIconography : true }
+
+      const createMushroomPayload= {
+        mushroom: mushroom,
+        iconographicContainer: 
+          this.formIconographyComponent.formIconography.value as IconographicContainer,
+      }
+      this.store.dispatch(MycologyActions.createMushroomRequest(createMushroomPayload))
+    } else {
+      const mushroom: Mushroom = {...this.formMushroomComponent.formMushroom.value as Mushroom, haveIconography : false }
+      const createMushroomPayload= {
+        mushroom: mushroom,
+        iconographicContainer: 
+          this.formIconographyComponent.formIconography.value as IconographicContainer,
+      }
+      this.store.dispatch(MycologyActions.createMushroomRequest(createMushroomPayload))
+
     }
-    this.store.dispatch(MycologyActions.createMushroomRequest(createMushroomPayload))
+  
     this.router.navigate(['mushrooms/page', this.currentpage])
   }
 }

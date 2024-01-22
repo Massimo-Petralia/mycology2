@@ -29,7 +29,7 @@ export const createMushroomFailed = createAction(
 )
 
 export const createIconographyRequest = createAction(
-    '[Form Iconography Page] Create Iconography Request',
+    '[Create Mushroom Effects] Create Iconography Request',
     props<IconographicContainer>()
 )
 
@@ -41,7 +41,7 @@ export const createIconographySucces = createAction(
 export const createIconographyFailed = createAction(
     '[Iconography API] Create Iconography Failed'
 )
-
+//-----------------------------------------------------------------------------------------------------------------------------------------------------
 export const loadMushroomRequest = createAction(
     '[Form Mushroom Page] Load Mushroom Request',
     props<{id: number}>()
@@ -54,4 +54,18 @@ export const loadMushroomSucces = createAction(
 
 export const loadMushroomFailed = createAction(
     '[Mushroom API] Load Mushroom Failed'
+)
+
+export const loadIconographyRequest = createAction(
+    '[Load Mushroom Effects] Load Iconography Request',
+    props<{mushroomID: number | undefined}>()
+)
+
+export const  loadIconographySucces = createAction(
+    '[Iconography API] Load Iconography Succes',
+    props<IconographicContainer>()
+)
+
+export const loadIconographyFailed = createAction(
+    '[Iconography API] Load Iconography Failed'
 )

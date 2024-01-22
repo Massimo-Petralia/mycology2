@@ -71,7 +71,6 @@ export class CreateIconographyEffects {
       ofType(MycologyActions.createIconographyRequest),
       filter(
         (iconographicContainer) =>
-      
           iconographicContainer.formiconographyarray.length !== 0
       ),
       switchMap((iconographicContainer) =>
@@ -80,6 +79,52 @@ export class CreateIconographyEffects {
             MycologyActions.createIconographySucces(iconographicContainer)
           ),
           catchError(() => of(MycologyActions.loadMushroomsFailed()))
+        )
+      )
+    )
+  );
+}
+
+@Injectable()
+export class LoadMushroomEffects {
+  constructor(
+    private actions$: Actions,
+    private mycologyService: MycologyService
+  ) {}
+
+  loadMushroom$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(MycologyActions.loadMushroomRequest),
+      switchMap(({ id }) =>
+        this.mycologyService.getMushroom(id).pipe(
+          map((mushroom) => MycologyActions.loadMushroomSucces(mushroom)),
+          filter((mushroom) => mushroom.haveIconography === true),
+          map((mushroom) =>
+            MycologyActions.loadIconographyRequest({ mushroomID: mushroom.id })
+          ),
+          catchError(() => of(MycologyActions.loadMushroomFailed()))
+        )
+      )
+    )
+  );
+}
+
+@Injectable()
+export class LoadIconographyEffects {
+  constructor(
+    private actions$: Actions,
+    private mycologyService: MycologyService
+  ) {}
+
+  loadIconography$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(MycologyActions.loadIconographyRequest),
+      switchMap(({ mushroomID }) =>
+        this.mycologyService.getIconography(mushroomID).pipe(
+          map((iconographicContainer) =>
+            MycologyActions.loadIconographySucces(iconographicContainer)
+          ),
+          catchError(() => of(MycologyActions.loadIconographyFailed()))
         )
       )
     )

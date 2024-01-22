@@ -31,6 +31,7 @@ export class FormIconographyComponent {
   @Input() iconographicContainer: IconographicContainer = {
     // id: undefined,
     // mushroomID: undefined,
+    //haveIconography: 
     formiconographyarray: [],
   };
 
@@ -57,6 +58,7 @@ export class FormIconographyComponent {
         const imageURL = (event.target as FileReader).result as string;
        
         (this.formIconography.controls.formiconographyarray as FormArray).push(this.formBuilder.group({
+          id: counter++,
           imageURL: this.formBuilder.control<string>(imageURL),
           description: this.formBuilder.control<string>('')
         }))

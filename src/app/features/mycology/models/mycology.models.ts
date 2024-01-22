@@ -1,13 +1,15 @@
 export interface MycologyState {
   mushrooms: Mushroom[];
   items: number;
-  iconographicContainer?: IconographicContainer
+  iconographicContainer?: IconographicContainer;
+  mushroom?: Mushroom
 }
 
 export const initialState: MycologyState = {
   mushrooms: [],
   items: 0,
-  iconographicContainer: undefined
+  iconographicContainer: undefined,
+  mushroom: undefined
 };
 
 export interface Taxonomy {
@@ -44,6 +46,7 @@ export interface Mushroom {
   morphology: Morphology;
   features: Features;
   microscopicFeatures: MicroscopicFeatures;
+  haveIconography?: boolean
 }
 
 export interface Iconography {
