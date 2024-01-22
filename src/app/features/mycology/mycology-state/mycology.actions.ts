@@ -14,7 +14,6 @@ export const loadMushroomsSucces = createAction(
 export const loadMushroomsFailed = createAction(
     '[Mushrooms API] Load Paginated Mushroom Table Failed'
 )
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 export const createMushroomRequest = createAction(
     '[Form Mushroom Page] Create Mushroom Request',
     props<{mushroom: Mushroom, iconographicContainer: IconographicContainer}>()
@@ -41,4 +40,18 @@ export const createIconographySucces = createAction(
 
 export const createIconographyFailed = createAction(
     '[Iconography API] Create Iconography Failed'
+)
+
+export const loadMushroomRequest = createAction(
+    '[Form Mushroom Page] Load Mushroom Request',
+    props<{id: number}>()
+)
+
+export const loadMushroomSucces = createAction(
+    '[Mushroom API] Load Mushroom Succes',
+    props<Mushroom>()
+)
+
+export const loadMushroomFailed = createAction(
+    '[Mushroom API] Load Mushroom Failed'
 )
