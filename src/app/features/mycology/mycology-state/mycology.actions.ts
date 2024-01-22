@@ -15,7 +15,7 @@ export const loadMushroomsFailed = createAction(
     '[Mushrooms API] Load Paginated Mushroom Table Failed'
 )
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------//
-export const createMushroom = createAction(
+export const createMushroomRequest = createAction(
     '[Form Mushroom Page] Create Mushroom Request',
     props<{mushroom: Mushroom, iconographicContainer: IconographicContainer}>()
 )

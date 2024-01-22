@@ -1,15 +1,18 @@
 <mat-expansion-panel ngSkipHydration expanded="true">
   <mat-expansion-panel-header>
     <mat-panel-title>Mushroom</mat-panel-title>
+
     <mat-panel-description>Characteristics</mat-panel-description>
+
+    <button style="margin-right: 20px" mat-stroked-button type="button" (click)="onCreate()">
+      Save
+    </button>
   </mat-expansion-panel-header>
   <form [formGroup]="formMushroom">
     <mat-expansion-panel class="subForm-container" expanded="true">
       <mat-expansion-panel-header>
         <mat-panel-title>Taxonomy</mat-panel-title>
-        <mat-panel-description
-          >Systematic nomenclature</mat-panel-description
-        >
+        <mat-panel-description>Systematic nomenclature</mat-panel-description>
       </mat-expansion-panel-header>
       <form formGroupName="taxonomy" class="flex-container">
         <mat-form-field>
@@ -23,7 +26,7 @@
             (blur)="specieslabel.className = ''"
           />
         </mat-form-field>
-  
+
         <mat-form-field>
           <label #genderlabel for="gender" className="">Gender</label>
           <input
@@ -71,99 +74,111 @@
           />
         </mat-form-field>
         <mat-form-field>
-            <label #aalabel for="AA" className="">A.A.</label>
-            <input
-              id="AA"
-              matInput
-              type="text"
-              formControlName="AA"
-              (focus)="aalabel.className = 'isFocused'"
-              (blur)="aalabel.className = ''"
-            />
-          </mat-form-field>
+          <label #aalabel for="AA" className="">A.A.</label>
+          <input
+            id="AA"
+            matInput
+            type="text"
+            formControlName="AA"
+            (focus)="aalabel.className = 'isFocused'"
+            (blur)="aalabel.className = ''"
+          />
+        </mat-form-field>
       </form>
     </mat-expansion-panel>
     <mat-expansion-panel class="subForm-container">
-        <mat-expansion-panel-header>
-            <mat-panel-title>Morphology</mat-panel-title>
-            <mat-panel-description>Macroscopic characteristics</mat-panel-description>
-        </mat-expansion-panel-header>
-        <form formGroupName="morphology" class="flex-container">
-          <mat-form-field>
-            <label #caplabel for="cap" className="">Cap</label>
-            <textarea id="cap"
+      <mat-expansion-panel-header>
+        <mat-panel-title>Morphology</mat-panel-title>
+        <mat-panel-description
+          >Macroscopic characteristics</mat-panel-description
+        >
+      </mat-expansion-panel-header>
+      <form formGroupName="morphology" class="flex-container">
+        <mat-form-field>
+          <label #caplabel for="cap" className="">Cap</label>
+          <textarea
+            id="cap"
             matInput
             cdkTextareaAutosize
             formControlName="cap"
-            (focus)="caplabel.className ='isFocused'"
+            (focus)="caplabel.className = 'isFocused'"
             (blur)="caplabel.className = ''"
-            ></textarea>
-          </mat-form-field>
-          <mat-form-field>
-            <label #gillslabel for="gills" className="">Gills</label>
-            <textarea id="gills" matInput 
+          ></textarea>
+        </mat-form-field>
+        <mat-form-field>
+          <label #gillslabel for="gills" className="">Gills</label>
+          <textarea
+            id="gills"
+            matInput
             cdkTextareaAutosize
             formControlName="gills"
             (focus)="gillslabel.className = 'isFocused'"
             (blur)="gillslabel.className = ''"
-            ></textarea>
-          </mat-form-field>
-          <mat-form-field>
-            <label #stalklabel for="stalk" className="">Stalk</label>
-            <textarea id="stalk" 
+          ></textarea>
+        </mat-form-field>
+        <mat-form-field>
+          <label #stalklabel for="stalk" className="">Stalk</label>
+          <textarea
+            id="stalk"
             matInput
             cdkTextareaAutosize
             formControlName="stalk"
-            (focus)="stalklabel.className ='isFocused'"
+            (focus)="stalklabel.className = 'isFocused'"
             (blur)="stalklabel.className = ''"
-            ></textarea>
-          </mat-form-field>
-          <mat-form-field>
-            <label #fleshlabel for="flesh" className="">Flesh</label>
-            <textarea id="flesh"
+          ></textarea>
+        </mat-form-field>
+        <mat-form-field>
+          <label #fleshlabel for="flesh" className="">Flesh</label>
+          <textarea
+            id="flesh"
             matInput
             cdkTextareaAutosize
             formControlName="flesh"
             (focus)="fleshlabel.className = 'isFocused'"
-            (blur)="fleshlabel.className =''"
-            ></textarea>
-          </mat-form-field>
-        </form>
+            (blur)="fleshlabel.className = ''"
+          ></textarea>
+        </mat-form-field>
+      </form>
     </mat-expansion-panel>
     <mat-expansion-panel class="subForm-container">
       <mat-expansion-panel-header>
         <mat-panel-title>Features</mat-panel-title>
-        <mat-panel-description>Habitat edibility and notes</mat-panel-description>
+        <mat-panel-description
+          >Habitat edibility and notes</mat-panel-description
+        >
       </mat-expansion-panel-header>
       <form formGroupName="features" class="flex-container">
         <mat-form-field>
           <label #habitatlabel for="habitat" className="">Habitat</label>
-          <textarea id="habitat"
-          matInput
-          cdkTextareaAutosize
-          formControlName="habitat"
-          (focus)="habitatlabel.className = 'isFocused'"
-          (blur)="habitatlabel.className = ''"
+          <textarea
+            id="habitat"
+            matInput
+            cdkTextareaAutosize
+            formControlName="habitat"
+            (focus)="habitatlabel.className = 'isFocused'"
+            (blur)="habitatlabel.className = ''"
           ></textarea>
         </mat-form-field>
         <mat-form-field>
           <label #edibilitylabel for="edibility" className="">Edibility</label>
-          <textarea id="edibility"
-          matInput
-          cdkTextareaAutosize
-          formControlName="edibility"
-          (focus)="edibilitylabel.className = 'isFocused'"
-          (blur)="edibilitylabel.className = ''"
+          <textarea
+            id="edibility"
+            matInput
+            cdkTextareaAutosize
+            formControlName="edibility"
+            (focus)="edibilitylabel.className = 'isFocused'"
+            (blur)="edibilitylabel.className = ''"
           ></textarea>
         </mat-form-field>
         <mat-form-field>
           <label #notelabel for="note" className="">Note</label>
-          <textarea id="note"
-          matInput
-          cdkTextareaAutosize
-          formControlName="note"
-          (focus)="notelabel.className = 'isFocused'"
-          (blur)="notelabel.className = ''"
+          <textarea
+            id="note"
+            matInput
+            cdkTextareaAutosize
+            formControlName="note"
+            (focus)="notelabel.className = 'isFocused'"
+            (blur)="notelabel.className = ''"
           ></textarea>
         </mat-form-field>
       </form>
@@ -171,37 +186,44 @@
     <mat-expansion-panel class="subForm-container">
       <mat-expansion-panel-header>
         <mat-panel-title>Microscopic features</mat-panel-title>
-        <mat-panel-description>Microscopic characteristics</mat-panel-description>
+        <mat-panel-description
+          >Microscopic characteristics</mat-panel-description
+        >
       </mat-expansion-panel-header>
       <form formGroupName="microscopicFeatures" class="flex-container">
         <mat-form-field>
           <label #sporeslabel for="spores" className="">Spores</label>
-          <textarea id="spores"
-          matInput
-          cdkTextareaAutosize
-          formControlName="spores"
-          (focus)="sporeslabel.className= 'isFocused'"
-          (blur)="sporeslabel.className = ''"
+          <textarea
+            id="spores"
+            matInput
+            cdkTextareaAutosize
+            formControlName="spores"
+            (focus)="sporeslabel.className = 'isFocused'"
+            (blur)="sporeslabel.className = ''"
           ></textarea>
         </mat-form-field>
         <mat-form-field>
-          <label #pileipellislabel for="pileipellis" className="">Pileipellis</label>
-          <textarea id="pileipellis"
-          matInput
-          cdkTextareaAutosize
-          formControlName="pileipellis"
-          (focus)="pileipellislabel.className = 'isFocused'"
-          (blur)="pileipellislabel.className = ''"
+          <label #pileipellislabel for="pileipellis" className=""
+            >Pileipellis</label
+          >
+          <textarea
+            id="pileipellis"
+            matInput
+            cdkTextareaAutosize
+            formControlName="pileipellis"
+            (focus)="pileipellislabel.className = 'isFocused'"
+            (blur)="pileipellislabel.className = ''"
           ></textarea>
         </mat-form-field>
         <mat-form-field>
           <label #cystidialabel for="cystidia" className="">Cystidia</label>
-          <textarea id="cystidia"
-          matInput
-          cdkTextareaAutosize
-          formControlName="cystidia"
-          (focus)="cystidialabel.className = 'isFocused'"
-          (blur)="cystidialabel.className = ''"
+          <textarea
+            id="cystidia"
+            matInput
+            cdkTextareaAutosize
+            formControlName="cystidia"
+            (focus)="cystidialabel.className = 'isFocused'"
+            (blur)="cystidialabel.className = ''"
           ></textarea>
         </mat-form-field>
       </form>

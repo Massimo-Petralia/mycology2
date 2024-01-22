@@ -31,7 +31,7 @@ export class FormIconographyComponent {
   @Input() iconographicContainer: IconographicContainer = {
     // id: undefined,
     // mushroomID: undefined,
-    iconographyarray: [],
+    formiconographyarray: [],
   };
 
   formIconography = this.formBuilder.group({
@@ -48,8 +48,8 @@ export class FormIconographyComponent {
     const files = Array.from(
       this.inputfileElem.nativeElement.files as FileList
     );
-    let counter: number = this.iconographicContainer.iconographyarray
-      ? this.iconographicContainer.iconographyarray.length + 1
+    let counter: number = this.iconographicContainer.formiconographyarray
+      ? this.iconographicContainer.formiconographyarray.length + 1
       : 1;
     for (let file of files) {
       const reader = new FileReader();

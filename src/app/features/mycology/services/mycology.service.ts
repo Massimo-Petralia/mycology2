@@ -37,7 +37,7 @@ createMushroom(mushroom: Mushroom){
 }
 
 createIconography(iconographicContainer: IconographicContainer){
-  return this.http.post<Iconography>(iconographiesDataURL, iconographicContainer).pipe(
+  return this.http.post<IconographicContainer>(iconographiesDataURL, iconographicContainer).pipe(
     catchError((error)=>{
       console.error('post iconographicContainer failed')
       throw error
