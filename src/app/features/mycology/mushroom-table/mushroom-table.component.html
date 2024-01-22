@@ -1,4 +1,30 @@
-<div class="flex-container">
-<!-- <table mat-table></table> -->
-<button (click)="goToMushroom()">Add</button>
+<div class="container">
+  <table mat-table matSort [dataSource]="mushrooms" (matSortChange)="handleSortChanges($event)">
+    <ng-container matColumnDef="species">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="species">Species</th>
+      <td mat-cell *matCellDef="let mushroom">{{ mushroom.taxonomy.species }}</td>
+    </ng-container>
+    <ng-container matColumnDef="gender">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="gender" >Gender</th>
+      <td mat-cell *matCellDef="let mushroom">{{ mushroom.taxonomy.gender }}</td>
+    </ng-container>
+    <ng-container matColumnDef="family">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="family" >Family</th>
+      <td mat-cell *matCellDef="let mushroom">{{ mushroom.taxonomy.family }}</td>
+    </ng-container>
+    <ng-container matColumnDef="order">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="order" >Order</th>
+      <td mat-cell *matCellDef="let mushroom">{{ mushroom.taxonomy.order }}</td>
+    </ng-container>
+    <ng-container matColumnDef="AA">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="AA" >A.A.</th>
+      <td mat-cell *matCellDef="let mushroom">{{ mushroom.taxonomy.AA }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columsToDisplay"></tr>
+    <tr mat-row *matRowDef="let rowData; columns: columsToDisplay"></tr>
+
+  </table>
+
+  <button mat-stroked-button type="button" (click)="goToMushroom()">Add</button>
 </div>

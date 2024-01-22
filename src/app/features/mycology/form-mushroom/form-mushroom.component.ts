@@ -60,7 +60,6 @@ export class FormMushroomComponent {
       );
       return;
     } else {
-      console.log('form mushroom value structure: ', this.formMushroom.value)
       this.create.emit()
     }
   }

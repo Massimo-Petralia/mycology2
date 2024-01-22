@@ -3,12 +3,9 @@
     <mat-panel-title>Mushroom</mat-panel-title>
 
     <mat-panel-description>Characteristics</mat-panel-description>
-
-    <button style="margin-right: 20px" mat-stroked-button type="button" (click)="onCreate()">
-      Save
-    </button>
   </mat-expansion-panel-header>
-  <form [formGroup]="formMushroom">
+  <form [formGroup]="formMushroom" (ngSubmit)="onCreate()">
+    <button mat-stroked-button type="submit">Save</button>
     <mat-expansion-panel class="subForm-container" expanded="true">
       <mat-expansion-panel-header>
         <mat-panel-title>Taxonomy</mat-panel-title>
