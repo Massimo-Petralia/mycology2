@@ -106,7 +106,7 @@ export class LoadMushroomEffects {
           // catchError(() => of(MycologyActions.loadMushroomFailed()))
           mergeMap((mushroom)=> [
             MycologyActions.loadMushroomSucces(mushroom),
-            ...(mushroom.haveIconography ? [MycologyActions.loadIconographyRequest({mushroomID: mushroom.id})]: [])
+            ...(mushroom.haveIconography ? [MycologyActions.loadIconographyRequest({mushroomID: mushroom.id!})]: [])
           ]),
           catchError(()=> of(MycologyActions.loadMushroomFailed()))
         )

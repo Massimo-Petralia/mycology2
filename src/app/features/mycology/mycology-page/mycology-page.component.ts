@@ -1,4 +1,13 @@
-import { Component, OnInit, Input, ViewChild, AfterViewInit, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  ViewChild,
+  AfterViewInit,
+  OnDestroy,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { FormMushroomComponent } from '../form-mushroom/form-mushroom.component';
 import { IconographicContainer, Mushroom } from '../models/mycology.models';
 import { FormIconographyComponent } from '../form-iconography/form-iconography.component';
@@ -25,29 +34,34 @@ import { MycologyService } from '../services/mycology.service';
   templateUrl: './mycology-page.component.html',
   styleUrl: './mycology-page.component.scss',
 })
-export class MycologyPageComponent implements OnInit, OnChanges, OnDestroy{
-  constructor(private store: Store<MycologyState>, private router: Router, private mycologyService: MycologyService ) {}
+export class MycologyPageComponent implements OnInit, OnChanges, OnDestroy {
+  constructor(
+    private store: Store<MycologyState>,
+    private router: Router,
+    private mycologyService: MycologyService
+  ) {}
 
   @Input() set page(pagenumber: number) {
     this.currentpage = pagenumber;
   }
 
   @Input() set id(mushroomID: string) {
-   this.mushroomID = mushroomID
-  //  this.mycologyService.getMushroom(mushroomID).subscribe(mushroom=> {
-  //   this.formMushroomComponent.formMushroom.patchValue(mushroom)
-  //  })
-
-
+    this.mushroomID = mushroomID;
+    //  this.mycologyService.getMushroom(mushroomID).subscribe(mushroom=> {
+    //   this.formMushroomComponent.formMushroom.patchValue(mushroom)
+    //  })
   }
 
   mushroom$ = this.store.select(selectMushroomFeature);
-  iconographicContainer$!: Observable<IconographicContainer|undefined>;
+  iconographicContainer$: Observable<IconographicContainer | undefined> =
+    this.store.select(selectIconographyFeature);
 
   currentpage!: number;
   mushroomID!: string;
-  mushroom!: Mushroom|undefined;
-  iconographicContainer!: IconographicContainer
+  mushroom!: Mushroom | undefined;
+  iconographicContainer: IconographicContainer = {
+    formiconographyarray: []
+  };
 
   subs = new Subscription();
 
@@ -56,27 +70,35 @@ export class MycologyPageComponent implements OnInit, OnChanges, OnDestroy{
   @ViewChild(FormIconographyComponent)
   formIconographyComponent!: FormIconographyComponent;
 
-  ngOnChanges(changes: SimpleChanges): void {
-
-  }
+  ngOnChanges(changes: SimpleChanges): void {}
 
   ngOnInit(): void {
-//     if(this.mushroomID !== ':id'){
-// // debugger
-// //       this.store.dispatch(MycologyActions.loadMushroomRequest({id: this.mushroomID}))
-//     }
+    //     if(this.mushroomID !== ':id'){
+    // // debugger
+    // //       this.store.dispatch(MycologyActions.loadMushroomRequest({id: this.mushroomID}))
+    //     }
     // this.subs.add(
     //   this.mushroom$.subscribe(mushroom => {
     //     console.log('mushroom: ', mushroom)
     //   })
     // )
-    if(this.mushroomID !== ':id') {
-      this.store.dispatch(MycologyActions.loadMushroomRequest({id: this.mushroomID}))
-      this.mushroom$.subscribe(mushroom=> {
-       // console.log('mushroom: ', mushroom)
-       this.mushroom = mushroom
-      })
+    if (this.mushroomID !== ':id') {
+      this.store.dispatch(
+        MycologyActions.loadMushroomRequest({ id: this.mushroomID })
+      );
+      this.subs.add(
+        this.mushroom$.subscribe((mushroom) => {
+          this.mushroom = mushroom;
+        })
+      );
     }
+    this.subs.add(
+      this.iconographicContainer$.subscribe((iconographicContainer) => {
+        if (iconographicContainer) {
+          this.iconographicContainer = iconographicContainer;
+        } else return;
+      })
+    );
   }
 
   onCreate() {
@@ -116,6 +138,6 @@ export class MycologyPageComponent implements OnInit, OnChanges, OnDestroy{
   }
 
   ngOnDestroy(): void {
-    this.subs.unsubscribe()
+    this.subs.unsubscribe();
   }
 }

@@ -54,8 +54,8 @@ getMushroom(id: string): Observable<Mushroom>{
   )
 }
 
-getIconography(mushroomID: string|undefined): Observable<IconographicContainer> {
-  return this.http.get<IconographicContainer>(`${iconographiesDataURL}/${mushroomID}`).pipe(
+getIconography(mushroomID: string): Observable<IconographicContainer> {
+  return this.http.get<IconographicContainer>(`${iconographiesDataURL}/24b1`).pipe(
     catchError(error => {
       console.error('load iconographic container failed', error)
       throw error

@@ -50,7 +50,7 @@ export interface Mushroom {
 }
 
 export interface Iconography {
-  id: number;
+  id?: number;
   imageURL: string;
   description: string;
 }

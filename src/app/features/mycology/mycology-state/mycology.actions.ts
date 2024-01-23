@@ -58,7 +58,7 @@ export const loadMushroomFailed = createAction(
 
 export const loadIconographyRequest = createAction(
     '[Load Mushroom Effects] Load Iconography Request',
-    props<{mushroomID: string | undefined}>()
+    props<{mushroomID: string}>()
 )
 
 export const  loadIconographySucces = createAction(
