@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, AfterViewInit, ViewChild, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
 import { MushroomTableComponent } from '../mushroom-table/mushroom-table.component';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { Store } from '@ngrx/store';
@@ -26,7 +26,10 @@ export class MushroomTablePageComponent implements OnInit, AfterViewInit, OnDest
   @Input() set page(pagenumber: number) {
     if (pagenumber !== 1) {
       this.currentpage = pagenumber;
-    }
+    };
+    
+   //(this.mushrooms.length === 0 ? this.paginator.pageIndex = pagenumber-1: null)
+   console.log('page number on table: ', this.currentpage)
   }
 
   mushrooms$ = this.store.select(selectMushroomsFeature);
@@ -38,7 +41,9 @@ export class MushroomTablePageComponent implements OnInit, AfterViewInit, OnDest
 
   subs = new Subscription();
 
+
   ngOnInit(): void {
+ 
     this.store.dispatch(
       MycologyActions.loadMushroomsRequest({ pageIndex: this.currentpage })
     );
@@ -59,6 +64,7 @@ export class MushroomTablePageComponent implements OnInit, AfterViewInit, OnDest
     if(this.currentpage !== 1){
       this.paginator.pageIndex = this.currentpage-1
     }
+    
   }
 
   handlePagination(pageEvent: PageEvent) {
@@ -72,4 +78,9 @@ export class MushroomTablePageComponent implements OnInit, AfterViewInit, OnDest
   ngOnDestroy(): void {
     this.subs.unsubscribe();
   }
+
+mushroomsNumber(){
+  console.log('current mushrooms number: ', this.mushrooms.length)
+}
+
 }

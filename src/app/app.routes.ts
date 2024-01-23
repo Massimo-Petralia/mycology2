@@ -4,7 +4,7 @@ import { MycologyPageComponent } from './features/mycology/mycology-page/mycolog
 
 export const routes: Routes = [
     {path: 'mushrooms/page/:page', component: MushroomTablePageComponent},
-    {path: 'mycology/page/:page/mushroom/:id', component: MycologyPageComponent},
+    {path: 'mycology/page/:page/length/:length/mushroom/:id', component: MycologyPageComponent},
     {path: '', redirectTo: 'mushrooms/page/1', pathMatch: 'prefix'},
     
 ];

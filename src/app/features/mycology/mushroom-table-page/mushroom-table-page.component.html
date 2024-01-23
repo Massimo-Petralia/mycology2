@@ -1,2 +1,3 @@
 <mat-paginator #paginator pageSize="10" [length]="items" (page)="handlePagination($event)"></mat-paginator>
 <app-mushroom-table [page]="currentpage" [mushrooms]="mushrooms"></app-mushroom-table>
+<button (click)="mushroomsNumber()">current number of mushrooms</button>

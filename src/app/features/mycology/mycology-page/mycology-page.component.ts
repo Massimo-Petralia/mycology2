@@ -45,6 +45,10 @@ export class MycologyPageComponent implements OnInit, OnChanges, OnDestroy {
     this.currentpage = pagenumber;
   }
 
+@Input() set length(pagelength: number) {
+  this.pagelength = pagelength
+}
+
   @Input() set id(mushroomID: string) {
     this.mushroomID = mushroomID;
   }
@@ -54,6 +58,7 @@ export class MycologyPageComponent implements OnInit, OnChanges, OnDestroy {
     this.store.select(selectIconographyFeature);
 
   currentpage!: number;
+  pagelength!: number;
   mushroomID!: string;
   mushroom!: Mushroom | undefined;
   iconographicContainer: IconographicContainer = {
@@ -133,10 +138,21 @@ export class MycologyPageComponent implements OnInit, OnChanges, OnDestroy {
         iconographicContainerID: this.iconographicContainer.id!,
       })
     );
-    this.router.navigate([`mushrooms/page/${this.currentpage}`]);
+    if(this.pagelength <= 1){
+      debugger
+      this.currentpage--
+      this.router.navigate([`mushrooms/page/${ this.currentpage }`]);
+      debugger
+
+    }else {
+      debugger
+      this.router.navigate([`mushrooms/page/${this.currentpage}`]);
+    }
+    console.log('current page number: ', this.currentpage)
   }
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();
   }
 }
+//${this.currentpage}
