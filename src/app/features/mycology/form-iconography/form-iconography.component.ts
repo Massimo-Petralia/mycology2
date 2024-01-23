@@ -103,4 +103,9 @@ export class FormIconographyComponent implements OnInit, OnChanges {
       reader.readAsDataURL(file);
     }
   }
+
+removeControl(index: number){
+  this.formIconography.controls.formiconographyarray.removeAt(index)
+}
+
 }
