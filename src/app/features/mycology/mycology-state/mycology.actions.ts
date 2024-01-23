@@ -41,31 +41,46 @@ export const createIconographySucces = createAction(
 export const createIconographyFailed = createAction(
     '[Iconography API] Create Iconography Failed'
 )
-//-----------------------------------------------------------------------------------------------------------------------------------------------------
 export const loadMushroomRequest = createAction(
     '[Form Mushroom Page] Load Mushroom Request',
     props<{id: string}>()
+    )
+    
+    export const loadMushroomSucces = createAction(
+        '[Mushroom API] Load Mushroom Succes',
+        props<Mushroom>()
+        )
+        
+        export const loadMushroomFailed = createAction(
+            '[Mushroom API] Load Mushroom Failed'
+            )
+            
+            export const loadIconographyRequest = createAction(
+                '[Load Mushroom Effects] Load Iconography Request',
+                props<{mushroomID: string}>()
+                )
+                
+                export const  loadIconographySucces = createAction(
+                    '[Iconography API] Load Iconography Succes',
+                    props<IconographicContainer>()
+                    )
+                    
+                    export const loadIconographyFailed = createAction(
+                        '[Iconography API] Load Iconography Failed'
+                        )
+//-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+export const deleteMushroomRequest = createAction(
+    '[Form Mushroom] Delete Mushroom Request',
+    props<{id: string}>()
 )
 
-export const loadMushroomSucces = createAction(
-    '[Mushroom API] Load Mushroom Succes',
-    props<Mushroom>()
+export const deleteMushroomSucces = createAction(
+    '[Mushroom API] Delete Mushroom Succes',
+    props<{id: string}>()
 )
 
-export const loadMushroomFailed = createAction(
-    '[Mushroom API] Load Mushroom Failed'
+export const deleteMushroomFailed = createAction(
+    '[Mushroom API] Delete Mushroom failed'
 )
 
-export const loadIconographyRequest = createAction(
-    '[Load Mushroom Effects] Load Iconography Request',
-    props<{mushroomID: string}>()
-)
-
-export const  loadIconographySucces = createAction(
-    '[Iconography API] Load Iconography Succes',
-    props<IconographicContainer>()
-)
-
-export const loadIconographyFailed = createAction(
-    '[Iconography API] Load Iconography Failed'
-)

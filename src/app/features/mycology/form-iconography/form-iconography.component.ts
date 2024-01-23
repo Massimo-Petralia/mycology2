@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormArray } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
-import { IconographicContainer, Iconography } from '../models/mycology.models';
+import { IconographicContainer } from '../models/mycology.models';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { TextFieldModule } from '@angular/cdk/text-field';
