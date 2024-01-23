@@ -38,14 +38,12 @@ export class FormIconographyComponent implements OnInit, OnChanges {
 
   @Input() iconographicContainer: IconographicContainer = {
     // id: undefined,
-    // mushroomID: undefined,
     //haveIconography:
     formiconographyarray: [],
   };
 
   formIconography = this.formBuilder.group({
     //  id: undefined,
-    //  mushroomID: undefined,
     formiconographyarray: this.formBuilder.array([]),
   });
 

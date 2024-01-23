@@ -56,7 +56,7 @@ export class CreateMushroomEffects {
 
               MycologyActions.createIconographyRequest({
                 ...request.iconographicContainer,
-                mushroomID: mushroom.id,
+                id: mushroom.id,
               }),
             ];
             return from(actionsToDispatch);
@@ -111,7 +111,7 @@ export class LoadMushroomEffects {
             ...(mushroom.haveIconography
               ? [
                   MycologyActions.loadIconographyRequest({
-                    mushroomID: mushroom.id!,
+                    id: mushroom.id!,
                   }),
                 ]
               : []),
@@ -133,8 +133,8 @@ export class LoadIconographyEffects {
   loadIconography$ = createEffect(() =>
     this.actions$.pipe(
       ofType(MycologyActions.loadIconographyRequest),
-      switchMap(({ mushroomID }) =>
-        this.mycologyService.getIconography(mushroomID).pipe(
+      switchMap(({ id }) =>
+        this.mycologyService.getIconography(id).pipe(
           map((iconographicContainer) =>
             MycologyActions.loadIconographySucces(iconographicContainer)
           ),
@@ -143,4 +143,45 @@ export class LoadIconographyEffects {
       )
     )
   );
+}
+
+@Injectable()
+export class DeleteMushroomEffects {
+  constructor(
+    private actions$: Actions,
+    private mycologyService: MycologyService
+  ) {}
+
+  deleteMushroom$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(MycologyActions.deleteMushroomRequest),
+      exhaustMap((requestPayload) =>
+        this.mycologyService.deleteMushroom(requestPayload.id).pipe(
+          // map(() => id ),
+          mergeMap(() => [MycologyActions.deleteMushroomSucces({ id: requestPayload.id }),
+            ...(requestPayload.haveIconography ? [MycologyActions.deleteIconographyRequest({iconographicContainerID: requestPayload.iconographicContainerID })] : [])
+          ]),
+
+          catchError(() => of(MycologyActions.deleteMushroomFailed()))
+        )
+      )
+    )
+  );
+}
+
+@Injectable()
+export class DeleteIconographyEffects {
+  constructor(
+    private actions$: Actions,
+    private mycologyService: MycologyService
+  ) {}
+
+  deleteIconography$ = createEffect(()=> this.actions$.pipe(
+    ofType(MycologyActions.deleteIconographyRequest),
+    switchMap(({iconographicContainerID})=> this.mycologyService.deleteIconography(iconographicContainerID).pipe(
+      map(()=> MycologyActions.deleteIconographySucces()),
+      catchError(()=> of(MycologyActions.deleteIconographyFailed()))
+    ))
+  ))
+
 }

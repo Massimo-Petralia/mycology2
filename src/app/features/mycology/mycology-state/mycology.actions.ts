@@ -57,7 +57,7 @@ export const loadMushroomRequest = createAction(
             
             export const loadIconographyRequest = createAction(
                 '[Load Mushroom Effects] Load Iconography Request',
-                props<{mushroomID: string}>()
+                props<{id: string}>()
                 )
                 
                 export const  loadIconographySucces = createAction(
@@ -72,7 +72,7 @@ export const loadMushroomRequest = createAction(
 
 export const deleteMushroomRequest = createAction(
     '[Form Mushroom] Delete Mushroom Request',
-    props<{id: string}>()
+    props<{id: string , haveIconography?: boolean, iconographicContainerID: string}>() //SE NON PASSI SIA ID CHE PROPRIETÀ haveIconography va tutto in PALLA
 )
 
 export const deleteMushroomSucces = createAction(
@@ -82,5 +82,18 @@ export const deleteMushroomSucces = createAction(
 
 export const deleteMushroomFailed = createAction(
     '[Mushroom API] Delete Mushroom failed'
+)
+
+export const deleteIconographyRequest = createAction(
+    '[Delete Mushroom Effects] Delete Iconography Request',
+    props<{iconographicContainerID: string}>()
+)
+
+export const deleteIconographySucces = createAction(
+    '[Iconography API] Delete Iconography Succes',
+)
+
+export const deleteIconographyFailed = createAction(
+    '[Iconography API] Delete Iconography Failed'
 )
 

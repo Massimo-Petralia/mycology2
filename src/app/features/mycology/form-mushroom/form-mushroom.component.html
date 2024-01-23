@@ -6,6 +6,7 @@
   </mat-expansion-panel-header>
   <form [formGroup]="formMushroom" (ngSubmit)="onCreate()">
     <button mat-stroked-button type="submit">Save</button>
+    <button mat-stroked-button type="button" (click)="onDelete()">Delete</button>
     <mat-expansion-panel class="subForm-container" expanded="true">
       <mat-expansion-panel-header>
         <mat-panel-title>Taxonomy</mat-panel-title>

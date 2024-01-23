@@ -26,6 +26,8 @@ export class FormMushroomComponent implements OnChanges {
 
   @Output() create = new EventEmitter();
 
+  @Output() delete = new EventEmitter()
+
 
 ngOnChanges(changes: SimpleChanges): void {
   const {mushroom} = changes
@@ -72,4 +74,9 @@ ngOnChanges(changes: SimpleChanges): void {
       this.create.emit()
     }
   }
+
+  onDelete(){
+    this.delete.emit()
+  }
+
 }

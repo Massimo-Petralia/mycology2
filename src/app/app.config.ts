@@ -18,7 +18,9 @@ import {
   CreateMushroomEffects,
   CreateIconographyEffects,
   LoadMushroomEffects,
-  LoadIconographyEffects
+  LoadIconographyEffects,
+  DeleteMushroomEffects,
+  DeleteIconographyEffects
 } from '../app/features/mycology/mycology-state/mycology.effects';
 
 export const appConfig: ApplicationConfig = {
@@ -33,7 +35,9 @@ export const appConfig: ApplicationConfig = {
       CreateMushroomEffects,
       CreateIconographyEffects,
       LoadMushroomEffects,
-      LoadIconographyEffects
+      LoadIconographyEffects,
+      DeleteMushroomEffects,
+      DeleteIconographyEffects
     ),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     provideAnimations(),
