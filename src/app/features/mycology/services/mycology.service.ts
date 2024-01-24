@@ -89,4 +89,15 @@ export class MycologyService {
       })
     );
   }
+
+  updateMushroom(mushroom: Mushroom): Observable<Mushroom> {
+    return this.http
+      .put<Mushroom>(`${mushroomsDataURL}/${mushroom.id}`, mushroom)
+      .pipe(
+        catchError((error) => {
+          console.error('update mushroom failed');
+          throw error;
+        })
+      );
+  }
 }
