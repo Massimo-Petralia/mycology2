@@ -26,10 +26,8 @@ export class MushroomTablePageComponent implements OnInit, AfterViewInit, OnDest
   @Input() set page(pagenumber: number) {
     if (pagenumber !== 1) {
       this.currentpage = pagenumber;
-    };
+    }
     
-   //(this.mushrooms.length === 0 ? this.paginator.pageIndex = pagenumber-1: null)
-   console.log('page number on table: ', this.currentpage)
   }
 
   mushrooms$ = this.store.select(selectMushroomsFeature);
@@ -78,9 +76,5 @@ export class MushroomTablePageComponent implements OnInit, AfterViewInit, OnDest
   ngOnDestroy(): void {
     this.subs.unsubscribe();
   }
-
-mushroomsNumber(){
-  console.log('current mushrooms number: ', this.mushrooms.length)
-}
 
 }

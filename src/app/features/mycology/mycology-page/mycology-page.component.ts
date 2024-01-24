@@ -148,11 +148,9 @@ export class MycologyPageComponent implements OnInit, OnChanges, OnDestroy {
       debugger
       this.router.navigate([`mushrooms/page/${this.currentpage}`]);
     }
-    console.log('current page number: ', this.currentpage)
   }
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();
   }
 }
-//${this.currentpage}
