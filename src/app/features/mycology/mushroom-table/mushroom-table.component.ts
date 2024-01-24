@@ -20,11 +20,18 @@ export class MushroomTableComponent {
 
   columsToDisplay = ['species', 'gender', 'family', 'order', 'AA'];
 
-  goToMushroom() {
-    this.router.navigate([`mycology/mushroom/:id/page`, this.page]);
+  goToFormMushroom() {
+    this.router.navigate([`mycology/page/${this.page}/length/${this.mushrooms.length}/mushroom/:id`]);
   }
 
   handleSortChanges(sortEvent: Sort) {
    this.mushrooms = [...this.mushrooms].reverse()
   }
+
+  onMushroom(id: number){
+    this.router.navigate([`mycology/page/${this.page}/length/${this.mushrooms.length}/mushroom/${id}`])
+  }
+
+
+
 }
