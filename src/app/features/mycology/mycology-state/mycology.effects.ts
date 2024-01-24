@@ -185,3 +185,22 @@ export class DeleteIconographyEffects {
   ))
 
 }
+
+@Injectable()
+export class UpdateMushroomEffects {
+  constructor(
+    private actions$: Actions,
+    private mycologyService: MycologyService
+  ) {}
+
+  updateMushroom$ = createEffect(()=> this.actions$.pipe(
+    ofType(MycologyActions.updateMushroomRequest),
+    exhaustMap((requestPayload)=> this.mycologyService.updateMushroom(requestPayload.mushroom).pipe(
+      mergeMap(mushroom => [
+        MycologyActions.updateMushroomSucces(mushroom),
+        ...(requestPayload.mushroom.haveIconography ? [MycologyActions.updateIconographyRequest(requestPayload.iconographicContainer)]:[])
+      ]),
+      catchError(() => of(MycologyActions.updateMushroomFailed()))
+    ))
+  ))
+}

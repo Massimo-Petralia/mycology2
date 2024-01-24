@@ -130,6 +130,10 @@ export class MycologyPageComponent implements OnInit, OnChanges, OnDestroy {
     this.router.navigate(['mushrooms/page', this.currentpage]);
   }
 
+  onUpdate() {
+    
+  }
+
   onDelete() {
     this.store.dispatch(
       MycologyActions.deleteMushroomRequest({

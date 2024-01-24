@@ -108,9 +108,23 @@ export const updateMushroomRequest = createAction(
 
 export const updateMushroomSucces = createAction(
     '[Mushroom API] Update Mushroom Succes',
-    props<{ mushroom: Mushroom; iconographicContainer: IconographicContainer }>()
+    props<Mushroom>()
 )
 
 export const updateMushroomFailed = createAction(
     '[Mushroom API] Update Mushroom Failed'
+)
+
+export const updateIconographyRequest = createAction(
+    '[Update Mushroom Effect] Update Iconography Request',
+    props<IconographicContainer>()
+)
+
+export const updateIconographySucces = createAction(
+    '[Iconography API] Update Iconography Succes',
+    props<IconographicContainer>()
+)
+
+export const updateIconographyFailed = createAction(
+    '[Iconography API] Update Iconography Failed'
 )
