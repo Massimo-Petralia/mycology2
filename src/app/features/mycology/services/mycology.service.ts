@@ -100,4 +100,20 @@ export class MycologyService {
         })
       );
   }
+
+  updateIconography(
+    iconographicContainer: IconographicContainer
+  ): Observable<IconographicContainer> {
+    return this.http
+      .put<IconographicContainer>(
+        `${iconographiesDataURL}/${iconographicContainer.id}`,
+        iconographicContainer
+      )
+      .pipe(
+        catchError((error) => {
+          console.error('update iconography failed');
+          throw error;
+        })
+      );
+  }
 }

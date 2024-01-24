@@ -158,8 +158,16 @@ export class DeleteMushroomEffects {
       exhaustMap((requestPayload) =>
         this.mycologyService.deleteMushroom(requestPayload.id).pipe(
           // map(() => id ),
-          mergeMap(() => [MycologyActions.deleteMushroomSucces({ id: requestPayload.id }),
-            ...(requestPayload.haveIconography ? [MycologyActions.deleteIconographyRequest({iconographicContainerID: requestPayload.iconographicContainerID })] : [])
+          mergeMap(() => [
+            MycologyActions.deleteMushroomSucces({ id: requestPayload.id }),
+            ...(requestPayload.haveIconography
+              ? [
+                  MycologyActions.deleteIconographyRequest({
+                    iconographicContainerID:
+                      requestPayload.iconographicContainerID,
+                  }),
+                ]
+              : []),
           ]),
 
           catchError(() => of(MycologyActions.deleteMushroomFailed()))
@@ -176,14 +184,17 @@ export class DeleteIconographyEffects {
     private mycologyService: MycologyService
   ) {}
 
-  deleteIconography$ = createEffect(()=> this.actions$.pipe(
-    ofType(MycologyActions.deleteIconographyRequest),
-    switchMap(({iconographicContainerID})=> this.mycologyService.deleteIconography(iconographicContainerID).pipe(
-      map(()=> MycologyActions.deleteIconographySucces()),
-      catchError(()=> of(MycologyActions.deleteIconographyFailed()))
-    ))
-  ))
-
+  deleteIconography$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(MycologyActions.deleteIconographyRequest),
+      switchMap(({ iconographicContainerID }) =>
+        this.mycologyService.deleteIconography(iconographicContainerID).pipe(
+          map(() => MycologyActions.deleteIconographySucces()),
+          catchError(() => of(MycologyActions.deleteIconographyFailed()))
+        )
+      )
+    )
+  );
 }
 
 @Injectable()
@@ -193,14 +204,46 @@ export class UpdateMushroomEffects {
     private mycologyService: MycologyService
   ) {}
 
-  updateMushroom$ = createEffect(()=> this.actions$.pipe(
-    ofType(MycologyActions.updateMushroomRequest),
-    exhaustMap((requestPayload)=> this.mycologyService.updateMushroom(requestPayload.mushroom).pipe(
-      mergeMap(mushroom => [
-        MycologyActions.updateMushroomSucces(mushroom),
-        ...(requestPayload.mushroom.haveIconography ? [MycologyActions.updateIconographyRequest(requestPayload.iconographicContainer)]:[])
-      ]),
-      catchError(() => of(MycologyActions.updateMushroomFailed()))
-    ))
-  ))
+  updateMushroom$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(MycologyActions.updateMushroomRequest),
+      exhaustMap((requestPayload) =>
+        this.mycologyService.updateMushroom(requestPayload.mushroom).pipe(
+          mergeMap((mushroom) => [
+            MycologyActions.updateMushroomSucces(mushroom),
+            ...(requestPayload.mushroom.haveIconography
+              ? [
+                  MycologyActions.updateIconographyRequest(
+                    requestPayload.iconographicContainer
+                  ),
+                ]
+              : []),
+          ]),
+          catchError(() => of(MycologyActions.updateMushroomFailed()))
+        )
+      )
+    )
+  );
+}
+
+@Injectable()
+export class UpdateIconographyEffects {
+  constructor(
+    private actions$: Actions,
+    private mycologyService: MycologyService
+  ) {}
+
+  updateIconography$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(MycologyActions.updateIconographyRequest),
+      switchMap((iconographicContainer) =>
+        this.mycologyService.updateIconography(iconographicContainer).pipe(
+          map((iconographicContainer) =>
+            MycologyActions.updateIconographySucces(iconographicContainer)
+          ),
+          catchError(() => of(MycologyActions.updateIconographyFailed()))
+        )
+      )
+    )
+  );
 }
