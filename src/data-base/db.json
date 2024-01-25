@@ -1,14 +1,15 @@
 {
   "mushrooms": [
     {
-      "cayo": "sempronio",
+      "id": "2",
+      "haveIconography": false,
       "taxonomy": {
-        "AA": "(L. : Fr.) Lam. 1783",
         "species": "Amanita muscaria",
         "gender": "Amanita",
         "family": "Amanitaceae",
         "order": "Agaricales",
-        "synonymous": "qui va il sinonimo"
+        "synonymous": "qui va il sinonimo",
+        "AA": "(L. : Fr.) Lam. 1783"
       },
       "morphology": {
         "cap": "8-20 cm, carnoso, inizialmente globoso, emisferico-globoso, poi convesso, infne piano, talvolta leggermente depresso al centro, con il margine brevemente striato; un po’ viscido se umido, brillante, di colore rosso,rosso-arancio, ricoperto da abbondanti residui di velo generale sotto forma di verruche bianche o bianco-giallognole e facilmente detersili.",
@@ -25,10 +26,36 @@
         "spores": "bianche in massa, ellissoidali, lisce,9-11, 5 × 6, 5-9 µm, non amiloidi.",
         "pileipellis": "",
         "cystidia": "da ispezionare"
+      }
+    },
+    {
+      "id": "88fe",
+      "haveIconography": false,
+      "taxonomy": {
+        "species": "nuovo",
+        "gender": "",
+        "family": "",
+        "order": "",
+        "synonymous": "",
+        "AA": ""
       },
-      "id": "2",
-      "haveIconography": false
+      "morphology": {
+        "cap": "",
+        "gills": "",
+        "stalk": "",
+        "flesh": ""
+      },
+      "features": {
+        "habitat": "",
+        "edibility": "",
+        "note": ""
+      },
+      "microscopicFeatures": {
+        "spores": "",
+        "pileipellis": "",
+        "cystidia": ""
+      }
     }
   ],
-  "iconographies": [ ]
+  "iconographies": []
 }

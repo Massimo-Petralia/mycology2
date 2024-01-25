@@ -9,7 +9,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { FormMushroomComponent } from '../form-mushroom/form-mushroom.component';
-import { IconographicContainer, Mushroom } from '../models/mycology.models';
+import { Features, IconographicContainer, MicroscopicFeatures, Morphology, Mushroom, Taxonomy } from '../models/mycology.models';
 import { FormIconographyComponent } from '../form-iconography/form-iconography.component';
 import { Store } from '@ngrx/store';
 import { MycologyState } from '../models/mycology.models';
@@ -95,12 +95,19 @@ export class MycologyPageComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   onCreate() {
+    let  mushroom: Mushroom = {
+      taxonomy: {...this.formMushroomComponent.formMushroom.controls.taxonomy.value as Taxonomy},
+      morphology:  {...this.formMushroomComponent.formMushroom.controls.morphology.value as Morphology},
+      features:  {...this.formMushroomComponent.formMushroom.controls.features.value as Features},
+      microscopicFeatures:  {...this.formMushroomComponent.formMushroom.controls.microscopicFeatures.value as MicroscopicFeatures},
+      haveIconography: this.formMushroomComponent.formMushroom.controls.haveIconography.value as boolean
+    }
     if (
       this.formIconographyComponent.formIconography.controls
         .formiconographyarray.length !== 0
     ) {
-      const mushroom: Mushroom = {
-        ...(this.formMushroomComponent.formMushroom.value as Mushroom),
+       mushroom = {
+        ...mushroom,
         haveIconography: true,
       };
 
@@ -113,8 +120,8 @@ export class MycologyPageComponent implements OnInit, OnChanges, OnDestroy {
         MycologyActions.createMushroomRequest(createMushroomPayload)
       );
     } else {
-      const mushroom: Mushroom = {
-        ...(this.formMushroomComponent.formMushroom.value as Mushroom),
+      mushroom = {
+        ...mushroom,
         haveIconography: false,
       };
       const createMushroomPayload = {
@@ -137,8 +144,8 @@ export class MycologyPageComponent implements OnInit, OnChanges, OnDestroy {
         .formiconographyarray.length !== 0
     ) {
       this.formIconographyComponent.formIconography.controls.id.patchValue(
-               this.formIconographyComponent.iconographicContainer.id
-              )
+        this.formIconographyComponent.iconographicContainer.id
+      );
       this.store.dispatch(
         MycologyActions.updateMushroomRequest({
           mushroom: this.formMushroomComponent.formMushroom.value as Mushroom,
@@ -146,15 +153,16 @@ export class MycologyPageComponent implements OnInit, OnChanges, OnDestroy {
             .value as IconographicContainer,
         })
       );
+      debugger;
     } else if (
       this.mushroom?.haveIconography === false &&
       this.formIconographyComponent.formIconography.controls
         .formiconographyarray.length !== 0
     ) {
       this.formIconographyComponent.formIconography.controls.id.patchValue(
-                this.mushroom.id
-              )
-              
+        this.mushroom.id
+      );
+
       // this.formMushroomComponent.formMushroom.controls.haveIconography.patchValue(
       //   true
       // );
@@ -165,8 +173,22 @@ export class MycologyPageComponent implements OnInit, OnChanges, OnDestroy {
             .value as IconographicContainer,
         })
       ); // go to CreateIconographyRequest
+      debugger;
     } else if (
       this.mushroom?.haveIconography === false &&
+      this.formIconographyComponent.formIconography.controls
+        .formiconographyarray.length === 0
+    ) {
+      this.store.dispatch(
+        MycologyActions.updateMushroomRequest({
+          mushroom: this.formMushroomComponent.formMushroom.value as Mushroom,
+          iconographicContainer: this.formIconographyComponent.formIconography
+            .value as IconographicContainer,
+        })
+      ); // stop updateIconographyRequest
+      debugger;
+    } else if (
+      this.mushroom?.haveIconography === true &&
       this.formIconographyComponent.formIconography.controls
         .formiconographyarray.length === 0
     ) {
@@ -174,7 +196,7 @@ export class MycologyPageComponent implements OnInit, OnChanges, OnDestroy {
         mushroom: this.formMushroomComponent.formMushroom.value as Mushroom,
         iconographicContainer: this.formIconographyComponent.formIconography
           .value as IconographicContainer,
-      })) // stop updateIconographyRequest
+      }))
     }
     // if (
     //   this.formMushroomComponent.formMushroom.valid &&

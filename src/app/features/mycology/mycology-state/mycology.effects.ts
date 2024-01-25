@@ -208,12 +208,13 @@ export class UpdateMushroomEffects {
     this.actions$.pipe(
       ofType(MycologyActions.updateMushroomRequest),
       exhaustMap((requestPayload) =>
-        this.mycologyService.updateMushroom((requestPayload.iconographicContainer.formiconographyarray.length !== 0 ? {...requestPayload.mushroom, haveIconography: true }: requestPayload.mushroom)).pipe(
+        this.mycologyService.updateMushroom((requestPayload.iconographicContainer.formiconographyarray.length !== 0 ? {...requestPayload.mushroom, haveIconography: true }: {...requestPayload.mushroom, haveIconography: false })).pipe(
           mergeMap((mushroom) => [
             MycologyActions.updateMushroomSucces(mushroom),
             ...(requestPayload.mushroom.haveIconography && requestPayload.iconographicContainer.formiconographyarray.length !== 0 ? [MycologyActions.updateIconographyRequest(requestPayload.iconographicContainer)]:[]),
             ...(!requestPayload.mushroom.haveIconography && requestPayload.iconographicContainer.formiconographyarray.length !== 0 ? [MycologyActions.createIconographyRequest(requestPayload.iconographicContainer)]:[]),
-            ...(requestPayload.iconographicContainer.formiconographyarray.length === 0 ? []:[])
+            ...(requestPayload.iconographicContainer.formiconographyarray.length === 0 ? []:[]),
+            ...(requestPayload.mushroom.haveIconography && requestPayload.iconographicContainer.formiconographyarray.length === 0 ? [MycologyActions.deleteIconographyRequest({iconographicContainerID: requestPayload.mushroom.id!})]:[])
             // MycologyActions.updateMushroomSucces(mushroom),
             // ...(requestPayload.mushroom.haveIconography
             //   ? [
@@ -224,6 +225,7 @@ export class UpdateMushroomEffects {
             //   : []),
           ]),
           catchError(() => of(MycologyActions.updateMushroomFailed()))
+          
         )
       )
     )
