@@ -45,9 +45,9 @@ export class MycologyPageComponent implements OnInit, OnChanges, OnDestroy {
     this.currentpage = pagenumber;
   }
 
-@Input() set length(pagelength: number) {
-  this.pagelength = pagelength
-}
+  @Input() set length(pagelength: number) {
+    this.pagelength = pagelength;
+  }
 
   @Input() set id(mushroomID: string) {
     this.mushroomID = mushroomID;
@@ -131,7 +131,47 @@ export class MycologyPageComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   onUpdate() {
-    
+    if (
+      this.formMushroomComponent.formMushroom.valid &&
+      this.formIconographyComponent.formIconography.valid
+      //this.formIconographyComponent.formIconography.controls.formiconographyarray.length !== 0
+    ) {
+          //
+          this.formIconographyComponent.formIconography.controls.id.patchValue(
+            this.formIconographyComponent.iconographicContainer.id
+          )
+          //
+          //this.formMushroomComponent.formMushroom.controls.haveIconography.patchValue(true)
+      this.store.dispatch(
+        MycologyActions.updateMushroomRequest({
+          mushroom: this.formMushroomComponent.formMushroom.value as Mushroom,
+          iconographicContainer: this.formIconographyComponent.formIconography
+            .value as IconographicContainer,
+        })
+      );
+    } else if (
+      this.formIconographyComponent.iconographicContainer &&
+      this.formIconographyComponent.formIconography.controls
+        .formiconographyarray.length === 0
+    ) {
+      this.formMushroomComponent.formMushroom.controls.haveIconography.patchValue(
+        false
+      );
+  
+      this.store.dispatch(
+        MycologyActions.updateMushroomRequest({
+          mushroom: this.formMushroomComponent.formMushroom.value as Mushroom,
+          iconographicContainer: this.formIconographyComponent.formIconography
+            .value as IconographicContainer,
+        })
+      );
+      this.store.dispatch(
+        MycologyActions.deleteIconographyRequest({
+          iconographicContainerID:
+            this.formIconographyComponent.iconographicContainer.id!,
+        })
+      );
+    }
   }
 
   onDelete() {
@@ -142,14 +182,13 @@ export class MycologyPageComponent implements OnInit, OnChanges, OnDestroy {
         iconographicContainerID: this.iconographicContainer.id!,
       })
     );
-    if(this.pagelength <= 1){
-      debugger
-      this.currentpage--
-      this.router.navigate([`mushrooms/page/${ this.currentpage }`]);
-      debugger
-
-    }else {
-      debugger
+    if (this.pagelength <= 1) {
+      debugger;
+      this.currentpage--;
+      this.router.navigate([`mushrooms/page/${this.currentpage}`]);
+      debugger;
+    } else {
+      debugger;
       this.router.navigate([`mushrooms/page/${this.currentpage}`]);
     }
   }

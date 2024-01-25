@@ -43,7 +43,7 @@ export class FormIconographyComponent implements OnInit, OnChanges {
   };
 
   formIconography = this.formBuilder.group({
-    //  id: undefined,
+      id: undefined,//??
     formiconographyarray: this.formBuilder.array([]),
   });
 
@@ -54,6 +54,7 @@ export class FormIconographyComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     const { iconographicContainer } = changes;
     if (iconographicContainer) {
+      this.formIconography.controls.formiconographyarray.clear()
       this.iconographicContainer.formiconographyarray.forEach(
         (iconography, index) => {
           let counter = index + 1;
