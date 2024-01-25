@@ -228,12 +228,9 @@ export class MycologyPageComponent implements OnInit, OnChanges, OnDestroy {
       })
     );
     if (this.pagelength <= 1) {
-      debugger;
       this.currentpage--;
       this.router.navigate([`mushrooms/page/${this.currentpage}`]);
-      debugger;
     } else {
-      debugger;
       this.router.navigate([`mushrooms/page/${this.currentpage}`]);
     }
   }
