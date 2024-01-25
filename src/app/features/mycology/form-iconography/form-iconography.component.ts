@@ -78,7 +78,7 @@ export class FormIconographyComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    // this.formIconography.controls.formiconographyarray.clear();
+    this.formIconography.controls.formiconographyarray.clear();
     // if(this.formIconography.controls.formiconographyarray.length !== 0){
     //   this.iconographicContainer.formiconographyarray.forEach(
     //     (iconography, index) => {
