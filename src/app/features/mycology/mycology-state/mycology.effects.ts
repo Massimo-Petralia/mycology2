@@ -208,16 +208,20 @@ export class UpdateMushroomEffects {
     this.actions$.pipe(
       ofType(MycologyActions.updateMushroomRequest),
       exhaustMap((requestPayload) =>
-        this.mycologyService.updateMushroom(requestPayload.mushroom).pipe(
+        this.mycologyService.updateMushroom((requestPayload.iconographicContainer.formiconographyarray.length !== 0 ? {...requestPayload.mushroom, haveIconography: true }: requestPayload.mushroom)).pipe(
           mergeMap((mushroom) => [
             MycologyActions.updateMushroomSucces(mushroom),
-            ...(requestPayload.mushroom.haveIconography
-              ? [
-                  MycologyActions.updateIconographyRequest(
-                    requestPayload.iconographicContainer
-                  ),
-                ]
-              : []),
+            ...(requestPayload.mushroom.haveIconography && requestPayload.iconographicContainer.formiconographyarray.length !== 0 ? [MycologyActions.updateIconographyRequest(requestPayload.iconographicContainer)]:[]),
+            ...(!requestPayload.mushroom.haveIconography && requestPayload.iconographicContainer.formiconographyarray.length !== 0 ? [MycologyActions.createIconographyRequest(requestPayload.iconographicContainer)]:[]),
+            ...(requestPayload.iconographicContainer.formiconographyarray.length === 0 ? []:[])
+            // MycologyActions.updateMushroomSucces(mushroom),
+            // ...(requestPayload.mushroom.haveIconography
+            //   ? [
+            //       MycologyActions.updateIconographyRequest(
+            //         requestPayload.iconographicContainer
+            //       ),
+            //     ]
+            //   : []),
           ]),
           catchError(() => of(MycologyActions.updateMushroomFailed()))
         )

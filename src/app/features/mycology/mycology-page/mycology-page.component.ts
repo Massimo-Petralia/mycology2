@@ -132,16 +132,13 @@ export class MycologyPageComponent implements OnInit, OnChanges, OnDestroy {
 
   onUpdate() {
     if (
-      this.formMushroomComponent.formMushroom.valid &&
-      this.formIconographyComponent.formIconography.valid
-      //this.formIconographyComponent.formIconography.controls.formiconographyarray.length !== 0
+      this.mushroom?.haveIconography === true &&
+      this.formIconographyComponent.formIconography.controls
+        .formiconographyarray.length !== 0
     ) {
-          //
-          this.formIconographyComponent.formIconography.controls.id.patchValue(
-            this.formIconographyComponent.iconographicContainer.id
-          )
-          //
-          //this.formMushroomComponent.formMushroom.controls.haveIconography.patchValue(true)
+      this.formIconographyComponent.formIconography.controls.id.patchValue(
+               this.formIconographyComponent.iconographicContainer.id
+              )
       this.store.dispatch(
         MycologyActions.updateMushroomRequest({
           mushroom: this.formMushroomComponent.formMushroom.value as Mushroom,
@@ -150,28 +147,76 @@ export class MycologyPageComponent implements OnInit, OnChanges, OnDestroy {
         })
       );
     } else if (
-      this.formIconographyComponent.iconographicContainer &&
+      this.mushroom?.haveIconography === false &&
       this.formIconographyComponent.formIconography.controls
-        .formiconographyarray.length === 0
+        .formiconographyarray.length !== 0
     ) {
-      this.formMushroomComponent.formMushroom.controls.haveIconography.patchValue(
-        false
-      );
-  
+      this.formIconographyComponent.formIconography.controls.id.patchValue(
+                this.mushroom.id
+              )
+              
+      // this.formMushroomComponent.formMushroom.controls.haveIconography.patchValue(
+      //   true
+      // );
       this.store.dispatch(
         MycologyActions.updateMushroomRequest({
           mushroom: this.formMushroomComponent.formMushroom.value as Mushroom,
           iconographicContainer: this.formIconographyComponent.formIconography
             .value as IconographicContainer,
         })
-      );
-      this.store.dispatch(
-        MycologyActions.deleteIconographyRequest({
-          iconographicContainerID:
-            this.formIconographyComponent.iconographicContainer.id!,
-        })
-      );
+      ); // go to CreateIconographyRequest
+    } else if (
+      this.mushroom?.haveIconography === false &&
+      this.formIconographyComponent.formIconography.controls
+        .formiconographyarray.length === 0
+    ) {
+      this.store.dispatch(MycologyActions.updateMushroomRequest({
+        mushroom: this.formMushroomComponent.formMushroom.value as Mushroom,
+        iconographicContainer: this.formIconographyComponent.formIconography
+          .value as IconographicContainer,
+      })) // stop updateIconographyRequest
     }
+    // if (
+    //   this.formMushroomComponent.formMushroom.valid &&
+    //   this.formIconographyComponent.formIconography.valid
+    //   //this.formIconographyComponent.formIconography.controls.formiconographyarray.length !== 0
+    // ) {
+    //       //
+    //       this.formIconographyComponent.formIconography.controls.id.patchValue(
+    //         this.formIconographyComponent.iconographicContainer.id
+    //       )
+    //       //
+    //       //this.formMushroomComponent.formMushroom.controls.haveIconography.patchValue(true)
+    //   this.store.dispatch(
+    //     MycologyActions.updateMushroomRequest({
+    //       mushroom: this.formMushroomComponent.formMushroom.value as Mushroom,
+    //       iconographicContainer: this.formIconographyComponent.formIconography
+    //         .value as IconographicContainer,
+    //     })
+    //   );
+    // } else if (
+    //   this.formIconographyComponent.iconographicContainer &&
+    //   this.formIconographyComponent.formIconography.controls
+    //     .formiconographyarray.length === 0
+    // ) {
+    //   this.formMushroomComponent.formMushroom.controls.haveIconography.patchValue(
+    //     false
+    //   );
+
+    //   this.store.dispatch(
+    //     MycologyActions.updateMushroomRequest({
+    //       mushroom: this.formMushroomComponent.formMushroom.value as Mushroom,
+    //       iconographicContainer: this.formIconographyComponent.formIconography
+    //         .value as IconographicContainer,
+    //     })
+    //   );
+    //   this.store.dispatch(
+    //     MycologyActions.deleteIconographyRequest({
+    //       iconographicContainerID:
+    //         this.formIconographyComponent.iconographicContainer.id!,
+    //     })
+    //   );
+    // }
   }
 
   onDelete() {
