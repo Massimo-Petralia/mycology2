@@ -116,4 +116,14 @@ export class MycologyService {
         })
       );
   }
+
+updateMushroomProperties(id: string, propertiesToChange: Partial<Mushroom>) {
+  return this.http.patch(`${mushroomsDataURL}/${id}`, propertiesToChange).pipe(
+    catchError(error => {
+      console.error('update properties failed')
+      throw error
+    })
+  )
+}
+
 }

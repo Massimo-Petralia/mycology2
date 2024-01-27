@@ -42,7 +42,7 @@ ngOnChanges(changes: SimpleChanges): void {
 }
 
   formMushroom = this.formbuilder.group({
-    id: this.mushroom?.id,
+    //id: this.mushroom?.id,
     haveIconography: this.mushroom?.haveIconography,
     taxonomy: this.formbuilder.group({
       species: this.formbuilder.control<string>('', Validators.required),

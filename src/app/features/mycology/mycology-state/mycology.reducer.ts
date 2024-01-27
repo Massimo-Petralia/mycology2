@@ -39,16 +39,7 @@ export const mycologyReducer = createReducer(
     mushrooms: [
       ...mycologystate.mushrooms.filter((mushroom) => mushroom.id !== id),
     ],
-  })),
-  on(MycologyActions.updateMushroomSucces, (mycologystate, mushroom) => ({
-    ...mycologystate,
-    mushroom: mushroom,
-  })),
-  on(
-    MycologyActions.updateIconographySucces,
-    (mycologystate, iconographicContainer) => ({
-      ...mycologystate,
-      iconographicContainer: iconographicContainer,
-    })
-  )
+  }))
+
+
 );

@@ -46,7 +46,8 @@ export interface Mushroom {
   morphology: Morphology;
   features: Features;
   microscopicFeatures: MicroscopicFeatures;
-  haveIconography?: boolean
+  haveIconography?: boolean;
+  iconographyID?: string
 }
 
 export interface Iconography {

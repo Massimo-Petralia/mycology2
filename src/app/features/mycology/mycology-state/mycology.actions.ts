@@ -14,9 +14,12 @@ export const loadMushroomsSucces = createAction(
 export const loadMushroomsFailed = createAction(
   '[Mushrooms API] Load Paginated Mushroom Table Failed'
 );
+
+
+
 export const createMushroomRequest = createAction(
   '[Form Mushroom Page] Create Mushroom Request',
-  props<{ mushroom: Mushroom; iconographicContainer: IconographicContainer }>()
+  props<Mushroom>()
 );
 
 export const createMushroomSucces = createAction(
@@ -30,7 +33,7 @@ export const createMushroomFailed = createAction(
 
 export const createIconographyRequest = createAction(
   '[Create Mushroom Effects] Create Iconography Request',
-  props<IconographicContainer>()
+  props<{iconographicContainer: IconographicContainer, mushroom: Mushroom}>()
 );
 
 export const createIconographySucces = createAction(
@@ -71,11 +74,7 @@ export const loadIconographyFailed = createAction(
 
 export const deleteMushroomRequest = createAction(
   '[Form Mushroom] Delete Mushroom Request',
-  props<{
-    id: string;
-    haveIconography?: boolean;
-    iconographicContainerID: string;
-  }>()
+  props<Mushroom>()
 );
 
 export const deleteMushroomSucces = createAction(
@@ -89,21 +88,22 @@ export const deleteMushroomFailed = createAction(
 
 export const deleteIconographyRequest = createAction(
   '[Delete Mushroom Effects] Delete Iconography Request',
-  props<{ iconographicContainerID: string }>()
+  props<IconographicContainer>()
 );
 
 export const deleteIconographySucces = createAction(
-  '[Iconography API] Delete Iconography Succes'
+  '[Iconography API] Delete Iconography Succes',
+  props<{iconographicContainerID: string}>()
 );
 
 export const deleteIconographyFailed = createAction(
   '[Iconography API] Delete Iconography Failed'
 );
-//-----------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 export const updateMushroomRequest = createAction(
     '[Form Mushroom Page] Update Mushroom Request',
-    props<{ mushroom: Mushroom; iconographicContainer: IconographicContainer }>()
+    props<Mushroom>()
 )
 
 export const updateMushroomSucces = createAction(
@@ -117,14 +117,29 @@ export const updateMushroomFailed = createAction(
 
 export const updateIconographyRequest = createAction(
     '[Update Mushroom Effect] Update Iconography Request',
-    props<IconographicContainer>()
+    props<{iconographicContainer:IconographicContainer, mushroom?: Mushroom}>()
 )
 
 export const updateIconographySucces = createAction(
     '[Iconography API] Update Iconography Succes',
-    props<IconographicContainer>()
+    props< IconographicContainer>()
 )
 
 export const updateIconographyFailed = createAction(
     '[Iconography API] Update Iconography Failed'
+)
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+export const saveMycologyRequest = createAction(
+  '[Mycology Page] Save Mycology Data Request',
+  props<{mushroom: Mushroom, iconographicContainer: IconographicContainer}>()
+)
+
+export const saveMycologySucces = createAction(
+  '[Mycology API] Save Mycology Data Success'
+)
+
+export const saveMycologyFailed = createAction(
+  '[Mycology API] Save Mycology Data Failed'
 )

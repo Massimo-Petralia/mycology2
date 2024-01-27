@@ -43,7 +43,7 @@ export class FormIconographyComponent implements OnInit, OnChanges {
   };
 
   formIconography = this.formBuilder.group({
-      id: undefined,//??
+      //id: undefined,//??
     formiconographyarray: this.formBuilder.array([]),
   });
 
@@ -79,25 +79,7 @@ export class FormIconographyComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.formIconography.controls.formiconographyarray.clear();
-    // if(this.formIconography.controls.formiconographyarray.length !== 0){
-    //   this.iconographicContainer.formiconographyarray.forEach(
-    //     (iconography, index) => {
-    //       let counter = index + 1;
-    //       (
-    //         this.formIconography.controls.formiconographyarray as FormArray
-    //       ).push(
-    //         this.formBuilder.group({
-    //           id: counter,
-    //           imageURL: this.formBuilder.control<string>(iconography.imageURL),
-    //           description: this.formBuilder.control<string>(
-    //             iconography.description
-    //           ),
-    //         })
-    //       );
-    //     }
-    //   );
-    // }
-   // debugger
+
   }
 
   handleFiles() {
