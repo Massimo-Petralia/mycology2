@@ -3,6 +3,8 @@ import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { catchError, exhaustMap, map, mergeMap, of, switchMap } from 'rxjs';
 import { MycologyService } from '../services/mycology.service';
 import * as MycologyActions from '../mycology-state/mycology.actions';
+import { Mushroom } from '../models/mycology.models';
+import { TypedAction } from '@ngrx/store/src/models';
 
 @Injectable()
 export class LoadMushroomsEffects {
@@ -63,15 +65,13 @@ export class CreateIconographyEffects {
         this.mycologyService
           .createIconography(requestPayload.iconographicContainer)
           .pipe(
-            map((iconographicContainer) =>
-              MycologyActions.createIconographySuccess(iconographicContainer)
-            ),
-            map((iconographicContainer) =>
+            mergeMap((iconographicContainer) => [
+              MycologyActions.createIconographySuccess(iconographicContainer),
               MycologyActions.createMushroomRequest({
                 ...requestPayload.mushroom,
                 iconographyID: iconographicContainer.id,
-              })
-            )
+              }),
+            ])
           )
       ),
       catchError(() => of(MycologyActions.createIconographyFailed()))
@@ -89,19 +89,10 @@ export class LoadMushroomEffects {
   loadMushroom$ = createEffect(() =>
     this.actions$.pipe(
       ofType(MycologyActions.loadMushroomRequest),
-      exhaustMap(({ id }) =>
-        this.mycologyService.getMushroom(id).pipe(
-          mergeMap((mushroom) => [
-            MycologyActions.loadMushroomSucces(mushroom),
-            ...(mushroom.iconographyID
-              ? [
-                  MycologyActions.loadIconographyRequest({
-                    id: mushroom.iconographyID
-                  })
-                ]
-              : [MycologyActions.loadIconographyFailed()])
-          ])
-        )
+      switchMap(({ id }) =>
+        this.mycologyService
+          .getMushroom(id)
+          .pipe(map((mushroom) => MycologyActions.loadMushroomSucces(mushroom)))
       ),
 
       catchError(() => of(MycologyActions.loadMushroomFailed()))
@@ -235,7 +226,49 @@ export class SaveMycologyDataEffects {
   );
 }
 
-// mergeMap(mushroom => [
-//   MycologyActions.loadMushroomSucces(mushroom),
-//   (mushroom.iconographyID ? MycologyActions.loadIconographyRequest({id: mushroom.iconographyID}): MycologyActions.loadIconographyFailed())
-// ])
+// loadMushroom$ = createEffect(() =>
+// this.actions$.pipe(
+//   ofType(MycologyActions.loadMushroomRequest),
+//   exhaustMap(({ id }) =>
+//     this.mycologyService.getMushroom(id).pipe(
+//       switchMap((mushroom) => {
+//         const actions: any[] = [
+//           MycologyActions.loadMushroomSucces(mushroom),
+//         ];
+//         if (mushroom.iconographyID) {
+//           actions.push(
+//             MycologyActions.loadIconographyRequest({
+//               id: mushroom.iconographyID,
+//             })
+//           );
+//         }
+//         return actions;
+//       })
+//     )
+//   ),
+
+//   catchError(() => of(MycologyActions.loadMushroomFailed()))
+// )
+// );
+
+// createIconography$ = createEffect(() =>
+// this.actions$.pipe(
+//   ofType(MycologyActions.createIconographyRequest),
+//   exhaustMap((requestPayload) =>
+//     this.mycologyService
+//       .createIconography(requestPayload.iconographicContainer)
+//       .pipe(
+//         map((iconographicContainer) =>
+//           MycologyActions.createIconographySuccess(iconographicContainer)
+//         ),
+//         map((iconographicContainer) =>
+//           MycologyActions.createMushroomRequest({
+//             ...requestPayload.mushroom,
+//             iconographyID: iconographicContainer.id,
+//           })
+//         )
+//       )
+//   ),
+//   catchError(() => of(MycologyActions.createIconographyFailed()))
+// )
+// );
