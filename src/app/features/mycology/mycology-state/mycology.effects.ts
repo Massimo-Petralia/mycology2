@@ -96,10 +96,10 @@ export class LoadMushroomEffects {
             ...(mushroom.iconographyID
               ? [
                   MycologyActions.loadIconographyRequest({
-                    id: mushroom.iconographyID,
-                  }),
+                    id: mushroom.iconographyID
+                  })
                 ]
-              : [MycologyActions.loadIconographyFailed()]),
+              : [MycologyActions.loadIconographyFailed()])
           ])
         )
       ),
