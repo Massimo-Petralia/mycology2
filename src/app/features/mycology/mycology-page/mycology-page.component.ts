@@ -89,20 +89,19 @@ export class MycologyPageComponent implements OnInit, OnChanges, OnDestroy {
       this.store.dispatch(
         MycologyActions.loadMushroomRequest({ id: this.mushroomID })
       );
+      this.subs.add(
+        this.iconographicContainer$.subscribe((iconographicContainer) => {
+          if (iconographicContainer) {
+            this.iconographicContainer = iconographicContainer;
+          } else return;
+        })
+      );
+      this.subs.add(
+        this.mushroom$.subscribe((mushroom) => {
+          this.mushroom = mushroom;
+        })
+      );
     }
-    this.subs.add(
-      this.iconographicContainer$.subscribe((iconographicContainer) => {
-        if (iconographicContainer) {
-          this.iconographicContainer = iconographicContainer;
-        } else return;
-      })
-    );
-    this.subs.add(
-      this.mushroom$.subscribe((mushroom) => {
-        this.mushroom = mushroom;
-        debugger;
-      })
-    );
   }
 
   onCreate() {
