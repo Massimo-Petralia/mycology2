@@ -37,13 +37,10 @@ export class FormIconographyComponent implements OnInit, OnChanges {
   constructor(private formBuilder: FormBuilder) {}
 
   @Input() iconographicContainer: IconographicContainer = {
-    // id: undefined,
-    //haveIconography:
     formiconographyarray: [],
   };
 
   formIconography = this.formBuilder.group({
-      //id: undefined,//??
     formiconographyarray: this.formBuilder.array([]),
   });
 

@@ -17,7 +17,7 @@ export const mycologyReducer = createReducer(
     mushrooms: [...mycologystate.mushrooms, mushroom],
   })),
   on(
-    MycologyActions.createIconographySucces,
+    MycologyActions.createIconographySuccess,
     (mycologystate, iconographicContainer) => ({
       ...mycologystate,
       iconographicContainer,
@@ -25,7 +25,7 @@ export const mycologyReducer = createReducer(
   ),
   on(MycologyActions.loadMushroomSucces, (mycologystate, mushroom) => ({
     ...mycologystate,
-    mushroom: mushroom,
+    mushroom,
   })),
   on(
     MycologyActions.loadIconographySucces,

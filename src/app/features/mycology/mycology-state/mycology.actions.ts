@@ -36,7 +36,7 @@ export const createIconographyRequest = createAction(
   props<{iconographicContainer: IconographicContainer, mushroom: Mushroom}>()
 );
 
-export const createIconographySucces = createAction(
+export const createIconographySuccess = createAction(
   '[Iconography API] Create Iconography Succes',
   props<IconographicContainer>()
 );
@@ -70,7 +70,7 @@ export const loadIconographySucces = createAction(
 
 export const loadIconographyFailed = createAction(
   '[Iconography API] Load Iconography Failed'
-);
+)
 
 export const deleteMushroomRequest = createAction(
   '[Form Mushroom] Delete Mushroom Request',
@@ -117,12 +117,12 @@ export const updateMushroomFailed = createAction(
 
 export const updateIconographyRequest = createAction(
     '[Update Mushroom Effect] Update Iconography Request',
-    props<{iconographicContainer:IconographicContainer, mushroom?: Mushroom}>()
+    props<{iconographicContainer:IconographicContainer}>()
 )
 
 export const updateIconographySucces = createAction(
     '[Iconography API] Update Iconography Succes',
-    props< IconographicContainer>()
+    props<IconographicContainer>()
 )
 
 export const updateIconographyFailed = createAction(
@@ -134,10 +134,6 @@ export const updateIconographyFailed = createAction(
 export const saveMycologyRequest = createAction(
   '[Mycology Page] Save Mycology Data Request',
   props<{mushroom: Mushroom, iconographicContainer: IconographicContainer}>()
-)
-
-export const saveMycologySucces = createAction(
-  '[Mycology API] Save Mycology Data Success'
 )
 
 export const saveMycologyFailed = createAction(

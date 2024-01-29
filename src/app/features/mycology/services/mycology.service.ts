@@ -42,6 +42,7 @@ export class MycologyService {
   }
 
   createIconography(iconographicContainer: IconographicContainer) {
+    debugger
     return this.http
       .post<IconographicContainer>(iconographiesDataURL, iconographicContainer)
       .pipe(
