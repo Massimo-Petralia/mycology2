@@ -90,18 +90,18 @@ export class LoadMushroomEffects {
     this.actions$.pipe(
       ofType(MycologyActions.loadMushroomRequest),
       exhaustMap(({ id }) =>
-        this.mycologyService
-          .getMushroom(id)
-          .pipe(
-            mergeMap((mushroom) => [
-              MycologyActions.loadMushroomSucces(mushroom),
-              mushroom.iconographyID
-                ? MycologyActions.loadIconographyRequest({
+        this.mycologyService.getMushroom(id).pipe(
+          mergeMap((mushroom) => [
+            MycologyActions.loadMushroomSucces(mushroom),
+            ...(mushroom.iconographyID
+              ? [
+                  MycologyActions.loadIconographyRequest({
                     id: mushroom.iconographyID,
-                  })
-                : MycologyActions.loadIconographyFailed(),
-            ])
-          )
+                  }),
+                ]
+              : [MycologyActions.loadIconographyFailed()]),
+          ])
+        )
       ),
 
       catchError(() => of(MycologyActions.loadMushroomFailed()))
