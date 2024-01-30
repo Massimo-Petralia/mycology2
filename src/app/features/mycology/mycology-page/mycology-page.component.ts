@@ -58,6 +58,7 @@ export class MycologyPageComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() set id(mushroomID: string) {
     this.mushroomID = mushroomID;
+    debugger;
   }
 
   mushroom$: Observable<Mushroom | undefined> = this.store.select(
@@ -85,6 +86,7 @@ export class MycologyPageComponent implements OnInit, OnChanges, OnDestroy {
   ngOnChanges(changes: SimpleChanges): void {}
 
   ngOnInit(): void {
+    this.store.dispatch(MycologyActions.resetState());
     if (this.mushroomID !== ':id') {
       this.store.dispatch(
         MycologyActions.loadMushroomRequest({ id: this.mushroomID })
@@ -92,9 +94,15 @@ export class MycologyPageComponent implements OnInit, OnChanges, OnDestroy {
       this.subs.add(
         this.mushroom$.subscribe((mushroom) => {
           this.mushroom = mushroom;
-          if(mushroom?.iconographyID){
-            this.store.dispatch(MycologyActions.loadIconographyRequest({id: mushroom.iconographyID}))
-          }
+         
+            if (mushroom && mushroom!.iconographyID) {
+              this.store.dispatch(
+                MycologyActions.loadIconographyRequest({
+                  id: mushroom!.iconographyID,
+                })
+              );
+            }
+          
         })
       );
 
@@ -102,10 +110,9 @@ export class MycologyPageComponent implements OnInit, OnChanges, OnDestroy {
         this.iconographicContainer$.subscribe((iconographicContainer) => {
           if (iconographicContainer) {
             this.iconographicContainer = iconographicContainer;
-          } else return;
+          }
         })
       );
-  
     }
   }
 
@@ -139,11 +146,7 @@ export class MycologyPageComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   onDelete() {
-    const mycologyData = {
-      mushroom: this.formMushroomComponent.formMushroom.value as Mushroom,
-      iconographicContainer: this.formIconographyComponent.formIconography
-        .value as IconographicContainer,
-    };
+    this.store.dispatch(MycologyActions.deleteMushroomRequest(this.mushroom!));
 
     if (this.pagelength <= 1) {
       this.currentpage--;

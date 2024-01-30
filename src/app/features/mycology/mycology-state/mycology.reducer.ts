@@ -25,13 +25,14 @@ export const mycologyReducer = createReducer(
   ),
   on(MycologyActions.loadMushroomSucces, (mycologystate, mushroom) => ({
     ...mycologystate,
-    mushroom,
+    mushroom
   })),
   on(
     MycologyActions.loadIconographySucces,
     (mycologystate, iconographicContainer) => ({
       ...mycologystate,
-      iconographicContainer,
+      iconographicContainer
+
     })
   ),
   on(MycologyActions.deleteMushroomSucces, (mycologystate, { id }) => ({
@@ -39,7 +40,9 @@ export const mycologyReducer = createReducer(
     mushrooms: [
       ...mycologystate.mushrooms.filter((mushroom) => mushroom.id !== id),
     ],
-  }))
+  })),
+
+  on(MycologyActions.resetState, (mycologystate)=> ({...mycologystate, iconographicContainer: undefined, mushroom: undefined}))
 
 
 );
