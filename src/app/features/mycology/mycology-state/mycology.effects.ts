@@ -13,6 +13,11 @@ import { MycologyService } from '../services/mycology.service';
 import * as MycologyActions from '../mycology-state/mycology.actions';
 import { Mushroom } from '../models/mycology.models';
 import { TypedAction } from '@ngrx/store/src/models';
+import { Action } from 'rxjs/internal/scheduler/Action';
+const enum MycologyActionType {
+  deleteMushroomSucces = '[Mushroom API] Delete Mushroom Succes',
+  deleteIconographyRequest = '[Delete Mushroom Effects] Delete Iconography Request',
+}
 
 @Injectable()
 export class LoadMushroomsEffects {
@@ -142,10 +147,16 @@ export class DeleteMushroomEffects {
       exhaustMap((mushroom) =>
         this.mycologyService.deleteMushroom(mushroom.id!).pipe(
           mergeMap(() => [
-            MycologyActions.deleteMushroomSucces({id: mushroom.id!}),
-            ...(mushroom.iconographyID ? [MycologyActions.deleteIconographyRequest({iconographicContainerID: mushroom.iconographyID})]:[])
+            MycologyActions.deleteMushroomSucces({ id: mushroom.id! }),
+            ...(mushroom.iconographyID
+              ? [
+                  MycologyActions.deleteIconographyRequest({
+                    iconographicContainerID: mushroom.iconographyID,
+                  })
+                ]
+              : [])
           ]),
-          
+
           catchError(() => of(MycologyActions.deleteMushroomFailed()))
         )
       )
@@ -238,9 +249,12 @@ export class SaveMycologyDataEffects {
   );
 }
 
+const mycondition = true;
+const myvar = 'b';
+const myarray = ['a', ...(mycondition ? myvar : [])];
+console.log('my array', myarray);
 
-
-const mycondition = true
-const myvar = 'b'
-const myarray = ['a',...(mycondition ? myvar : [])]
-console.log('my array', myarray)
+// mergeMap(() => [
+//   MycologyActions.deleteMushroomSucces({id: mushroom.id!}),
+//   ...(mushroom.iconographyID ? [MycologyActions.deleteIconographyRequest({iconographicContainerID: mushroom.iconographyID})]:[])
+// ])
