@@ -243,6 +243,12 @@ export class SaveMycologyDataEffects {
   saveMycologyData$ = createEffect(() =>
     this.actions$.pipe(
       ofType(MycologyActions.saveMycologyRequest),
+      exhaustMap(requestPayload => this.mycologyService.updateMushroom(requestPayload.mushroom).pipe(
+        mergeMap(mushroom => [
+          MycologyActions.updateMushroomSucces(mushroom),
+          ...(requestPayload.mushroom.iconographyID ? [MycologyActions.updateIconographyRequest({iconographicContainer: requestPayload.iconographicContainer})]:[])
+        ])
+      )),
 
       catchError(() => of(MycologyActions.saveMycologyFailed()))
     )

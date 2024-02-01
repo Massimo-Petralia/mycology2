@@ -60,7 +60,7 @@
       "id": "94bc",
       "taxonomy": {
         "species": "uno senza",
-        "gender": "",
+        "gender": "ggg",
         "family": "",
         "order": "",
         "synonymous": "",
@@ -81,8 +81,7 @@
         "spores": "",
         "pileipellis": "",
         "cystidia": ""
-      },
-      "type": "[Form Mushroom Page] Create Mushroom Request"
+      }
     }
   ],
   "iconographies": [

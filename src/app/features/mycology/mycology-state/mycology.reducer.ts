@@ -44,6 +44,16 @@ export const mycologyReducer = createReducer(
     return {...mycologystate, mushrooms: updatedMushrooms}
   }),
 
+on(MycologyActions.updateMushroomSucces, (mycologystate, mushroom)=> ({
+  ...mycologystate,
+  mushrooms: {...mycologystate.mushrooms, [mushroom.id as string]: mushroom}
+})),
+
+on(MycologyActions.updateIconographySucces, (mycologystate, iconographicContainer)=> ({
+  ...mycologystate,
+  iconographicContainer: iconographicContainer
+})),
+
   on(MycologyActions.resetState, (mycologystate)=> ({...mycologystate, iconographicContainer: null, mushrooms: null}))
 
 

@@ -105,20 +105,18 @@ export class MycologyPageComponent implements OnInit, OnChanges, OnDestroy {
                 })
               );
               this.subs.add(
-                this.iconographicContainer$.subscribe((iconographicContainer) => {
-                  debugger
-                  if (iconographicContainer !== null) {
-                    this.iconographicContainer = iconographicContainer;
+                this.iconographicContainer$.subscribe(
+                  (iconographicContainer) => {
+                    if (iconographicContainer !== null) {
+                      this.iconographicContainer = iconographicContainer;
+                    }
                   }
-                })
+                )
               );
-
             }
           }
         })
       );
-
-  
     }
   }
 
@@ -149,6 +147,14 @@ export class MycologyPageComponent implements OnInit, OnChanges, OnDestroy {
       iconographicContainer: this.formIconographyComponent.formIconography
         .value as IconographicContainer,
     };
+
+    this.store.dispatch(
+      MycologyActions.saveMycologyRequest({
+        mushroom: mycologyData.mushroom,
+        iconographicContainer: mycologyData.iconographicContainer,
+      })
+    );
+    debugger
   }
 
   onDelete() {
