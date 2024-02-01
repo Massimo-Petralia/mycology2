@@ -33,6 +33,7 @@ export class MycologyService {
   }
 
   createMushroom(mushroom: Mushroom) {
+    debugger
     return this.http.post<Mushroom>(mushroomsDataURL, mushroom).pipe(
       catchError((error) => {
         console.error('post mushroom failed', error);

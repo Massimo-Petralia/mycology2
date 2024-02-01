@@ -1,22 +1,6 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  ViewChild,
-  AfterViewInit,
-  OnDestroy,
-  OnChanges,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, OnInit, Input, ViewChild, OnDestroy } from '@angular/core';
 import { FormMushroomComponent } from '../form-mushroom/form-mushroom.component';
-import {
-  Features,
-  IconographicContainer,
-  MicroscopicFeatures,
-  Morphology,
-  Mushroom,
-  Taxonomy,
-} from '../models/mycology.models';
+import { IconographicContainer, Mushroom } from '../models/mycology.models';
 import { FormIconographyComponent } from '../form-iconography/form-iconography.component';
 import { Store } from '@ngrx/store';
 import { MycologyState } from '../models/mycology.models';
@@ -28,7 +12,6 @@ import {
   selectIconographyFeature,
 } from '../mycology-state/mycology.selectors';
 import { Observable, Subscription } from 'rxjs';
-import { MycologyService } from '../services/mycology.service';
 
 @Component({
   selector: 'app-mycology-page',
@@ -41,12 +24,8 @@ import { MycologyService } from '../services/mycology.service';
   templateUrl: './mycology-page.component.html',
   styleUrl: './mycology-page.component.scss',
 })
-export class MycologyPageComponent implements OnInit, OnChanges, OnDestroy {
-  constructor(
-    private store: Store<MycologyState>,
-    private router: Router,
-    private mycologyService: MycologyService
-  ) {}
+export class MycologyPageComponent implements OnInit, OnDestroy {
+  constructor(private store: Store<MycologyState>, private router: Router) {}
 
   @Input() set page(pagenumber: number) {
     this.currentpage = pagenumber;
@@ -81,8 +60,6 @@ export class MycologyPageComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild(FormIconographyComponent)
   formIconographyComponent!: FormIconographyComponent;
 
-  ngOnChanges(changes: SimpleChanges): void {}
-
   ngOnInit(): void {
     if (this.mushroomID !== ':id') {
       this.store.dispatch(
@@ -104,16 +81,14 @@ export class MycologyPageComponent implements OnInit, OnChanges, OnDestroy {
                   id: mushrooms[this.mushroomID].iconographyID!,
                 })
               );
-              this.subs.add(
-                this.iconographicContainer$.subscribe(
-                  (iconographicContainer) => {
-                    if (iconographicContainer !== null) {
-                      this.iconographicContainer = iconographicContainer;
-                    }
-                  }
-                )
-              );
             }
+            this.subs.add(
+              this.iconographicContainer$.subscribe((iconographicContainer) => {
+                if (iconographicContainer !== null) {
+                  this.iconographicContainer = iconographicContainer;
+                }
+              })
+            );
           }
         })
       );
@@ -121,8 +96,12 @@ export class MycologyPageComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   onCreate() {
+    const clonedMushroom = {
+      ...(this.formMushroomComponent.formMushroom.value as Mushroom),
+    };
+    delete clonedMushroom.id;
     const mycologyData = {
-      mushroom: this.formMushroomComponent.formMushroom.value as Mushroom,
+      mushroom: clonedMushroom,
       iconographicContainer: this.formIconographyComponent.formIconography
         .value as IconographicContainer,
     };
@@ -139,22 +118,26 @@ export class MycologyPageComponent implements OnInit, OnChanges, OnDestroy {
       );
 
     this.router.navigate(['mushrooms/page', this.currentpage]);
+    debugger;
   }
 
   onUpdate() {
     const mycologyData = {
       mushroom: this.formMushroomComponent.formMushroom.value as Mushroom,
-      iconographicContainer: this.formIconographyComponent.formIconography
-        .value as IconographicContainer,
+      iconographicContainer: {
+        ...(this.formIconographyComponent.formIconography
+          .value as IconographicContainer),
+        id: this.iconographicContainer.id,
+      },
     };
-
+    debugger;
     this.store.dispatch(
       MycologyActions.saveMycologyRequest({
         mushroom: mycologyData.mushroom,
         iconographicContainer: mycologyData.iconographicContainer,
       })
     );
-    debugger
+    debugger;
   }
 
   onDelete() {

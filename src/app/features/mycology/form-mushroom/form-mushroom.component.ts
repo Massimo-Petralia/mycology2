@@ -1,4 +1,13 @@
-import { Component, EventEmitter, Input, Output, ViewChild, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+  OnInit,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { IconographicContainer, Mushroom } from '../models/mycology.models';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -16,7 +25,7 @@ import { CommonModule } from '@angular/common';
     MatInputModule,
     TextFieldModule,
     MatButtonModule,
-    CommonModule
+    CommonModule,
   ],
   templateUrl: './form-mushroom.component.html',
   styleUrl: './form-mushroom.component.scss',
@@ -24,26 +33,26 @@ import { CommonModule } from '@angular/common';
 export class FormMushroomComponent implements OnChanges {
   constructor(private formbuilder: FormBuilder) {}
 
-  @Input() mushroom!: Mushroom|null;
+  @Input() mushroom!: Mushroom | null;
 
   @Output() create = new EventEmitter();
 
   @Output() delete = new EventEmitter();
 
-  @Output() update = new EventEmitter()
+  @Output() update = new EventEmitter();
 
-
-ngOnChanges(changes: SimpleChanges): void {
-  const {mushroom} = changes
-  if(mushroom) {
-    this.formMushroom.patchValue(this.mushroom!)
-
+  ngOnChanges(changes: SimpleChanges): void {
+    const { mushroom } = changes;
+    if (mushroom) {
+      this.formMushroom.patchValue(this.mushroom!);
+    }
   }
-}
 
   formMushroom = this.formbuilder.group({
-    id: (this.mushroom ? this.mushroom.id : null),
-   // haveIconography: this.mushroom?.haveIconography,
+    id: this.mushroom ? this.mushroom.id : undefined,
+    iconographyID: this.mushroom?.iconographyID
+      ? this.mushroom.iconographyID
+      : undefined,
     taxonomy: this.formbuilder.group({
       species: this.formbuilder.control<string>('', Validators.required),
       gender: this.formbuilder.control<string>(''),
@@ -77,16 +86,15 @@ ngOnChanges(changes: SimpleChanges): void {
       );
       return;
     } else {
-      this.create.emit()
+      this.create.emit();
     }
   }
 
   onUpdate() {
-    this.update.emit()
+    this.update.emit();
   }
 
-  onDelete(){
-    this.delete.emit()
+  onDelete() {
+    this.delete.emit();
   }
-
 }

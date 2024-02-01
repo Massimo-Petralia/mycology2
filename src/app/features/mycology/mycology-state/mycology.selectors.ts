@@ -1,24 +1,23 @@
-import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { MycologyState } from "../models/mycology.models";
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { MycologyState } from '../models/mycology.models';
 
-export const selectFeature = createFeatureSelector<MycologyState>('mycology')
+const getMushrooms = (state: MycologyState) => state.mushrooms;
+
+const getIconography = (state: MycologyState) => state.iconographicContainer;
+
+export const selectFeature = createFeatureSelector<MycologyState>('mycology');
 
 export const selectMushroomsFeature = createSelector(
-    selectFeature,
-    ({mushrooms})=> mushrooms
-)
+  selectFeature,
+  getMushrooms
+);
 
 export const selectItemsFeature = createSelector(
-    selectFeature,
-    ({items})=> items
-)
-
-// export const selectMushroomFeature = createSelector(
-//     selectFeature,
-//     ({mushroom}) => mushroom
-// )
+  selectFeature,
+  ({ items }) => items
+);
 
 export const selectIconographyFeature = createSelector(
-    selectFeature,
-    ({iconographicContainer}) => iconographicContainer
-)
+  selectFeature,
+  getIconography
+);
