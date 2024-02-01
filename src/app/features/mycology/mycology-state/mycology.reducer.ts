@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { initialState } from '../models/mycology.models';
+import { Mushroom, initialState } from '../models/mycology.models';
 import * as MycologyActions from '../mycology-state/mycology.actions';
 
 export const mycologyReducer = createReducer(
@@ -9,12 +9,14 @@ export const mycologyReducer = createReducer(
     (mycologystate, { items, mushrooms }) => ({
       ...mycologystate,
       items: items,
-      mushrooms: mushrooms,
+      mushrooms: mushrooms.reduce((collection: {[id: string]: Mushroom}, mushroom)=> {
+        collection[mushroom.id!] = mushroom; return collection
+      },{}),
     })
-  ),
+   ),
   on(MycologyActions.createMushroomSucces, (mycologystate, mushroom) => ({
     ...mycologystate,
-    mushrooms: [...mycologystate.mushrooms, mushroom],
+    mushrooms: {...mycologystate.mushrooms, [mushroom.id as string]: mushroom}
   })),
   on(
     MycologyActions.createIconographySuccess,
@@ -25,7 +27,8 @@ export const mycologyReducer = createReducer(
   ),
   on(MycologyActions.loadMushroomSucces, (mycologystate, mushroom) => ({
     ...mycologystate,
-    mushroom
+    mushrooms: {...mycologystate.mushrooms, [mushroom.id as string]: mushroom as Mushroom}
+
   })),
   on(
     MycologyActions.loadIconographySucces,
@@ -35,14 +38,13 @@ export const mycologyReducer = createReducer(
 
     })
   ),
-  on(MycologyActions.deleteMushroomSucces, (mycologystate, { id }) => ({
-    ...mycologystate,
-    mushrooms: [
-      ...mycologystate.mushrooms.filter((mushroom) => mushroom.id !== id),
-    ],
-  })),
+  on(MycologyActions.deleteMushroomSucces, (mycologystate, { id }) => {
+    const updatedMushrooms = {...mycologystate.mushrooms};
+    delete updatedMushrooms[id];
+    return {...mycologystate, mushrooms: updatedMushrooms}
+  }),
 
-  on(MycologyActions.resetState, (mycologystate)=> ({...mycologystate, iconographicContainer: undefined, mushroom: undefined}))
+  on(MycologyActions.resetState, (mycologystate)=> ({...mycologystate, iconographicContainer: null, mushrooms: null}))
 
 
 );

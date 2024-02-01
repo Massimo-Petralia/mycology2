@@ -24,7 +24,7 @@ import { CommonModule } from '@angular/common';
 export class FormMushroomComponent implements OnChanges {
   constructor(private formbuilder: FormBuilder) {}
 
-  @Input() mushroom!: Mushroom|undefined;
+  @Input() mushroom!: Mushroom|null;
 
   @Output() create = new EventEmitter();
 

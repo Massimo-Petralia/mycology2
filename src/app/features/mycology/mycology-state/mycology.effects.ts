@@ -124,7 +124,7 @@ export class LoadIconographyEffects {
     this.actions$.pipe(
       ofType(MycologyActions.loadIconographyRequest),
       switchMap(({ id }) =>
-        this.mycologyService.getIconography(id).pipe(
+        this.mycologyService.getIconography(id!).pipe(
           map((iconographicContainer) =>
             MycologyActions.loadIconographySucces(iconographicContainer)
           ),
@@ -249,10 +249,6 @@ export class SaveMycologyDataEffects {
   );
 }
 
-const mycondition = true;
-const myvar = 'b';
-const myarray = ['a', ...(mycondition ? myvar : [])];
-console.log('my array', myarray);
 
 // mergeMap(() => [
 //   MycologyActions.deleteMushroomSucces({id: mushroom.id!}),

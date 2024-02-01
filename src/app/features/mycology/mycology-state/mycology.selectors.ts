@@ -13,10 +13,10 @@ export const selectItemsFeature = createSelector(
     ({items})=> items
 )
 
-export const selectMushroomFeature = createSelector(
-    selectFeature,
-    ({mushroom}) => mushroom
-)
+// export const selectMushroomFeature = createSelector(
+//     selectFeature,
+//     ({mushroom}) => mushroom
+// )
 
 export const selectIconographyFeature = createSelector(
     selectFeature,
