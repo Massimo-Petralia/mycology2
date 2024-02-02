@@ -75,7 +75,6 @@ export class MycologyPageComponent implements OnInit, OnDestroy {
               this.iconographicContainer$.subscribe((iconographicContainer) => {
                 if (iconographicContainer !== null) {
                   this.iconographicContainer = iconographicContainer;
-                  debugger;
                 }
               })
             );
@@ -101,28 +100,10 @@ export class MycologyPageComponent implements OnInit, OnDestroy {
 
     this.store.dispatch(MycologyActions.saveMycologyRequest(payload));
 
-    this.router.navigate(['mushrooms/page', this.currentpage]);
-    debugger;
+    if (!this.mushroom?.id && !this.iconographicContainer.id) {
+      this.router.navigate(['mushrooms/page', this.currentpage]);
+    }
   }
-
-  // onUpdate() {
-  //   const mycologyData = {
-  //     mushroom: this.formMushroomComponent.formMushroom.value as Mushroom,
-  //     iconographicContainer: {
-  //       ...(this.formIconographyComponent.formIconography
-  //         .value as IconographicContainer),
-  //       id: this.iconographicContainer.id,
-  //     },
-  //   };
-  //   debugger;
-  //   this.store.dispatch(
-  //     MycologyActions.saveMycologyRequest({
-  //       mushroom: mycologyData.mushroom,
-  //       iconographicContainer: mycologyData.iconographicContainer,
-  //     })
-  //   );
-  //   debugger;
-  // }
 
   onDelete() {
     this.store.dispatch(MycologyActions.deleteMushroomRequest(this.mushroom!));
