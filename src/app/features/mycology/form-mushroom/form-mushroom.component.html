@@ -5,7 +5,7 @@
     <mat-panel-description>Characteristics</mat-panel-description>
   </mat-expansion-panel-header>
   <form [formGroup]="formMushroom" (ngSubmit)="onSave()">
-    <button mat-stroked-button *ngIf="!mushroom" type="submit">Save</button>
+    <button mat-stroked-button type="submit">Save</button>
      <!-- <button mat-stroked-button *ngIf="mushroom" type="button" (click)="onUpdate()">Save</button> -->
     <button mat-stroked-button *ngIf="mushroom" type="button" (click)="onDelete()">Delete</button>
     <mat-expansion-panel class="subForm-container" expanded="true">

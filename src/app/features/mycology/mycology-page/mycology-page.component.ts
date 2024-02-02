@@ -97,36 +97,19 @@ export class MycologyPageComponent implements OnInit, OnDestroy {
 
   onSave() {
     const payload = {
-      mushroom:<Mushroom> this.formMushroomComponent.formMushroom.value,
-      iconographicContainer:<IconographicContainer> this.formIconographyComponent.formIconography.value
+      mushroom: <Mushroom>this.formMushroomComponent.formMushroom.value,
+      iconographicContainer: <IconographicContainer>(
+        this.formIconographyComponent.formIconography.value
+      ),
+    };
+    if (!payload.mushroom.id) {
+      delete payload.mushroom['id'];
     }
-    if(!payload.mushroom.id) {
-      delete payload.mushroom['id']
+    if (!payload.iconographicContainer.id) {
+      delete payload.iconographicContainer['id'];
     }
-    if(!payload.iconographicContainer.id){
-      delete payload.iconographicContainer['id']
-    }
-    // const clonedMushroom = {
-    //   ...(this.formMushroomComponent.formMushroom.value as Mushroom),
-    // };
-    // delete clonedMushroom.id;
-    // const mycologyData = {
-    //   mushroom: clonedMushroom,
-    //   iconographicContainer: this.formIconographyComponent.formIconography
-    //     .value as IconographicContainer,
-    // };
-    // if (this.formIconographyComponent.formiconographyarray.length !== 0) {
-    //   this.store.dispatch(
-    //     MycologyActions.createIconographyRequest({
-    //       iconographicContainer:payload.iconographicContainer,
-    //       mushroom: payload.mushroom,
-    //     })
-    //   );
-    // } else
-    //   this.store.dispatch(
-    //     MycologyActions.createMushroomRequest(mycologyData.mushroom)
-    //   );
-    this.store.dispatch(MycologyActions.saveMycologyRequest(payload))
+
+    this.store.dispatch(MycologyActions.saveMycologyRequest(payload));
 
     this.router.navigate(['mushrooms/page', this.currentpage]);
     debugger;

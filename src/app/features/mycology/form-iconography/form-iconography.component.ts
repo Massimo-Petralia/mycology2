@@ -41,12 +41,10 @@ export class FormIconographyComponent implements OnChanges {
   @ViewChild('inputfile') inputfileElem!: ElementRef<HTMLInputElement>;
   constructor(private formBuilder: FormBuilder) {}
 
-  @Input() iconographicContainer: IconographicContainer = {
-    formiconographyarray: [],
-  };
+  @Input() iconographicContainer!: IconographicContainer
 
   formIconography = this.formBuilder.group({
-    id: this.iconographicContainer.id,
+    id: this.iconographicContainer?.id,
     formiconographyarray: this.formBuilder.array<FormGroup>([]),
   });
 

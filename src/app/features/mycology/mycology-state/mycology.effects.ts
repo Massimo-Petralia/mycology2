@@ -1,23 +1,15 @@
 import { Injectable } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
-import {
-  Observable,
-  catchError,
-  exhaustMap,
-  map,
-  mergeMap,
-  of,
-  switchMap,
-} from 'rxjs';
+import { catchError, exhaustMap, map, mergeMap, of, switchMap } from 'rxjs';
 import { MycologyService } from '../services/mycology.service';
 import * as MycologyActions from '../mycology-state/mycology.actions';
-import { Mushroom } from '../models/mycology.models';
-import { TypedAction } from '@ngrx/store/src/models';
-import { Action } from 'rxjs/internal/scheduler/Action';
-const enum MycologyActionType {
-  deleteMushroomSucces = '[Mushroom API] Delete Mushroom Succes',
-  deleteIconographyRequest = '[Delete Mushroom Effects] Delete Iconography Request',
-}
+// import { Mushroom } from '../models/mycology.models';
+// import { TypedAction } from '@ngrx/store/src/models';
+// import { Action } from 'rxjs/internal/scheduler/Action';
+// const enum MycologyActionType {
+//   deleteMushroomSucces = '[Mushroom API] Delete Mushroom Succes',
+//   deleteIconographyRequest = '[Delete Mushroom Effects] Delete Iconography Request',
+// }
 
 @Injectable()
 export class LoadMushroomsEffects {
@@ -80,10 +72,19 @@ export class CreateIconographyEffects {
           .pipe(
             mergeMap((iconographicContainer) => [
               MycologyActions.createIconographySuccess(iconographicContainer),
-              MycologyActions.createMushroomRequest({
-                ...requestPayload.mushroom,
-                iconographyID: iconographicContainer.id,
-              }),
+              ...(!requestPayload.mushroom.id
+                ? [
+                    MycologyActions.createMushroomRequest({
+                      ...requestPayload.mushroom,
+                      iconographyID: iconographicContainer.id,
+                    }),
+                  ]
+                : []),
+                ...(requestPayload.mushroom.id ? [ MycologyActions.updateMushroomRequest({
+                  ...requestPayload.mushroom,
+                  iconographyID: iconographicContainer.id,
+                }),
+              ]:[])
             ])
           )
       ),
@@ -152,9 +153,9 @@ export class DeleteMushroomEffects {
               ? [
                   MycologyActions.deleteIconographyRequest({
                     iconographicContainerID: mushroom.iconographyID,
-                  })
+                  }),
                 ]
-              : [])
+              : []),
           ]),
 
           catchError(() => of(MycologyActions.deleteMushroomFailed()))
@@ -243,20 +244,37 @@ export class SaveMycologyDataEffects {
   saveMycologyData$ = createEffect(() =>
     this.actions$.pipe(
       ofType(MycologyActions.saveMycologyRequest),
-      exhaustMap(requestPayload => this.mycologyService.updateMushroom(requestPayload.mushroom).pipe(
-        mergeMap(mushroom => [
-          MycologyActions.updateMushroomSucces(mushroom),
-          ...(requestPayload.mushroom.iconographyID ? [MycologyActions.updateIconographyRequest({iconographicContainer: requestPayload.iconographicContainer})]:[])
-        ])
-      )),
+      mergeMap((requestPayload) => [
+        ...(!requestPayload.mushroom.id &&
+        !requestPayload.iconographicContainer.id
+          ? [
+              MycologyActions.createIconographyRequest({
+                iconographicContainer: requestPayload.iconographicContainer,
+                mushroom: requestPayload.mushroom,
+              }),
+            ]
+          : [
+              MycologyActions.updateIconographyRequest({
+                iconographicContainer: requestPayload.iconographicContainer,
+              }),
+              MycologyActions.updateMushroomRequest(requestPayload.mushroom),
+            ]),
+        ...(!requestPayload.mushroom.id &&
+        requestPayload.iconographicContainer.formiconographyarray.length === 0
+          ? [MycologyActions.createMushroomRequest(requestPayload.mushroom)]
+          : []),
+        ...(requestPayload.mushroom.iconographyID === null &&
+        requestPayload.iconographicContainer.formiconographyarray.length !== 0
+          ? [
+              MycologyActions.createIconographyRequest({
+                iconographicContainer: requestPayload.iconographicContainer,
+                mushroom: requestPayload.mushroom,
+              }),
+            ]
+          : []),
+      ]),
 
       catchError(() => of(MycologyActions.saveMycologyFailed()))
     )
   );
 }
-
-
-// mergeMap(() => [
-//   MycologyActions.deleteMushroomSucces({id: mushroom.id!}),
-//   ...(mushroom.iconographyID ? [MycologyActions.deleteIconographyRequest({iconographicContainerID: mushroom.iconographyID})]:[])
-// ])
