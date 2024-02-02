@@ -35,11 +35,11 @@ export class FormMushroomComponent implements OnChanges {
 
   @Input() mushroom!: Mushroom | null;
 
-  @Output() create = new EventEmitter();
+  @Output() save = new EventEmitter();
 
   @Output() delete = new EventEmitter();
 
-  @Output() update = new EventEmitter();
+  //@Output() update = new EventEmitter();
 
   ngOnChanges(changes: SimpleChanges): void {
     const { mushroom } = changes;
@@ -49,7 +49,7 @@ export class FormMushroomComponent implements OnChanges {
   }
 
   formMushroom = this.formbuilder.group({
-    id: this.mushroom ? this.mushroom.id : undefined,
+    id: this.mushroom?.id,
     iconographyID: this.mushroom?.iconographyID
       ? this.mushroom.iconographyID
       : undefined,
@@ -79,20 +79,20 @@ export class FormMushroomComponent implements OnChanges {
     }),
   });
 
-  onCreate() {
+  onSave() {
     if (!this.formMushroom.valid) {
       window.alert(
         'You must specify a name in the Species field of the Taxonomy form'
       );
       return;
     } else {
-      this.create.emit();
+      this.save.emit();
     }
   }
 
-  onUpdate() {
-    this.update.emit();
-  }
+  // onUpdate() {
+  //   this.update.emit();
+  // }
 
   onDelete() {
     this.delete.emit();

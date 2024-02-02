@@ -46,6 +46,7 @@ export class FormIconographyComponent implements OnChanges {
   };
 
   formIconography = this.formBuilder.group({
+    id: this.iconographicContainer.id,
     formiconographyarray: this.formBuilder.array<FormGroup>([]),
   });
 
