@@ -41,7 +41,9 @@ export class FormIconographyComponent implements OnChanges {
   @ViewChild('inputfile') inputfileElem!: ElementRef<HTMLInputElement>;
   constructor(private formBuilder: FormBuilder) {}
 
-  @Input() iconographicContainer!: IconographicContainer
+  @Input() iconographicContainer: IconographicContainer = {
+    formiconographyarray: [],
+  };
 
   formIconography = this.formBuilder.group({
     id: this.iconographicContainer?.id,
@@ -56,9 +58,12 @@ export class FormIconographyComponent implements OnChanges {
     const { iconographicContainer } = changes;
     if (
       iconographicContainer &&
-      this.iconographicContainer.formiconographyarray?.length
+      this.iconographicContainer.formiconographyarray.length !== 0
     ) {
       this.formIconography.controls.formiconographyarray.clear();
+      this.formIconography.controls.id.patchValue(
+        this.iconographicContainer.id
+      );
       this.iconographicContainer.formiconographyarray.forEach(
         (iconography, index) => {
           let counter = index + 1;

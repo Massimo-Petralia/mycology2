@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
-import { catchError, exhaustMap, map, mergeMap, of, switchMap } from 'rxjs';
+import { catchError, exhaustMap, filter, map, mergeMap, of, switchMap } from 'rxjs';
 import { MycologyService } from '../services/mycology.service';
 import * as MycologyActions from '../mycology-state/mycology.actions';
 // import { Mushroom } from '../models/mycology.models';
@@ -106,8 +106,16 @@ export class LoadMushroomEffects {
       switchMap(({ id }) =>
         this.mycologyService
           .getMushroom(id)
-          .pipe(map((mushroom) => MycologyActions.loadMushroomSucces(mushroom)))
+          .pipe(
+            mergeMap((mushroom) => [
+              MycologyActions.loadMushroomSucces(mushroom),
+              ...(mushroom.iconographyID ? [MycologyActions.loadIconographyRequest({id: mushroom.iconographyID})]:[])
+
+            ]
+              )
+            )
       ),
+      
 
       catchError(() => of(MycologyActions.loadMushroomFailed()))
     )

@@ -49,7 +49,6 @@ export class MycologyPageComponent implements OnInit, OnDestroy {
   mushroomID!: string;
   mushroom!: Mushroom | null;
   iconographicContainer: IconographicContainer = {
-    id: '',
     formiconographyarray: [],
   };
 
@@ -72,20 +71,11 @@ export class MycologyPageComponent implements OnInit, OnDestroy {
               this.mushroomID
             ];
 
-            if (
-              mushrooms[this.mushroomID] &&
-              mushrooms[this.mushroomID].iconographyID
-            ) {
-              this.store.dispatch(
-                MycologyActions.loadIconographyRequest({
-                  id: mushrooms[this.mushroomID].iconographyID!,
-                })
-              );
-            }
             this.subs.add(
               this.iconographicContainer$.subscribe((iconographicContainer) => {
                 if (iconographicContainer !== null) {
                   this.iconographicContainer = iconographicContainer;
+                  debugger;
                 }
               })
             );
