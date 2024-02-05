@@ -105,6 +105,7 @@ export class MycologyPageComponent implements OnInit, OnDestroy {
     if (!this.mushroom?.id && !this.iconographicContainer.id) {
       this.router.navigate(['mushrooms/page', this.currentpage]);
     }
+    console.log('caso 6: ', payload)
   }
 
   onDelete() {

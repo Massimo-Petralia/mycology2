@@ -67,32 +67,33 @@ export class CreateIconographyEffects {
   createIconography$ = createEffect(() =>
     this.actions$.pipe(
       ofType(MycologyActions.createIconographyRequest),
-      exhaustMap((requestPayload) =>
+      switchMap((requestPayload) =>
         this.mycologyService
           .createIconography(requestPayload.iconographicContainer)
           .pipe(
-            mergeMap((iconographicContainer) => [
-              MycologyActions.createIconographySuccess(iconographicContainer),
-              ...(!requestPayload.mushroom.id
-                ? [
-                    MycologyActions.createMushroomRequest({
-                      ...requestPayload.mushroom,
-                      iconographyID: iconographicContainer.id,
-                    }),
-                  ]
-                : []),
-              ...(requestPayload.mushroom.id
-                ? [
-                    MycologyActions.updateMushroomRequest({
-                      ...requestPayload.mushroom,
-                      iconographyID: iconographicContainer.id,
-                    }),
-                  ]
-                : []),
-            ])
+            switchMap((iconographicContainer) => {
+              MycologyActions.createIconographySuccess(iconographicContainer);
+              if (!requestPayload.mushroom.id) {
+                return of(
+                  MycologyActions.createMushroomRequest({
+                    ...requestPayload.mushroom,
+                    iconographyID: iconographicContainer.id,
+                  })
+                );
+              } else if (requestPayload.mushroom.id) {
+                return of(
+                  MycologyActions.updateMushroomRequest({
+                    ...requestPayload.mushroom,
+                    iconographyID: iconographicContainer.id,
+                  })
+                );
+              }
+              return of();
+            }),
+
+            catchError(() => of(MycologyActions.createIconographyFailed()))
           )
-      ),
-      catchError(() => of(MycologyActions.createIconographyFailed()))
+      )
     )
   );
 }
@@ -108,20 +109,18 @@ export class LoadMushroomEffects {
     this.actions$.pipe(
       ofType(MycologyActions.loadMushroomRequest),
       switchMap(({ id }) =>
-        this.mycologyService
-          .getMushroom(id)
-          .pipe(
-            mergeMap((mushroom) => [
-              MycologyActions.loadMushroomSucces(mushroom),
-              ...(mushroom.iconographyID
-                ? [
-                    MycologyActions.loadIconographyRequest({
-                      id: mushroom.iconographyID,
-                    }),
-                  ]
-                : []),
-            ])
-          )
+        this.mycologyService.getMushroom(id).pipe(
+          mergeMap((mushroom) => [
+            MycologyActions.loadMushroomSucces(mushroom),
+            ...(mushroom.iconographyID
+              ? [
+                  MycologyActions.loadIconographyRequest({
+                    id: mushroom.iconographyID,
+                  }),
+                ]
+              : []),
+          ])
+        )
       ),
 
       catchError(() => of(MycologyActions.loadMushroomFailed()))
@@ -237,10 +236,15 @@ export class UpdateIconographyEffects {
         this.mycologyService
           .updateIconography(requestPayload.iconographicContainer)
           .pipe(
-            map((iconographicContainer) =>
-              MycologyActions.updateIconographySucces(iconographicContainer)
-            ),
-            catchError(() => of(MycologyActions.updateMushroomFailed()))
+            switchMap((iconographicContainer) => {
+              if (iconographicContainer) {
+                MycologyActions.updateIconographySucces(iconographicContainer);
+              }
+              return of(
+                MycologyActions.updateMushroomRequest(requestPayload.mushroom)
+              );
+            }),
+            catchError(() => of(MycologyActions.updateIconographyFailed()))
           )
       )
     )
@@ -256,35 +260,59 @@ export class SaveMycologyDataEffects {
   saveMycologyData$ = createEffect(() =>
     this.actions$.pipe(
       ofType(MycologyActions.saveMycologyRequest),
-      mergeMap((requestPayload) => [
-        ...(!requestPayload.mushroom.id &&
-        !requestPayload.iconographicContainer.id
-          ? [
-              MycologyActions.createIconographyRequest({
-                iconographicContainer: requestPayload.iconographicContainer,
-                mushroom: requestPayload.mushroom,
-              }),
-            ]
-          : [
-              MycologyActions.updateIconographyRequest({
-                iconographicContainer: requestPayload.iconographicContainer,
-              }),
-              MycologyActions.updateMushroomRequest(requestPayload.mushroom),
-            ]),
-        ...(!requestPayload.mushroom.id &&
-        requestPayload.iconographicContainer.formiconographyarray.length === 0
-          ? [MycologyActions.createMushroomRequest(requestPayload.mushroom)]
-          : []),
-        ...(requestPayload.mushroom.iconographyID === null &&
-        requestPayload.iconographicContainer.formiconographyarray.length !== 0
-          ? [
-              MycologyActions.createIconographyRequest({
-                iconographicContainer: requestPayload.iconographicContainer,
-                mushroom: requestPayload.mushroom,
-              }),
-            ]
-          : []),
-      ]),
+      switchMap((requestPayload) => {
+        if (
+          !requestPayload.mushroom.id &&
+          !requestPayload.iconographicContainer.id &&
+          requestPayload.iconographicContainer.formiconographyarray.length === 0
+        ) {
+          return of(
+            MycologyActions.createMushroomRequest(requestPayload.mushroom)
+          );
+        } else if (
+          !requestPayload.mushroom.id &&
+          !requestPayload.iconographicContainer.id &&
+          requestPayload.iconographicContainer.formiconographyarray.length !== 0
+        ) {
+          return of(
+            MycologyActions.createIconographyRequest({
+              iconographicContainer: requestPayload.iconographicContainer,
+              mushroom: requestPayload.mushroom,
+            })
+          );
+        } else if (
+          requestPayload.mushroom.id &&
+          requestPayload.mushroom.iconographyID === null &&
+          requestPayload.iconographicContainer.formiconographyarray.length === 0
+        ) {
+          return of(
+            MycologyActions.updateMushroomRequest(requestPayload.mushroom)
+          );
+        } else if (
+          requestPayload.mushroom.id &&
+          requestPayload.mushroom.iconographyID === null &&
+          requestPayload.iconographicContainer.formiconographyarray.length !== 0
+        ) {
+          return of(
+            MycologyActions.createIconographyRequest({
+              iconographicContainer: requestPayload.iconographicContainer,
+              mushroom: requestPayload.mushroom,
+            })
+          );
+        } else if (
+          requestPayload.mushroom.id &&
+          requestPayload.mushroom.iconographyID !== null &&
+          requestPayload.iconographicContainer.formiconographyarray.length !== 0
+        ) {
+          return of(
+            MycologyActions.updateIconographyRequest({
+              iconographicContainer: requestPayload.iconographicContainer,
+              mushroom: requestPayload.mushroom,
+            })
+          );
+        }
+        return of();
+      }),
 
       catchError(() => of(MycologyActions.saveMycologyFailed()))
     )
