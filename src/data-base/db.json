@@ -2,6 +2,7 @@
   "mushrooms": [
     {
       "id": "2",
+      "iconographyID": null,
       "taxonomy": {
         "species": "Amanita muscaria",
         "gender": "Amanita",
@@ -25,7 +26,8 @@
         "spores": "bianche in massa, ellissoidali, lisce,9-11, 5 × 6, 5-9 µm, non amiloidi.",
         "pileipellis": "",
         "cystidia": "da ispezionare"
-      }
+      },
+      "type": "[Form Mushroom Page] Update Mushroom Request"
     },
     {
       "id": "2469",

@@ -58,13 +58,16 @@ export class FormIconographyComponent implements OnChanges {
     const { iconographicContainer } = changes;
     if (
       iconographicContainer &&
-      this.iconographicContainer.formiconographyarray.length !== 0
+      this.iconographicContainer
     ) {
-      this.formIconography.controls.formiconographyarray.clear();
+      
       this.formIconography.controls.id.patchValue(
         this.iconographicContainer.id
       );
-      this.iconographicContainer.formiconographyarray.forEach(
+
+      this.formIconography.controls.formiconographyarray.clear();
+
+      this.iconographicContainer.formiconographyarray?.forEach(
         (iconography, index) => {
           let counter = index + 1;
           this.formIconography.controls.formiconographyarray.push(

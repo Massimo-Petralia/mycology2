@@ -11,7 +11,7 @@ import {
   selectMushroomsFeature,
   selectIconographyFeature,
 } from '../mycology-state/mycology.selectors';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, filter } from 'rxjs';
 
 @Component({
   selector: 'app-mycology-page',
@@ -39,10 +39,17 @@ export class MycologyPageComponent implements OnInit, OnDestroy {
     this.mushroomID = mushroomID;
   }
 
-  mushrooms$ = this.store.select(selectMushroomsFeature);
+  mushrooms$ = this.store
+    .select(selectMushroomsFeature)
+    .pipe(filter((mushrooms) => !!mushrooms)) as Observable<{
+    [id: string]: Mushroom;
+  }>;
 
-  iconographicContainer$: Observable<IconographicContainer | null> =
-    this.store.select(selectIconographyFeature);
+  iconographicContainer$ = this.store
+    .select(selectIconographyFeature)
+    .pipe(
+      filter((iconographicContainer) => !!iconographicContainer)
+    ) as Observable<IconographicContainer>;
 
   currentpage!: number;
   pagelength!: number;
@@ -60,26 +67,21 @@ export class MycologyPageComponent implements OnInit, OnDestroy {
   formIconographyComponent!: FormIconographyComponent;
 
   ngOnInit(): void {
+    this.subs.add(
+      this.mushrooms$.subscribe((mushrooms) => {
+        this.mushroom = mushrooms[this.mushroomID];
+      })
+    );
+
+    this.subs.add(
+      this.iconographicContainer$.subscribe((iconographicContainer) => {
+        this.iconographicContainer = iconographicContainer;
+      })
+    );
+
     if (this.mushroomID !== ':id') {
       this.store.dispatch(
         MycologyActions.loadMushroomRequest({ id: this.mushroomID })
-      );
-      this.subs.add(
-        this.mushrooms$.subscribe((mushrooms) => {
-          if (mushrooms !== null) {
-            this.mushroom = (mushrooms as { [id: string]: Mushroom })[
-              this.mushroomID
-            ];
-
-            this.subs.add(
-              this.iconographicContainer$.subscribe((iconographicContainer) => {
-                if (iconographicContainer !== null) {
-                  this.iconographicContainer = iconographicContainer;
-                }
-              })
-            );
-          }
-        })
       );
     }
   }
