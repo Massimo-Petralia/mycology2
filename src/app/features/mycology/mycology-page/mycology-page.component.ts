@@ -99,13 +99,12 @@ export class MycologyPageComponent implements OnInit, OnDestroy {
     if (!payload.iconographicContainer.id) {
       delete payload.iconographicContainer['id'];
     }
-    debugger
+    debugger;
     this.store.dispatch(MycologyActions.saveMycologyRequest(payload));
 
     if (!this.mushroom?.id && !this.iconographicContainer.id) {
       this.router.navigate(['mushrooms/page', this.currentpage]);
     }
-    // console.log('caso 6: ', payload)
   }
 
   onDelete() {
@@ -118,14 +117,9 @@ export class MycologyPageComponent implements OnInit, OnDestroy {
     if (!payload.iconographicContainer.id) {
       delete payload.iconographicContainer['id'];
     }
-    debugger;
-    this.store.dispatch(MycologyActions.deleteMushroomRequest({mushroom: payload.mushroom}))
-//  this.store.dispatch(
-//       MycologyActions.deleteMycologyRequest({
-//         iconographicContainer: payload.iconographicContainer,
-//         mushroom: payload.mushroom,
-//       })
-//     );
+    this.store.dispatch(
+      MycologyActions.deleteMushroomRequest({ mushroom: payload.mushroom })
+    );
 
     if (this.pagelength <= 1) {
       this.currentpage--;
