@@ -23,7 +23,8 @@ import {
   DeleteIconographyEffects,
   UpdateMushroomEffects,
   UpdateIconographyEffects,
- SaveMycologyDataEffects
+ SaveMycologyDataEffects,
+ //DeleteMycologyDataEffects
 } from '../app/features/mycology/mycology-state/mycology.effects';
 
 export const appConfig: ApplicationConfig = {
@@ -43,7 +44,8 @@ export const appConfig: ApplicationConfig = {
       DeleteIconographyEffects,
       UpdateMushroomEffects,
       UpdateIconographyEffects,
-     SaveMycologyDataEffects
+     SaveMycologyDataEffects,
+   //  DeleteMycologyDataEffects
     ),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     provideAnimations(),
