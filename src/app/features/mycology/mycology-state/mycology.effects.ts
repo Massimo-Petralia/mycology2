@@ -269,7 +269,7 @@ export class SaveMycologyDataEffects {
   saveMycologyData$ = createEffect(() =>
     this.actions$.pipe(
       ofType(MycologyActions.saveMycologyRequest),
-      switchMap((requestPayload) => {
+      mergeMap((requestPayload) => {
         if (
           !requestPayload.mushroom.id &&
           !requestPayload.iconographicContainer.id &&
@@ -318,6 +318,23 @@ export class SaveMycologyDataEffects {
               iconographicContainer: requestPayload.iconographicContainer,
               mushroom: requestPayload.mushroom,
             })
+          );
+        } else if (
+          requestPayload.mushroom.id &&
+          requestPayload.mushroom.iconographyID !== null &&
+          requestPayload.iconographicContainer.formiconographyarray.length === 0
+        ) {
+          return (
+            of(
+              MycologyActions.updateMushroomRequest({
+                ...requestPayload.mushroom,
+                iconographyID: null,
+              }),
+              MycologyActions.deleteIconographyRequest({
+                iconographicContainerID: requestPayload.iconographicContainer.id!,
+              })
+            )
+          
           );
         }
         return of();
