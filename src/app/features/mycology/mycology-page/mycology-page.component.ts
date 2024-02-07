@@ -1,13 +1,4 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  ViewChild,
-  AfterViewInit,
-  OnDestroy,
-  OnChanges,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, OnInit, Input, ViewChild, OnDestroy } from '@angular/core';
 import { FormMushroomComponent } from '../form-mushroom/form-mushroom.component';
 import { IconographicContainer, Mushroom } from '../models/mycology.models';
 import { FormIconographyComponent } from '../form-iconography/form-iconography.component';
@@ -17,11 +8,10 @@ import * as MycologyActions from '../mycology-state/mycology.actions';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
-  selectMushroomFeature,
+  selectMushroomsFeature,
   selectIconographyFeature,
 } from '../mycology-state/mycology.selectors';
-import { Observable, Subscription } from 'rxjs';
-import { MycologyService } from '../services/mycology.service';
+import { Observable, Subscription, filter } from 'rxjs';
 
 @Component({
   selector: 'app-mycology-page',
@@ -34,33 +24,37 @@ import { MycologyService } from '../services/mycology.service';
   templateUrl: './mycology-page.component.html',
   styleUrl: './mycology-page.component.scss',
 })
-export class MycologyPageComponent implements OnInit, OnChanges, OnDestroy {
-  constructor(
-    private store: Store<MycologyState>,
-    private router: Router,
-    private mycologyService: MycologyService
-  ) {}
+export class MycologyPageComponent implements OnInit, OnDestroy {
+  constructor(private store: Store<MycologyState>, private router: Router) {}
 
   @Input() set page(pagenumber: number) {
     this.currentpage = pagenumber;
   }
 
-@Input() set length(pagelength: number) {
-  this.pagelength = pagelength
-}
+  @Input() set length(pagelength: number) {
+    this.pagelength = pagelength;
+  }
 
   @Input() set id(mushroomID: string) {
     this.mushroomID = mushroomID;
   }
 
-  mushroom$ = this.store.select(selectMushroomFeature);
-  iconographicContainer$: Observable<IconographicContainer | undefined> =
-    this.store.select(selectIconographyFeature);
+  mushrooms$ = this.store
+    .select(selectMushroomsFeature)
+    .pipe(filter((mushrooms) => !!mushrooms)) as Observable<{
+    [id: string]: Mushroom;
+  }>;
+
+  iconographicContainer$ = this.store
+    .select(selectIconographyFeature)
+    .pipe(
+      filter((iconographicContainer) => !!iconographicContainer)
+    ) as Observable<IconographicContainer>;
 
   currentpage!: number;
   pagelength!: number;
   mushroomID!: string;
-  mushroom!: Mushroom | undefined;
+  mushroom!: Mushroom | null;
   iconographicContainer: IconographicContainer = {
     formiconographyarray: [],
   };
@@ -72,87 +66,70 @@ export class MycologyPageComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild(FormIconographyComponent)
   formIconographyComponent!: FormIconographyComponent;
 
-  ngOnChanges(changes: SimpleChanges): void {}
-
   ngOnInit(): void {
+    this.subs.add(
+      this.mushrooms$.subscribe((mushrooms) => {
+        this.mushroom = mushrooms[this.mushroomID];
+      })
+    );
+
+    this.subs.add(
+      this.iconographicContainer$.subscribe((iconographicContainer) => {
+        this.iconographicContainer = iconographicContainer;
+      })
+    );
+
     if (this.mushroomID !== ':id') {
       this.store.dispatch(
         MycologyActions.loadMushroomRequest({ id: this.mushroomID })
       );
-      this.subs.add(
-        this.mushroom$.subscribe((mushroom) => {
-          this.mushroom = mushroom;
-        })
-      );
     }
-    this.subs.add(
-      this.iconographicContainer$.subscribe((iconographicContainer) => {
-        if (iconographicContainer) {
-          this.iconographicContainer = iconographicContainer;
-        } else return;
-      })
-    );
   }
 
-  onCreate() {
-    if (
-      this.formIconographyComponent.formIconography.controls
-        .formiconographyarray.length !== 0
-    ) {
-      const mushroom: Mushroom = {
-        ...(this.formMushroomComponent.formMushroom.value as Mushroom),
-        haveIconography: true,
-      };
-
-      const createMushroomPayload = {
-        mushroom: mushroom,
-        iconographicContainer: this.formIconographyComponent.formIconography
-          .value as IconographicContainer,
-      };
-      this.store.dispatch(
-        MycologyActions.createMushroomRequest(createMushroomPayload)
-      );
-    } else {
-      const mushroom: Mushroom = {
-        ...(this.formMushroomComponent.formMushroom.value as Mushroom),
-        haveIconography: false,
-      };
-      const createMushroomPayload = {
-        mushroom: mushroom,
-        iconographicContainer: this.formIconographyComponent.formIconography
-          .value as IconographicContainer,
-      };
-      this.store.dispatch(
-        MycologyActions.createMushroomRequest(createMushroomPayload)
-      );
+  onSave() {
+    const payload = {
+      mushroom: <Mushroom>this.formMushroomComponent.formMushroom.value,
+      iconographicContainer: <IconographicContainer>(
+        this.formIconographyComponent.formIconography.value
+      ),
+    };
+    if (!payload.mushroom.id) {
+      delete payload.mushroom['id'];
     }
+    if (!payload.iconographicContainer.id) {
+      delete payload.iconographicContainer['id'];
+    }
+    debugger;
+    this.store.dispatch(MycologyActions.saveMycologyRequest(payload));
 
-    this.router.navigate(['mushrooms/page', this.currentpage]);
+    if (!this.mushroom?.id && !this.iconographicContainer.id) {
+      this.router.navigate(['mushrooms/page', this.currentpage]);
+    }
   }
 
   onDelete() {
+    const payload = {
+      mushroom: <Mushroom>this.formMushroomComponent.formMushroom.value,
+      iconographicContainer: <IconographicContainer>(
+        this.formIconographyComponent.formIconography.value
+      ),
+    };
+    if (!payload.iconographicContainer.id) {
+      delete payload.iconographicContainer['id'];
+    }
     this.store.dispatch(
-      MycologyActions.deleteMushroomRequest({
-        id: this.mushroomID,
-        haveIconography: this.mushroom?.haveIconography,
-        iconographicContainerID: this.iconographicContainer.id!,
-      })
+      MycologyActions.deleteMushroomRequest({ mushroom: payload.mushroom })
     );
-    if(this.pagelength <= 1){
-      debugger
-      this.currentpage--
-      this.router.navigate([`mushrooms/page/${ this.currentpage }`]);
-      debugger
 
-    }else {
-      debugger
+    if (this.pagelength <= 1) {
+      this.currentpage--;
+      this.router.navigate([`mushrooms/page/${this.currentpage}`]);
+    } else {
       this.router.navigate([`mushrooms/page/${this.currentpage}`]);
     }
-    console.log('current page number: ', this.currentpage)
   }
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();
   }
 }
-//${this.currentpage}

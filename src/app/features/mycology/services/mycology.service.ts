@@ -33,6 +33,7 @@ export class MycologyService {
   }
 
   createMushroom(mushroom: Mushroom) {
+    debugger
     return this.http.post<Mushroom>(mushroomsDataURL, mushroom).pipe(
       catchError((error) => {
         console.error('post mushroom failed', error);
@@ -89,4 +90,41 @@ export class MycologyService {
       })
     );
   }
+
+  updateMushroom(mushroom: Mushroom): Observable<Mushroom> {
+    return this.http
+      .put<Mushroom>(`${mushroomsDataURL}/${mushroom.id}`, mushroom)
+      .pipe(
+        catchError((error) => {
+          console.error('update mushroom failed');
+          throw error;
+        })
+      );
+  }
+
+  updateIconography(
+    iconographicContainer: IconographicContainer
+  ): Observable<IconographicContainer> {
+    return this.http
+      .put<IconographicContainer>(
+        `${iconographiesDataURL}/${iconographicContainer.id}`,
+        iconographicContainer
+      )
+      .pipe(
+        catchError((error) => {
+          console.error('update iconography failed');
+          throw error;
+        })
+      );
+  }
+
+updateMushroomProperties(id: string, propertiesToChange: Partial<Mushroom>) {
+  return this.http.patch(`${mushroomsDataURL}/${id}`, propertiesToChange).pipe(
+    catchError(error => {
+      console.error('update properties failed')
+      throw error
+    })
+  )
+}
+
 }

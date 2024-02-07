@@ -20,7 +20,10 @@ import {
   LoadMushroomEffects,
   LoadIconographyEffects,
   DeleteMushroomEffects,
-  DeleteIconographyEffects
+  DeleteIconographyEffects,
+  UpdateMushroomEffects,
+  UpdateIconographyEffects,
+  SaveMycologyDataEffects,
 } from '../app/features/mycology/mycology-state/mycology.effects';
 
 export const appConfig: ApplicationConfig = {
@@ -37,7 +40,10 @@ export const appConfig: ApplicationConfig = {
       LoadMushroomEffects,
       LoadIconographyEffects,
       DeleteMushroomEffects,
-      DeleteIconographyEffects
+      DeleteIconographyEffects,
+      UpdateMushroomEffects,
+      UpdateIconographyEffects,
+      SaveMycologyDataEffects
     ),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     provideAnimations(),

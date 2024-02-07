@@ -5,17 +5,22 @@ import {
   ViewChild,
   OnChanges,
   SimpleChanges,
-  OnInit,
 } from '@angular/core';
-import { ReactiveFormsModule, FormBuilder, FormArray } from '@angular/forms';
+import {
+  ReactiveFormsModule,
+  FormBuilder,
+  FormArray,
+  FormGroup,
+} from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
-import { IconographicContainer } from '../models/mycology.models';
+import { IconographicContainer, Iconography } from '../models/mycology.models';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { CustomImgComponent } from '../custom-img/custom-img.component';
+
 @Component({
   selector: 'app-form-iconography',
   standalone: true,
@@ -32,19 +37,17 @@ import { CustomImgComponent } from '../custom-img/custom-img.component';
   templateUrl: './form-iconography.component.html',
   styleUrl: './form-iconography.component.scss',
 })
-export class FormIconographyComponent implements OnInit, OnChanges {
+export class FormIconographyComponent implements OnChanges {
   @ViewChild('inputfile') inputfileElem!: ElementRef<HTMLInputElement>;
   constructor(private formBuilder: FormBuilder) {}
 
   @Input() iconographicContainer: IconographicContainer = {
-    // id: undefined,
-    //haveIconography:
     formiconographyarray: [],
   };
 
   formIconography = this.formBuilder.group({
-    //  id: undefined,
-    formiconographyarray: this.formBuilder.array([]),
+    id: this.iconographicContainer?.id,
+    formiconographyarray: this.formBuilder.array<FormGroup>([]),
   });
 
   get formiconographyarray() {
@@ -53,13 +56,21 @@ export class FormIconographyComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     const { iconographicContainer } = changes;
-    if (iconographicContainer) {
-      this.iconographicContainer.formiconographyarray.forEach(
+    if (
+      iconographicContainer &&
+      this.iconographicContainer
+    ) {
+      
+      this.formIconography.controls.id.patchValue(
+        this.iconographicContainer.id
+      );
+
+      this.formIconography.controls.formiconographyarray.clear();
+
+      this.iconographicContainer.formiconographyarray?.forEach(
         (iconography, index) => {
           let counter = index + 1;
-          (
-            this.formIconography.controls.formiconographyarray as FormArray
-          ).push(
+          this.formIconography.controls.formiconographyarray.push(
             this.formBuilder.group({
               id: counter,
               imageURL: this.formBuilder.control<string>(iconography.imageURL),
@@ -71,10 +82,6 @@ export class FormIconographyComponent implements OnInit, OnChanges {
         }
       );
     }
-  }
-
-  ngOnInit(): void {
-    this.formIconography.controls.formiconographyarray.clear();
   }
 
   handleFiles() {
@@ -102,8 +109,7 @@ export class FormIconographyComponent implements OnInit, OnChanges {
     }
   }
 
-removeControl(index: number){
-  this.formIconography.controls.formiconographyarray.removeAt(index)
-}
-
+  removeControl(index: number) {
+    this.formIconography.controls.formiconographyarray.removeAt(index);
+  }
 }
