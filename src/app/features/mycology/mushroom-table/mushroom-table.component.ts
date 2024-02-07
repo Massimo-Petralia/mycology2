@@ -21,7 +21,7 @@ export class MushroomTableComponent {
   columsToDisplay = ['species', 'gender', 'family', 'order', 'AA'];
 
   goToFormMushroom() {
-    this.router.navigate([`mycology/page/${this.page}/length/${this.mushrooms.length}/mushroom/:id`]);
+    this.router.navigate([`mycology/mushrooms/:id`]);
   }
 
   handleSortChanges(sortEvent: Sort) {
@@ -29,7 +29,8 @@ export class MushroomTableComponent {
   }
 
   onMushroom(id: number){
-    this.router.navigate([`mycology/page/${this.page}/length/${this.mushrooms.length}/mushroom/${id}`])
+    this.router.navigate([`mycology/mushrooms/${id}`])
+    debugger
   }
 
 

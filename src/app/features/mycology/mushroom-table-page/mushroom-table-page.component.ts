@@ -32,18 +32,18 @@ import { Router } from '@angular/router';
   styleUrl: './mushroom-table-page.component.scss',
 })
 export class MushroomTablePageComponent
-  implements OnInit, AfterViewInit, OnDestroy
+  implements OnInit,  OnDestroy
 {
   constructor(private store: Store<MycologyState>, private router: Router) {}
   @ViewChild('paginator') paginator!: MatPaginator;
 
   currentpage: number = 1;
 
-  @Input() set page(pagenumber: number) {
-    if (pagenumber !== 1) {
-      this.currentpage = pagenumber;
-    }
-  }
+  // @Input() set page(pagenumber: number) {
+  //   if (pagenumber !== 1) {
+  //     this.currentpage = pagenumber;
+  //   }
+  // }
 
   mushrooms$ = this.store.select(selectMushroomsFeature);
   mushrooms: Mushroom[] = [];
@@ -60,6 +60,7 @@ export class MushroomTablePageComponent
     this.store.dispatch(
       MycologyActions.loadMushroomsRequest({ pageIndex: this.currentpage })
     );
+    debugger
     this.subs.add(
       this.mushrooms$.subscribe((mushrooms) => {
         if (mushrooms !== null) {
@@ -77,18 +78,18 @@ export class MushroomTablePageComponent
     );
   }
 
-  ngAfterViewInit(): void {
-    if (this.currentpage !== 1) {
-      this.paginator.pageIndex = this.currentpage - 1;
-    }
-  }
+  // ngAfterViewInit(): void {
+  //   if (this.currentpage !== 1) {
+  //     this.paginator.pageIndex = this.currentpage - 1;
+  //   }
+  // }
 
   handlePagination(pageEvent: PageEvent) {
     this.currentpage = pageEvent.pageIndex + 1;
     this.store.dispatch(
       MycologyActions.loadMushroomsRequest({ pageIndex: this.currentpage })
     );
-    this.router.navigate(['mushrooms/page', this.currentpage]);
+    //this.router.navigate(['mycology/mushrooms', this.currentpage]);
   }
 
   ngOnDestroy(): void {

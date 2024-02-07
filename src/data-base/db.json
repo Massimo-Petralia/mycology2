@@ -146,10 +146,184 @@
       "type": "[Form Mushroom Page] Update Mushroom Request"
     },
     {
-      "id": "aeb3",
+      "id": "356a",
       "iconographyID": null,
       "taxonomy": {
-        "species": "un nuovo fungo",
+        "species": "6",
+        "gender": "",
+        "family": "",
+        "order": "",
+        "synonymous": "",
+        "AA": ""
+      },
+      "morphology": {
+        "cap": "",
+        "gills": "",
+        "stalk": "",
+        "flesh": ""
+      },
+      "features": {
+        "habitat": "",
+        "edibility": "",
+        "note": ""
+      },
+      "microscopicFeatures": {
+        "spores": "",
+        "pileipellis": "",
+        "cystidia": ""
+      },
+      "type": "[Form Mushroom Page] Create Mushroom Request"
+    },
+    {
+      "id": "ebb2",
+      "iconographyID": null,
+      "taxonomy": {
+        "species": "7",
+        "gender": "",
+        "family": "",
+        "order": "",
+        "synonymous": "",
+        "AA": ""
+      },
+      "morphology": {
+        "cap": "",
+        "gills": "",
+        "stalk": "",
+        "flesh": ""
+      },
+      "features": {
+        "habitat": "",
+        "edibility": "",
+        "note": ""
+      },
+      "microscopicFeatures": {
+        "spores": "",
+        "pileipellis": "",
+        "cystidia": ""
+      },
+      "type": "[Form Mushroom Page] Create Mushroom Request"
+    },
+    {
+      "id": "2ac8",
+      "iconographyID": null,
+      "taxonomy": {
+        "species": "8",
+        "gender": "",
+        "family": "",
+        "order": "",
+        "synonymous": "",
+        "AA": ""
+      },
+      "morphology": {
+        "cap": "",
+        "gills": "",
+        "stalk": "",
+        "flesh": ""
+      },
+      "features": {
+        "habitat": "",
+        "edibility": "",
+        "note": ""
+      },
+      "microscopicFeatures": {
+        "spores": "",
+        "pileipellis": "",
+        "cystidia": ""
+      },
+      "type": "[Form Mushroom Page] Create Mushroom Request"
+    },
+    {
+      "id": "2327",
+      "iconographyID": null,
+      "taxonomy": {
+        "species": "9",
+        "gender": "",
+        "family": "",
+        "order": "",
+        "synonymous": "",
+        "AA": ""
+      },
+      "morphology": {
+        "cap": "",
+        "gills": "",
+        "stalk": "",
+        "flesh": ""
+      },
+      "features": {
+        "habitat": "",
+        "edibility": "",
+        "note": ""
+      },
+      "microscopicFeatures": {
+        "spores": "",
+        "pileipellis": "",
+        "cystidia": ""
+      },
+      "type": "[Form Mushroom Page] Create Mushroom Request"
+    },
+    {
+      "id": "0ca8",
+      "iconographyID": null,
+      "taxonomy": {
+        "species": "10",
+        "gender": "",
+        "family": "",
+        "order": "",
+        "synonymous": "",
+        "AA": ""
+      },
+      "morphology": {
+        "cap": "",
+        "gills": "",
+        "stalk": "",
+        "flesh": ""
+      },
+      "features": {
+        "habitat": "",
+        "edibility": "",
+        "note": ""
+      },
+      "microscopicFeatures": {
+        "spores": "",
+        "pileipellis": "",
+        "cystidia": ""
+      },
+      "type": "[Form Mushroom Page] Create Mushroom Request"
+    },
+    {
+      "id": "e5f2",
+      "iconographyID": null,
+      "taxonomy": {
+        "species": "11",
+        "gender": "",
+        "family": "",
+        "order": "",
+        "synonymous": "",
+        "AA": ""
+      },
+      "morphology": {
+        "cap": "",
+        "gills": "",
+        "stalk": "",
+        "flesh": ""
+      },
+      "features": {
+        "habitat": "",
+        "edibility": "",
+        "note": ""
+      },
+      "microscopicFeatures": {
+        "spores": "",
+        "pileipellis": "",
+        "cystidia": ""
+      },
+      "type": "[Form Mushroom Page] Create Mushroom Request"
+    },
+    {
+      "id": "d6e6",
+      "iconographyID": null,
+      "taxonomy": {
+        "species": "12",
         "gender": "",
         "family": "",
         "order": "",

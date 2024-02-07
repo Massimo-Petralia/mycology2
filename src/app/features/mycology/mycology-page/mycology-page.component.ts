@@ -27,16 +27,17 @@ import { Observable, Subscription, filter } from 'rxjs';
 export class MycologyPageComponent implements OnInit, OnDestroy {
   constructor(private store: Store<MycologyState>, private router: Router) {}
 
-  @Input() set page(pagenumber: number) {
-    this.currentpage = pagenumber;
-  }
+  // @Input() set page(pagenumber: number) {
+  //   this.currentpage = pagenumber;
+  // }
 
-  @Input() set length(pagelength: number) {
-    this.pagelength = pagelength;
-  }
+  // @Input() set length(pagelength: number) {
+  //   this.pagelength = pagelength;
+  // }
 
   @Input() set id(mushroomID: string) {
     this.mushroomID = mushroomID;
+    debugger
   }
 
   mushrooms$ = this.store
@@ -101,10 +102,12 @@ export class MycologyPageComponent implements OnInit, OnDestroy {
     }
     debugger;
     this.store.dispatch(MycologyActions.saveMycologyRequest(payload));
+    
+    this.router.navigate([`mycology/mushrooms`]);
 
-    if (!this.mushroom?.id && !this.iconographicContainer.id) {
-      this.router.navigate(['mushrooms/page', this.currentpage]);
-    }
+    // if (!this.mushroom?.id && !this.iconographicContainer.id) {
+    //   this.router.navigate(['mushrooms/page', this.currentpage]);
+    // }
   }
 
   onDelete() {
@@ -120,13 +123,13 @@ export class MycologyPageComponent implements OnInit, OnDestroy {
     this.store.dispatch(
       MycologyActions.deleteMushroomRequest({ mushroom: payload.mushroom })
     );
-
-    if (this.pagelength <= 1) {
-      this.currentpage--;
-      this.router.navigate([`mushrooms/page/${this.currentpage}`]);
-    } else {
-      this.router.navigate([`mushrooms/page/${this.currentpage}`]);
-    }
+    this.router.navigate([`mycology/mushrooms`]);
+    // if (this.pagelength <= 1) {
+    //   this.currentpage--;
+    //   this.router.navigate([`mushrooms/page/${this.currentpage}`]);
+    // } else {
+    //   this.router.navigate([`mushrooms/page/${this.currentpage}`]);
+    // }
   }
 
   ngOnDestroy(): void {
