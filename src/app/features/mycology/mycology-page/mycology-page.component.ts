@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { MycologyState } from '../models/mycology.models';
 import * as MycologyActions from '../mycology-state/mycology.actions';
 import { ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import {
   selectMushroomsFeature,
   selectIconographyFeature,
@@ -25,7 +25,11 @@ import { Observable, Subscription, filter } from 'rxjs';
   styleUrl: './mycology-page.component.scss',
 })
 export class MycologyPageComponent implements OnInit, OnDestroy {
-  constructor(private store: Store<MycologyState>, private router: Router) {}
+  constructor(
+    private store: Store<MycologyState>,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   // @Input() set page(pagenumber: number) {
   //   this.currentpage = pagenumber;
@@ -37,7 +41,6 @@ export class MycologyPageComponent implements OnInit, OnDestroy {
 
   @Input() set id(mushroomID: string) {
     this.mushroomID = mushroomID;
-    debugger
   }
 
   mushrooms$ = this.store
@@ -52,14 +55,17 @@ export class MycologyPageComponent implements OnInit, OnDestroy {
       filter((iconographicContainer) => !!iconographicContainer)
     ) as Observable<IconographicContainer>;
 
-  currentpage!: number;
-  pagelength!: number;
+  //currentpage!: number;
+  //pagelength!: number;
   mushroomID!: string;
   mushroom!: Mushroom | null;
   iconographicContainer: IconographicContainer = {
     formiconographyarray: [],
   };
-
+  parameters = {
+    page: <string | null>'',
+    length: <string | null>'',
+  };
   subs = new Subscription();
 
   @ViewChild(FormMushroomComponent)
@@ -85,6 +91,13 @@ export class MycologyPageComponent implements OnInit, OnDestroy {
         MycologyActions.loadMushroomRequest({ id: this.mushroomID })
       );
     }
+
+    const params = this.route.snapshot.queryParamMap;
+    this.parameters = {
+      page: params.get('page'),
+      length: params.get('length'),
+    };
+    console.log('parameters: ', this.parameters)
   }
 
   onSave() {
@@ -102,7 +115,7 @@ export class MycologyPageComponent implements OnInit, OnDestroy {
     }
     debugger;
     this.store.dispatch(MycologyActions.saveMycologyRequest(payload));
-    
+
     this.router.navigate([`mycology/mushrooms`]);
 
     // if (!this.mushroom?.id && !this.iconographicContainer.id) {
