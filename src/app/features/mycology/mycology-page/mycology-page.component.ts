@@ -25,19 +25,14 @@ import { Observable, Subscription, filter } from 'rxjs';
   styleUrl: './mycology-page.component.scss',
 })
 export class MycologyPageComponent implements OnInit, OnDestroy {
-  constructor(
-    private store: Store<MycologyState>,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {}
+  constructor(private store: Store<MycologyState>, private router: Router) {
+    this.parameters = this.router.getCurrentNavigation()?.extras.state;
+  }
 
-  // @Input() set page(pagenumber: number) {
-  //   this.currentpage = pagenumber;
-  // }
-
-  // @Input() set length(pagelength: number) {
-  //   this.pagelength = pagelength;
-  // }
+  parameters: { [k: string]: any } | undefined = {
+    page: <string>'',
+    length: <string>'',
+  };
 
   @Input() set id(mushroomID: string) {
     this.mushroomID = mushroomID;
@@ -55,17 +50,12 @@ export class MycologyPageComponent implements OnInit, OnDestroy {
       filter((iconographicContainer) => !!iconographicContainer)
     ) as Observable<IconographicContainer>;
 
-  //currentpage!: number;
-  //pagelength!: number;
   mushroomID!: string;
   mushroom!: Mushroom | null;
   iconographicContainer: IconographicContainer = {
     formiconographyarray: [],
   };
-  parameters = {
-    page: <string | null>'',
-    length: <string | null>'',
-  };
+
   subs = new Subscription();
 
   @ViewChild(FormMushroomComponent)
@@ -92,12 +82,7 @@ export class MycologyPageComponent implements OnInit, OnDestroy {
       );
     }
 
-    const params = this.route.snapshot.queryParamMap;
-    this.parameters = {
-      page: params.get('page'),
-      length: params.get('length'),
-    };
-    console.log('parameters: ', this.parameters)
+    console.log('parameters: ', this.parameters);
   }
 
   onSave() {
@@ -117,10 +102,6 @@ export class MycologyPageComponent implements OnInit, OnDestroy {
     this.store.dispatch(MycologyActions.saveMycologyRequest(payload));
 
     this.router.navigate([`mycology/mushrooms`]);
-
-    // if (!this.mushroom?.id && !this.iconographicContainer.id) {
-    //   this.router.navigate(['mushrooms/page', this.currentpage]);
-    // }
   }
 
   onDelete() {

@@ -29,7 +29,7 @@ export class MushroomTableComponent {
   }
 
   onMushroom(id: number){
-    this.router.navigate([`mycology/mushrooms/${id}`], {queryParams: {page : this.page, length: this.mushrooms.length}})
+    this.router.navigate([`mycology/mushrooms/${id}`], {state: {page: this.page, length: this.mushrooms.length}})
     debugger
   }
 

@@ -37,7 +37,7 @@ export class MushroomTablePageComponent
   constructor(private store: Store<MycologyState>, private router: Router) {}
   @ViewChild('paginator') paginator!: MatPaginator;
 
-  currentpage: number = 1;
+  page: number = 1;
 
   // @Input() set page(pagenumber: number) {
   //   if (pagenumber !== 1) {
@@ -58,7 +58,7 @@ export class MushroomTablePageComponent
     this.store.dispatch(MycologyActions.resetState());
 
     this.store.dispatch(
-      MycologyActions.loadMushroomsRequest({ pageIndex: this.currentpage })
+      MycologyActions.loadMushroomsRequest({ pageIndex: this.page })
     );
     debugger
     this.subs.add(
@@ -85,9 +85,9 @@ export class MushroomTablePageComponent
   // }
 
   handlePagination(pageEvent: PageEvent) {
-    this.currentpage = pageEvent.pageIndex + 1;
+    this.page = pageEvent.pageIndex + 1;
     this.store.dispatch(
-      MycologyActions.loadMushroomsRequest({ pageIndex: this.currentpage })
+      MycologyActions.loadMushroomsRequest({ pageIndex: this.page })
     );
     //this.router.navigate(['mycology/mushrooms', this.currentpage]);
   }
