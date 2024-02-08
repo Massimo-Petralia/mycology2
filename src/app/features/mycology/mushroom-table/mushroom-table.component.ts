@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { MatTableModule } from '@angular/material/table';
+import { Component, ElementRef, Input, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { MatTable, MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Mushroom } from '../models/mycology.models';
 import { CommonModule } from '@angular/common';
@@ -24,19 +24,20 @@ export class MushroomTableComponent {
 
   columsToDisplay = ['species', 'gender', 'family', 'order', 'AA'];
 
+
+
   goToFormMushroom() {
     this.paramsService.page = this.page!;
-    this.paramsService.length = this.mushrooms.length;
+   // this.paramsService.length = this.mushrooms.length;
     this.router.navigate([`mycology/mushrooms/:id`]);
   }
 
   onMushroom(id: number) {
     this.paramsService.page = this.page!;
+    this.paramsService.length = this.mushrooms.length;
+
 
     this.router.navigate([`mycology/mushrooms/${id}`]);
   }
 
-  handleSortChanges(sortEvent: Sort) {
-    // this.mushrooms = [...this.mushrooms].reverse()
-  }
 }

@@ -34,7 +34,10 @@ export class MushroomTablePageComponent
   constructor(
     private store: Store<MycologyState>,
     private paramsService: SharedParametersService
-  ) {}
+  ) {
+   // this.page = this.paramsService.page;
+
+  }
   @ViewChild('paginator') paginator!: MatPaginator;
 
   page: number | undefined;

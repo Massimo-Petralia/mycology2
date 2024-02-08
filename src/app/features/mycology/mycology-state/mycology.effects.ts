@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
-import { catchError, mergeMap, of, switchMap } from 'rxjs';
+import { catchError, mergeMap, of, switchMap, tap } from 'rxjs';
 import { MycologyService } from '../services/mycology.service';
 import * as MycologyActions from '../mycology-state/mycology.actions';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class LoadMushroomsEffects {
@@ -35,7 +36,8 @@ export class LoadMushroomsEffects {
 export class CreateMushroomEffects {
   constructor(
     private actions$: Actions,
-    private mycologyService: MycologyService
+    private mycologyService: MycologyService,
+    private router: Router
   ) {}
 
   createMushroom$ = createEffect(() =>
@@ -43,9 +45,10 @@ export class CreateMushroomEffects {
       ofType(MycologyActions.createMushroomRequest),
       switchMap((mushroom) =>
         this.mycologyService.createMushroom(mushroom).pipe(
-          switchMap((mushroom) => {
+          mergeMap((mushroom) => {
             return of(MycologyActions.createMushroomSucces(mushroom));
           }),
+          tap(() => this.router.navigate(['mycology/mushrooms'])),
           catchError(() => of(MycologyActions.createMushroomFailed()))
         )
       )
@@ -175,7 +178,7 @@ export class DeleteMushroomEffects {
               })
             );
           }),
-
+          
           catchError(() => of(MycologyActions.deleteMushroomFailed()))
         )
       )
@@ -280,7 +283,7 @@ export class SaveMycologyDataEffects {
           );
         } else if (
           !requestPayload.mushroom.id &&
-          !requestPayload.iconographicContainer.id &&
+          //!requestPayload.iconographicContainer.id &&
           requestPayload.iconographicContainer.formiconographyarray.length !== 0
         ) {
           return of(
@@ -290,7 +293,7 @@ export class SaveMycologyDataEffects {
             })
           );
         } else if (
-          requestPayload.mushroom.id &&
+          //requestPayload.mushroom.id &&
           requestPayload.mushroom.iconographyID === null &&
           requestPayload.iconographicContainer.formiconographyarray.length === 0
         ) {
@@ -298,7 +301,7 @@ export class SaveMycologyDataEffects {
             MycologyActions.updateMushroomRequest(requestPayload.mushroom)
           );
         } else if (
-          requestPayload.mushroom.id &&
+          //requestPayload.mushroom.id &&
           requestPayload.mushroom.iconographyID === null &&
           requestPayload.iconographicContainer.formiconographyarray.length !== 0
         ) {
@@ -310,7 +313,7 @@ export class SaveMycologyDataEffects {
           );
         } else if (
           requestPayload.mushroom.id &&
-          requestPayload.mushroom.iconographyID !== null &&
+          //requestPayload.mushroom.iconographyID !== null &&
           requestPayload.iconographicContainer.formiconographyarray.length !== 0
         ) {
           return of(
@@ -320,8 +323,9 @@ export class SaveMycologyDataEffects {
             })
           );
         } else if (
-          requestPayload.mushroom.id &&
-          requestPayload.mushroom.iconographyID !== null &&
+          //requestPayload.mushroom.id &&
+          //requestPayload.mushroom.iconographyID !== null &&
+          requestPayload.iconographicContainer.id &&
           requestPayload.iconographicContainer.formiconographyarray.length === 0
         ) {
           return of(

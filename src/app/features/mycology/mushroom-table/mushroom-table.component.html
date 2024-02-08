@@ -1,23 +1,23 @@
 <div class="container">
-  <table mat-table matSort [dataSource]="mushrooms" (matSortChange)="handleSortChanges($event)">
+  <table mat-table [dataSource]="mushrooms" >
     <ng-container matColumnDef="species">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header="species">Species</th>
+      <th mat-header-cell *matHeaderCellDef >Species</th>
       <td mat-cell *matCellDef="let mushroom">  <a mat-button (click)="onMushroom(mushroom.id)">{{ mushroom.taxonomy.species }}</a> </td>
     </ng-container>
     <ng-container matColumnDef="gender">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header="gender" >Gender</th>
+      <th mat-header-cell *matHeaderCellDef  >Gender</th>
       <td mat-cell *matCellDef="let mushroom">{{ mushroom.taxonomy.gender }}</td>
     </ng-container>
     <ng-container matColumnDef="family">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header="family" >Family</th>
+      <th mat-header-cell *matHeaderCellDef  >Family</th>
       <td mat-cell *matCellDef="let mushroom">{{ mushroom.taxonomy.family }}</td>
     </ng-container>
     <ng-container matColumnDef="order">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header="order" >Order</th>
+      <th mat-header-cell *matHeaderCellDef  >Order</th>
       <td mat-cell *matCellDef="let mushroom">{{ mushroom.taxonomy.order }}</td>
     </ng-container>
     <ng-container matColumnDef="AA">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header="AA" >A.A.</th>
+      <th mat-header-cell *matHeaderCellDef  >A.A.</th>
       <td mat-cell *matCellDef="let mushroom">{{ mushroom.taxonomy.AA }}</td>
     </ng-container>
 

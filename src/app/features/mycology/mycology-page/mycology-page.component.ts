@@ -101,8 +101,8 @@ export class MycologyPageComponent implements OnInit, OnDestroy {
     }
     debugger;
     this.store.dispatch(MycologyActions.saveMycologyRequest(payload));
-    this.router.navigate([`mycology/mushrooms`]);
   }
+
 
   onDelete() {
     const payload = {
@@ -118,7 +118,7 @@ export class MycologyPageComponent implements OnInit, OnDestroy {
       MycologyActions.deleteMushroomRequest({ mushroom: payload.mushroom })
     );
     if (this.paramsService.length <= 1) {
-      this.paramsService.page - 1;
+      this.paramsService.page =this.paramsService.page - 1;
     }
     this.router.navigate([`mycology/mushrooms`]);
   }
