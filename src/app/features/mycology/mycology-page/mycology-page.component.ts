@@ -12,6 +12,7 @@ import {
   selectIconographyFeature,
 } from '../mycology-state/mycology.selectors';
 import { Observable, Subscription, filter } from 'rxjs';
+import { SharedParametersService } from '../services/shared-parameters.service';
 
 @Component({
   selector: 'app-mycology-page',
@@ -25,15 +26,16 @@ import { Observable, Subscription, filter } from 'rxjs';
   styleUrl: './mycology-page.component.scss',
 })
 export class MycologyPageComponent implements OnInit, OnDestroy {
-  constructor(private store: Store<MycologyState>, private router: Router) {}
+  constructor(
+    private store: Store<MycologyState>,
+    private router: Router,
+    private paramsService: SharedParametersService
+  ) {}
 
-  @Input() set page(pagenumber: number) {
-    this.currentpage = pagenumber;
-  }
-
-  @Input() set length(pagelength: number) {
-    this.pagelength = pagelength;
-  }
+  parameters: { [k: string]: any } | undefined = {
+    page: <string>'',
+    length: <string>'',
+  };
 
   @Input() set id(mushroomID: string) {
     this.mushroomID = mushroomID;
@@ -51,8 +53,6 @@ export class MycologyPageComponent implements OnInit, OnDestroy {
       filter((iconographicContainer) => !!iconographicContainer)
     ) as Observable<IconographicContainer>;
 
-  currentpage!: number;
-  pagelength!: number;
   mushroomID!: string;
   mushroom!: Mushroom | null;
   iconographicContainer: IconographicContainer = {
@@ -101,11 +101,8 @@ export class MycologyPageComponent implements OnInit, OnDestroy {
     }
     debugger;
     this.store.dispatch(MycologyActions.saveMycologyRequest(payload));
-
-    if (!this.mushroom?.id && !this.iconographicContainer.id) {
-      this.router.navigate(['mushrooms/page', this.currentpage]);
-    }
   }
+
 
   onDelete() {
     const payload = {
@@ -120,13 +117,10 @@ export class MycologyPageComponent implements OnInit, OnDestroy {
     this.store.dispatch(
       MycologyActions.deleteMushroomRequest({ mushroom: payload.mushroom })
     );
-
-    if (this.pagelength <= 1) {
-      this.currentpage--;
-      this.router.navigate([`mushrooms/page/${this.currentpage}`]);
-    } else {
-      this.router.navigate([`mushrooms/page/${this.currentpage}`]);
+    if (this.paramsService.length <= 1) {
+      this.paramsService.page =this.paramsService.page - 1;
     }
+   // this.router.navigate([`mycology/mushrooms`]);
   }
 
   ngOnDestroy(): void {

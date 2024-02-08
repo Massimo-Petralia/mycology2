@@ -3,8 +3,8 @@ import { MushroomTablePageComponent } from './features/mycology/mushroom-table-p
 import { MycologyPageComponent } from './features/mycology/mycology-page/mycology-page.component';
 
 export const routes: Routes = [
-    {path: 'mushrooms/page/:page', component: MushroomTablePageComponent},
-    {path: 'mycology/page/:page/length/:length/mushroom/:id', component: MycologyPageComponent},
-    {path: '', redirectTo: 'mushrooms/page/1', pathMatch: 'prefix'},
+    {path: 'mycology/mushrooms', component: MushroomTablePageComponent},
+    {path: 'mycology/mushrooms/:id', component: MycologyPageComponent},
+    {path: '', redirectTo: 'mycology/mushrooms', pathMatch: 'prefix'},
     
 ];
