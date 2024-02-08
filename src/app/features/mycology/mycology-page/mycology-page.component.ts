@@ -120,7 +120,7 @@ export class MycologyPageComponent implements OnInit, OnDestroy {
     if (this.paramsService.length <= 1) {
       this.paramsService.page =this.paramsService.page - 1;
     }
-    this.router.navigate([`mycology/mushrooms`]);
+   // this.router.navigate([`mycology/mushrooms`]);
   }
 
   ngOnDestroy(): void {
