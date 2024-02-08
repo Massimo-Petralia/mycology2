@@ -1,13 +1,9 @@
 import {
   Component,
   OnInit,
-  OnDestroy,
-  Input,
   AfterViewInit,
+  OnDestroy,
   ViewChild,
-  ElementRef,
-  OnChanges,
-  SimpleChanges,
 } from '@angular/core';
 import { MushroomTableComponent } from '../mushroom-table/mushroom-table.component';
 import {
@@ -23,27 +19,27 @@ import {
   selectItemsFeature,
 } from '../mycology-state/mycology.selectors';
 import { Observable, Subscription } from 'rxjs';
-import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { SharedParametersService } from '../services/shared-parameters.service';
 @Component({
   selector: 'app-mushroom-table-page',
   standalone: true,
-  imports: [MushroomTableComponent, MatPaginatorModule],
+  imports: [CommonModule, MushroomTableComponent, MatPaginatorModule],
   templateUrl: './mushroom-table-page.component.html',
   styleUrl: './mushroom-table-page.component.scss',
 })
 export class MushroomTablePageComponent
-  implements OnInit,  OnDestroy
+  implements OnInit, AfterViewInit, OnDestroy
 {
-  constructor(private store: Store<MycologyState>, private router: Router) {}
+  constructor(
+    private store: Store<MycologyState>,
+    private paramsService: SharedParametersService
+  ) {}
   @ViewChild('paginator') paginator!: MatPaginator;
 
-  page: number = 1;
+  page: number | undefined;
 
-  // @Input() set page(pagenumber: number) {
-  //   if (pagenumber !== 1) {
-  //     this.currentpage = pagenumber;
-  //   }
-  // }
+  provvisoria: any;
 
   mushrooms$ = this.store.select(selectMushroomsFeature);
   mushrooms: Mushroom[] = [];
@@ -56,11 +52,10 @@ export class MushroomTablePageComponent
 
   ngOnInit(): void {
     this.store.dispatch(MycologyActions.resetState());
-
+    this.page = this.paramsService.page;
     this.store.dispatch(
-      MycologyActions.loadMushroomsRequest({ pageIndex: this.page })
+      MycologyActions.loadMushroomsRequest({ pageIndex: this.page! })
     );
-    debugger
     this.subs.add(
       this.mushrooms$.subscribe((mushrooms) => {
         if (mushrooms !== null) {
@@ -78,18 +73,18 @@ export class MushroomTablePageComponent
     );
   }
 
-  // ngAfterViewInit(): void {
-  //   if (this.currentpage !== 1) {
-  //     this.paginator.pageIndex = this.currentpage - 1;
-  //   }
-  // }
+  ngAfterViewInit(): void {
+    if (this.page !== 1) {
+      this.paginator.pageIndex = this.page! - 1;
+    }
+  }
 
   handlePagination(pageEvent: PageEvent) {
-    this.page = pageEvent.pageIndex + 1;
+    this.page = pageEvent.pageIndex;
+    this.page++;
     this.store.dispatch(
       MycologyActions.loadMushroomsRequest({ pageIndex: this.page })
     );
-    //this.router.navigate(['mycology/mushrooms', this.currentpage]);
   }
 
   ngOnDestroy(): void {
