@@ -34,7 +34,7 @@
       "iconographyID": null,
       "taxonomy": {
         "species": "senza",
-        "gender": "zeppelin",
+        "gender": "Zeppelin",
         "family": "",
         "order": "",
         "synonymous": "",
@@ -63,7 +63,7 @@
       "iconographyID": "d46e",
       "taxonomy": {
         "species": "toad",
-        "gender": " blu",
+        "gender": " Bluberry",
         "family": "mario bross",
         "order": "robert piere",
         "synonymous": "nintendo",
@@ -92,7 +92,7 @@
       "iconographyID": null,
       "taxonomy": {
         "species": "ennesimo senza",
-        "gender": "casuale",
+        "gender": "Casuale",
         "family": "",
         "order": "",
         "synonymous": "",
@@ -121,7 +121,7 @@
       "iconographyID": null,
       "taxonomy": {
         "species": "pleurotus",
-        "gender": "aringyy s",
+        "gender": "Aringyy s",
         "family": "scientificae",
         "order": "",
         "synonymous": "",
@@ -149,8 +149,8 @@
       "id": "356a",
       "iconographyID": "359f",
       "taxonomy": {
-        "species": "6",
-        "gender": "",
+        "species": "bollettus",
+        "gender": "D",
         "family": "",
         "order": "",
         "synonymous": "",
@@ -173,129 +173,13 @@
         "cystidia": ""
       },
       "type": "[Form Mushroom Page] Update Mushroom Request"
-    },
-    {
-      "id": "ebb2",
-      "iconographyID": null,
-      "taxonomy": {
-        "species": "7",
-        "gender": "",
-        "family": "",
-        "order": "",
-        "synonymous": "",
-        "AA": ""
-      },
-      "morphology": {
-        "cap": "",
-        "gills": "",
-        "stalk": "",
-        "flesh": ""
-      },
-      "features": {
-        "habitat": "",
-        "edibility": "",
-        "note": ""
-      },
-      "microscopicFeatures": {
-        "spores": "",
-        "pileipellis": "",
-        "cystidia": ""
-      },
-      "type": "[Form Mushroom Page] Create Mushroom Request"
-    },
-    {
-      "id": "2ac8",
-      "iconographyID": null,
-      "taxonomy": {
-        "species": "8",
-        "gender": "",
-        "family": "",
-        "order": "",
-        "synonymous": "",
-        "AA": ""
-      },
-      "morphology": {
-        "cap": "",
-        "gills": "",
-        "stalk": "",
-        "flesh": ""
-      },
-      "features": {
-        "habitat": "",
-        "edibility": "",
-        "note": ""
-      },
-      "microscopicFeatures": {
-        "spores": "",
-        "pileipellis": "",
-        "cystidia": ""
-      },
-      "type": "[Form Mushroom Page] Create Mushroom Request"
-    },
-    {
-      "id": "2327",
-      "iconographyID": null,
-      "taxonomy": {
-        "species": "9",
-        "gender": "nove",
-        "family": "",
-        "order": "",
-        "synonymous": "",
-        "AA": ""
-      },
-      "morphology": {
-        "cap": "",
-        "gills": "",
-        "stalk": "",
-        "flesh": ""
-      },
-      "features": {
-        "habitat": "",
-        "edibility": "",
-        "note": ""
-      },
-      "microscopicFeatures": {
-        "spores": "",
-        "pileipellis": "",
-        "cystidia": ""
-      },
-      "type": "[Form Mushroom Page] Update Mushroom Request"
-    },
-    {
-      "id": "0ca8",
-      "iconographyID": null,
-      "taxonomy": {
-        "species": "10",
-        "gender": "",
-        "family": "",
-        "order": "",
-        "synonymous": "",
-        "AA": ""
-      },
-      "morphology": {
-        "cap": "",
-        "gills": "",
-        "stalk": "",
-        "flesh": ""
-      },
-      "features": {
-        "habitat": "",
-        "edibility": "",
-        "note": ""
-      },
-      "microscopicFeatures": {
-        "spores": "",
-        "pileipellis": "",
-        "cystidia": ""
-      },
-      "type": "[Form Mushroom Page] Create Mushroom Request"
     },
     {
       "id": "1ec2",
       "iconographyID": "0ab2",
       "taxonomy": {
         "species": "vengo da su borghi",
-        "gender": "",
+        "gender": "E",
         "family": "",
         "order": "",
         "synonymous": "",
@@ -317,14 +201,14 @@
         "pileipellis": "",
         "cystidia": ""
       },
-      "type": "[Form Mushroom Page] Create Mushroom Request"
+      "type": "[Form Mushroom Page] Update Mushroom Request"
     },
     {
       "id": "206a",
       "iconographyID": "bf8f",
       "taxonomy": {
         "species": "piano torre",
-        "gender": "",
+        "gender": "F",
         "family": "",
         "order": "",
         "synonymous": "",
@@ -346,14 +230,14 @@
         "pileipellis": "",
         "cystidia": ""
       },
-      "type": "[Form Mushroom Page] Create Mushroom Request"
+      "type": "[Form Mushroom Page] Update Mushroom Request"
     },
     {
       "id": "b918",
       "iconographyID": null,
       "taxonomy": {
         "species": "case piarao",
-        "gender": "",
+        "gender": "G",
         "family": "",
         "order": "",
         "synonymous": "",
@@ -375,7 +259,7 @@
         "pileipellis": "",
         "cystidia": ""
       },
-      "type": "[Form Mushroom Page] Create Mushroom Request"
+      "type": "[Form Mushroom Page] Update Mushroom Request"
     }
   ],
   "iconographies": [

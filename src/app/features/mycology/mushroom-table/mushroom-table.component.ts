@@ -1,10 +1,17 @@
-import { Component, ElementRef, Input, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  ViewChild,
+  AfterViewInit,
+} from '@angular/core';
 import { MatTable, MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { Mushroom } from '../models/mycology.models';
+import { Mushroom, Taxonomy } from '../models/mycology.models';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { MatSortModule, Sort } from '@angular/material/sort';
+import { MatSortModule, Sort, MatSort } from '@angular/material/sort';
 import { SharedParametersService } from '../services/shared-parameters.service';
 
 @Component({
@@ -24,11 +31,11 @@ export class MushroomTableComponent {
 
   columsToDisplay = ['species', 'gender', 'family', 'order', 'AA'];
 
-
+  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatTable) table!: MatTable<Mushroom>;
 
   goToFormMushroom() {
     this.paramsService.page = this.page!;
-   // this.paramsService.length = this.mushrooms.length;
     this.router.navigate([`mycology/mushrooms/:id`]);
   }
 
@@ -36,8 +43,17 @@ export class MushroomTableComponent {
     this.paramsService.page = this.page!;
     this.paramsService.length = this.mushrooms.length;
 
-
     this.router.navigate([`mycology/mushrooms/${id}`]);
   }
 
+  handleSorting(sortEvent: Sort) {
+   const column: keyof Taxonomy = sortEvent.active as keyof Taxonomy
+    if(sortEvent.direction === 'desc') {
+    this.mushrooms = [...this.mushrooms.sort((a, b) => a.taxonomy[column]! < b.taxonomy[column]! ? -1 : 1 )]
+    }
+    if(sortEvent.direction === 'asc') {
+      this.mushrooms = [...this.mushrooms.sort((a, b) => a.taxonomy[`${column}`]! < b.taxonomy[`${column}`]! ? 1 : -1)]
+      }
+ 
+  }
 }
