@@ -47,7 +47,7 @@ export class MushroomTableComponent {
   }
 
   handleSorting(sortEvent: Sort) {
-   const column: keyof Taxonomy = sortEvent.active as keyof Taxonomy
+   const column = sortEvent.active as keyof Taxonomy
     if(sortEvent.direction === 'desc') {
     this.mushrooms = [...this.mushrooms.sort((a, b) => a.taxonomy[column]! < b.taxonomy[column]! ? -1 : 1 )]
     }
