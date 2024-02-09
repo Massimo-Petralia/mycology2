@@ -276,7 +276,7 @@ export class SaveMycologyDataEffects {
       mergeMap((requestPayload) => {
         if (
           !requestPayload.mushroom.id &&
-          !requestPayload.iconographicContainer.id &&
+          //!requestPayload.iconographicContainer.id &&
           requestPayload.iconographicContainer.formiconographyarray.length === 0
         ) {
           return of(
