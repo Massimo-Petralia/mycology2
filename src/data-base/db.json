@@ -260,6 +260,93 @@
         "cystidia": ""
       },
       "type": "[Form Mushroom Page] Update Mushroom Request"
+    },
+    {
+      "id": "2378",
+      "iconographyID": null,
+      "taxonomy": {
+        "species": "A fungo",
+        "gender": "",
+        "family": "",
+        "order": "",
+        "synonymous": "",
+        "AA": ""
+      },
+      "morphology": {
+        "cap": "",
+        "gills": "",
+        "stalk": "",
+        "flesh": ""
+      },
+      "features": {
+        "habitat": "",
+        "edibility": "",
+        "note": ""
+      },
+      "microscopicFeatures": {
+        "spores": "",
+        "pileipellis": "",
+        "cystidia": ""
+      },
+      "type": "[Form Mushroom Page] Create Mushroom Request"
+    },
+    {
+      "id": "7a5a",
+      "iconographyID": null,
+      "taxonomy": {
+        "species": "Biellorussa fungo",
+        "gender": "Biellorussia",
+        "family": "",
+        "order": "",
+        "synonymous": "",
+        "AA": ""
+      },
+      "morphology": {
+        "cap": "",
+        "gills": "",
+        "stalk": "",
+        "flesh": ""
+      },
+      "features": {
+        "habitat": "",
+        "edibility": "",
+        "note": ""
+      },
+      "microscopicFeatures": {
+        "spores": "",
+        "pileipellis": "",
+        "cystidia": ""
+      },
+      "type": "[Form Mushroom Page] Update Mushroom Request"
+    },
+    {
+      "id": "d62b",
+      "iconographyID": null,
+      "taxonomy": {
+        "species": "Australia fungo",
+        "gender": "Australia",
+        "family": "",
+        "order": "",
+        "synonymous": "",
+        "AA": ""
+      },
+      "morphology": {
+        "cap": "",
+        "gills": "",
+        "stalk": "",
+        "flesh": ""
+      },
+      "features": {
+        "habitat": "",
+        "edibility": "",
+        "note": ""
+      },
+      "microscopicFeatures": {
+        "spores": "",
+        "pileipellis": "",
+        "cystidia": ""
+      },
+      "type": "[Form Mushroom Page] Update Mushroom Request"
     }
   ],
   "iconographies": [
