@@ -46,7 +46,7 @@ export class CreateMushroomEffects {
       switchMap((mushroom) =>
         this.mycologyService.createMushroom(mushroom).pipe(
           mergeMap((mushroom) => {
-            this.router.navigate(['mycology/mushrooms']);
+            this.router.navigate([`mycology/mushrooms/${mushroom.id}`]);
             return of(MycologyActions.createMushroomSucces(mushroom));
           }),
           catchError(() => of(MycologyActions.createMushroomFailed()))
