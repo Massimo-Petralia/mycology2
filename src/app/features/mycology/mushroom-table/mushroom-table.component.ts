@@ -44,7 +44,6 @@ export class MushroomTableComponent implements OnChanges, AfterViewInit {
   columsToDisplay = ['species', 'gender', 'family', 'order', 'AA'];
 
   @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(MatTable) table!: MatTable<Mushroom>;
 
   ngOnChanges(changes: SimpleChanges): void {
     const dataSource = new MatTableDataSource(this.mushrooms);
