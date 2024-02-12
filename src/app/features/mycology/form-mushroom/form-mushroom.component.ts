@@ -39,7 +39,8 @@ export class FormMushroomComponent implements OnChanges {
 
   @Output() delete = new EventEmitter();
 
-  //@Output() update = new EventEmitter();
+  @Input() isCreated? : boolean
+  @Input() isUpdated? : boolean
 
   ngOnChanges(changes: SimpleChanges): void {
     const { mushroom } = changes;

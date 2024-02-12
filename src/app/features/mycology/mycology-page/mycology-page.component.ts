@@ -74,6 +74,9 @@ export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
   @ViewChild(FormIconographyComponent)
   formIconographyComponent!: FormIconographyComponent;
 
+  isCreated?: boolean;
+  isUpdated?: boolean;
+
   ngOnChanges(changes: SimpleChanges): void {
     const { id } = changes;
     if (id) {
@@ -89,6 +92,13 @@ export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
     this.subs.add(
       this.mushrooms$.subscribe((mushrooms) => {
         this.mushroom = mushrooms[this.mushroomID];
+
+        let isCreated = this.paramsService.isCreated;
+        this.isCreated = isCreated;
+        setTimeout(() => (this.isCreated = false), 2000);
+        let isUpdated = this.paramsService.isUpdated;
+        this.isUpdated = isUpdated;
+        setTimeout(() => (this.isUpdated = false), 2000);
       })
     );
 

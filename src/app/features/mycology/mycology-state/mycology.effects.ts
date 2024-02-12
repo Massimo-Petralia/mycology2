@@ -4,6 +4,7 @@ import { catchError, mergeMap, of, switchMap, tap } from 'rxjs';
 import { MycologyService } from '../services/mycology.service';
 import * as MycologyActions from '../mycology-state/mycology.actions';
 import { Router } from '@angular/router';
+import { SharedParametersService } from '../services/shared-parameters.service';
 
 @Injectable()
 export class LoadMushroomsEffects {
@@ -37,7 +38,8 @@ export class CreateMushroomEffects {
   constructor(
     private actions$: Actions,
     private mycologyService: MycologyService,
-    private router: Router
+    private router: Router,
+    private paramsService: SharedParametersService
   ) {}
 
   createMushroom$ = createEffect(() =>
@@ -46,6 +48,8 @@ export class CreateMushroomEffects {
       switchMap((mushroom) =>
         this.mycologyService.createMushroom(mushroom).pipe(
           mergeMap((mushroom) => {
+            const isCreated = true
+            this.paramsService.isCreated = isCreated
             this.router.navigate([`mycology/mushrooms/${mushroom.id}`]);
             return of(MycologyActions.createMushroomSucces(mushroom));
           }),
@@ -219,7 +223,9 @@ export class DeleteIconographyEffects {
 export class UpdateMushroomEffects {
   constructor(
     private actions$: Actions,
-    private mycologyService: MycologyService
+    private mycologyService: MycologyService,
+    private paramsService: SharedParametersService
+
   ) {}
 
   updateMushroom$ = createEffect(() =>
@@ -228,6 +234,8 @@ export class UpdateMushroomEffects {
       switchMap((mushroom) =>
         this.mycologyService.updateMushroom(mushroom).pipe(
           switchMap((mushroom) => {
+            const isUpdated = true
+            this.paramsService.isUpdated = isUpdated
             return of(MycologyActions.updateMushroomSucces(mushroom));
           }),
           catchError(() => of(MycologyActions.updateMushroomFailed()))
