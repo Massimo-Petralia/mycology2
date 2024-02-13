@@ -5,20 +5,24 @@
     <mat-panel-description>Characteristics</mat-panel-description>
   </mat-expansion-panel-header>
   <form [formGroup]="formMushroom" (ngSubmit)="onSave()">
-    <button mat-stroked-button type="submit">Save</button>
-    <div *ngIf="isCreated" style="color: green;">Created !</div> 
-    <div *ngIf="isUpdated" style="color: green;">Updated !</div> 
     <p *ngIf="!mushroom">
-      NOTE: Each new mushroom is added at the last page of the mycology table
+      NOTE: <span style="font-style: oblique;">Each new mushroom is added at the last page of the mycology table</span> 
     </p>
-    <button
-      mat-stroked-button
-      *ngIf="mushroom"
-      type="button"
-      (click)="onDelete()"
-    >
-      Delete
-    </button>
+    <div class="flex-buttons">
+      <button mat-stroked-button type="submit">Save</button>
+    <div class="notifications" *ngIf="notifications.creation.isCreated">{{notifications.creation.notification}}</div>
+    <div class="notifications" *ngIf="notifications.update.isUpdate">{{notifications.update.notification}}</div>
+      <button
+     
+        mat-stroked-button
+        *ngIf="mushroom"
+        type="button"
+        (click)="onDelete()"
+      >
+        Delete
+      </button>
+    </div>
+
     <mat-expansion-panel class="subForm-container" expanded="true">
       <mat-expansion-panel-header>
         <mat-panel-title>Taxonomy</mat-panel-title>

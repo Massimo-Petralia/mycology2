@@ -15,6 +15,7 @@ import { MatInputModule } from '@angular/material/input';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
+import { Notifications } from '../mycology-page/mycology-page.component';
 
 @Component({
   selector: 'app-form-mushroom',
@@ -35,12 +36,13 @@ export class FormMushroomComponent implements OnChanges {
 
   @Input() mushroom!: Mushroom | null;
 
+  @Input() notifications!: Notifications 
+
   @Output() save = new EventEmitter();
 
   @Output() delete = new EventEmitter();
 
-  @Input() isCreated? : boolean
-  @Input() isUpdated? : boolean
+
 
   ngOnChanges(changes: SimpleChanges): void {
     const { mushroom } = changes;

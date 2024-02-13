@@ -2,14 +2,32 @@ export interface MycologyState {
   mushrooms: {[id: string]: Mushroom}|null;
   items: number;
   iconographicContainer: IconographicContainer|null;
-  //mushroom: Mushroom |null
+  notifications: {
+    creation: {
+      isCreated: boolean;
+      notification: string
+    };
+    update: {
+      isUpdate: boolean;
+      notification: string
+    }
+  }
 }
 
 export const initialState: MycologyState = {
   mushrooms: null,
   items: 0,
   iconographicContainer: null,
-  //mushroom: null
+  notifications: {
+    creation: {
+      isCreated: false,
+      notification: 'Created'
+    },
+    update: {
+      isUpdate: false,
+      notification: 'Updated'
+    }
+  }
 };
 
 export interface Taxonomy {

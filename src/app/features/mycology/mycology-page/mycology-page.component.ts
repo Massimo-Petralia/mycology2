@@ -2,6 +2,7 @@ import {
   Component,
   OnInit,
   OnChanges,
+  AfterViewInit,
   Input,
   ViewChild,
   OnDestroy,
@@ -18,9 +19,21 @@ import { NavigationEnd, Router } from '@angular/router';
 import {
   selectMushroomsFeature,
   selectIconographyFeature,
+  selectNotificationsFeature,
 } from '../mycology-state/mycology.selectors';
-import { Observable, Subscription, filter } from 'rxjs';
+import { Observable, Subscription, filter, timeout } from 'rxjs';
 import { SharedParametersService } from '../services/shared-parameters.service';
+
+export interface Notifications {
+  creation: {
+    isCreated: boolean;
+    notification: string;
+  };
+  update: {
+    isUpdate: boolean;
+    notification: string;
+  };
+}
 
 @Component({
   selector: 'app-mycology-page',
@@ -33,7 +46,9 @@ import { SharedParametersService } from '../services/shared-parameters.service';
   templateUrl: './mycology-page.component.html',
   styleUrl: './mycology-page.component.scss',
 })
-export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
+export class MycologyPageComponent
+  implements OnChanges, OnInit, AfterViewInit, OnDestroy
+{
   constructor(
     private store: Store<MycologyState>,
     private router: Router,
@@ -61,6 +76,9 @@ export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
       filter((iconographicContainer) => !!iconographicContainer)
     ) as Observable<IconographicContainer>;
 
+  notifications$ = this.store.select(selectNotificationsFeature);
+  notifications!: Notifications;
+
   mushroomID!: string;
   mushroom!: Mushroom | null;
   iconographicContainer: IconographicContainer = {
@@ -73,9 +91,6 @@ export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
   formMushroomComponent!: FormMushroomComponent;
   @ViewChild(FormIconographyComponent)
   formIconographyComponent!: FormIconographyComponent;
-
-  isCreated?: boolean;
-  isUpdated?: boolean;
 
   ngOnChanges(changes: SimpleChanges): void {
     const { id } = changes;
@@ -92,19 +107,27 @@ export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
     this.subs.add(
       this.mushrooms$.subscribe((mushrooms) => {
         this.mushroom = mushrooms[this.mushroomID];
-
-        let isCreated = this.paramsService.isCreated;
-        this.isCreated = isCreated;
-        setTimeout(() => (this.isCreated = false), 2000);
-        let isUpdated = this.paramsService.isUpdated;
-        this.isUpdated = isUpdated;
-        setTimeout(() => (this.isUpdated = false), 2000);
       })
     );
 
     this.subs.add(
       this.iconographicContainer$.subscribe((iconographicContainer) => {
         this.iconographicContainer = iconographicContainer;
+      })
+    );
+
+    this.subs.add(
+      this.notifications$.subscribe((notifications) => {
+        this.notifications = notifications;
+        if (
+          notifications.creation.isCreated !== notifications.update.isUpdate
+        ) {
+          setTimeout(
+            () =>
+              this.store.dispatch(MycologyActions.resetNotificationsState()),
+            2000
+          );
+        }
       })
     );
 
@@ -125,6 +148,8 @@ export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
     //   );
     // }
   }
+
+  ngAfterViewInit(): void {}
 
   onSave() {
     const payload = {

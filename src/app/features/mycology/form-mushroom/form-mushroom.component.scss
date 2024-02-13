@@ -16,3 +16,16 @@
     padding-top: 20px;
 }
 
+
+.flex-buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.notifications{
+   font-style: oblique;
+   color: rgb(3, 255, 3);
+}
+
+

@@ -48,8 +48,6 @@ export class CreateMushroomEffects {
       switchMap((mushroom) =>
         this.mycologyService.createMushroom(mushroom).pipe(
           mergeMap((mushroom) => {
-            const isCreated = true
-            this.paramsService.isCreated = isCreated
             this.router.navigate([`mycology/mushrooms/${mushroom.id}`]);
             return of(MycologyActions.createMushroomSucces(mushroom));
           }),
@@ -225,7 +223,6 @@ export class UpdateMushroomEffects {
     private actions$: Actions,
     private mycologyService: MycologyService,
     private paramsService: SharedParametersService
-
   ) {}
 
   updateMushroom$ = createEffect(() =>
@@ -234,8 +231,6 @@ export class UpdateMushroomEffects {
       switchMap((mushroom) =>
         this.mycologyService.updateMushroom(mushroom).pipe(
           switchMap((mushroom) => {
-            const isUpdated = true
-            this.paramsService.isUpdated = isUpdated
             return of(MycologyActions.updateMushroomSucces(mushroom));
           }),
           catchError(() => of(MycologyActions.updateMushroomFailed()))

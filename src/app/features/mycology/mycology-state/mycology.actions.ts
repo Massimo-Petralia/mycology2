@@ -138,3 +138,5 @@ export const saveMycologyFailed = createAction(
 );
 
 export const resetState = createAction('[Mycology Page] Reset State');
+
+export const resetNotificationsState = createAction('[Mycology Page] Reset Notifications State')
