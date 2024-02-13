@@ -16,6 +16,7 @@ import { TextFieldModule } from '@angular/cdk/text-field';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { Notifications } from '../mycology-page/mycology-page.component';
+import { RouterLink } from '@angular/router'; 
 
 @Component({
   selector: 'app-form-mushroom',
@@ -27,6 +28,7 @@ import { Notifications } from '../mycology-page/mycology-page.component';
     TextFieldModule,
     MatButtonModule,
     CommonModule,
+    RouterLink
   ],
   templateUrl: './form-mushroom.component.html',
   styleUrl: './form-mushroom.component.scss',

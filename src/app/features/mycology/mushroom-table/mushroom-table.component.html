@@ -1,7 +1,7 @@
 <div class="container">
   <mat-form-field>
-    <mat-label>Filter</mat-label>
-    <input matInput type="text" (keyup)="applyFilter($event)">
+    <mat-label for="filter">Filter</mat-label>
+    <input matInput id="filter" type="text" (keyup)="applyFilter($event)">
   </mat-form-field>
   <table mat-table matSort   [dataSource]="dataSource" matSortActive="gender" matSortDirection="asc" matSortDisableClear (matSortChange)="handleSorting($event)">
     <ng-container matColumnDef="species">

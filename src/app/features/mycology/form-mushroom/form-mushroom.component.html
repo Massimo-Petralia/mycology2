@@ -5,8 +5,8 @@
     <mat-panel-description>Characteristics</mat-panel-description>
   </mat-expansion-panel-header>
   <form [formGroup]="formMushroom" (ngSubmit)="onSave()">
-    <p *ngIf="!mushroom">
-      NOTE: <span style="font-style: oblique;">Each new mushroom is added at the last page of the mycology table</span> 
+    <p *ngIf="!mushroom" class="note">
+      NOTE: <span style="font-style: oblique;">Each new mushroom is added at the last page of the <a mat-button routerLink="/mycology/mushrooms">mushroom table</a></span> 
     </p>
     <div class="flex-buttons">
       <button mat-stroked-button type="submit">Save</button>
