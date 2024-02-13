@@ -2,6 +2,7 @@ import {
   Component,
   Input,
   ViewChild,
+  OnInit,
   OnChanges,
   SimpleChanges,
   AfterViewInit,
@@ -31,7 +32,9 @@ import { MatInputModule } from '@angular/material/input';
   templateUrl: './mushroom-table.component.html',
   styleUrl: './mushroom-table.component.scss',
 })
-export class MushroomTableComponent implements OnChanges, AfterViewInit {
+export class MushroomTableComponent
+  implements OnChanges, OnInit, AfterViewInit
+{
   constructor(
     private router: Router,
     private paramsService: SharedParametersService
@@ -54,6 +57,8 @@ export class MushroomTableComponent implements OnChanges, AfterViewInit {
     }
   }
 
+  ngOnInit(): void {}
+
   ngAfterViewInit(): void {
     this.handleSorting(this.sort);
   }
@@ -72,14 +77,13 @@ export class MushroomTableComponent implements OnChanges, AfterViewInit {
 
   handleSorting(sortEvent: Sort | MatSort) {
     const column = sortEvent.active as keyof Taxonomy;
-    if (sortEvent.direction === 'desc') {
+    if (sortEvent.direction === 'asc') {
       this.dataSource.data = [
         ...this.dataSource.data.sort((a, b) =>
           a.taxonomy[column]! < b.taxonomy[column]! ? -1 : 1
         ),
       ];
-    }
-    if (sortEvent.direction === 'asc') {
+    } else if (sortEvent.direction === 'desc') {
       this.dataSource.data = [
         ...this.dataSource.data.sort((a, b) =>
           a.taxonomy[`${column}`]! < b.taxonomy[`${column}`]! ? 1 : -1

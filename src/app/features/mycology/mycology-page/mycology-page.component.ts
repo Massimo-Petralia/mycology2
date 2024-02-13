@@ -101,6 +101,7 @@ export class MycologyPageComponent
         );
       }
     }
+    
   }
 
   ngOnInit(): void {
@@ -181,6 +182,8 @@ export class MycologyPageComponent
     this.store.dispatch(
       MycologyActions.deleteMushroomRequest({ mushroom: payload.mushroom })
     );
+    console.log('iconographicContainer: ', payload.iconographicContainer)
+
     if (this.paramsService.length <= 1) {
       this.paramsService.page = this.paramsService.page - 1;
     }

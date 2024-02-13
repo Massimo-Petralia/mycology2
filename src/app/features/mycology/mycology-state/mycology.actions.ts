@@ -91,7 +91,7 @@ export const deleteIconographyRequest = createAction(
 
 export const deleteIconographySucces = createAction(
   '[Iconography API] Delete Iconography Succes',
-  props<{ iconographicContainerID: string }>()
+  //props<{ iconographicContainerID: string }>()
 );
 
 export const deleteIconographyFailed = createAction(

@@ -204,10 +204,12 @@ export class DeleteIconographyEffects {
           .pipe(
             switchMap(() => {
               return of(
-                MycologyActions.deleteIconographySucces({
-                  iconographicContainerID:
-                    requestPayload.iconographicContainerID,
-                })
+                MycologyActions.deleteIconographySucces(
+                //   {
+                //   iconographicContainerID:
+                //     requestPayload.iconographicContainerID,
+                // }
+                )
               );
             }),
             catchError(() => of(MycologyActions.deleteIconographyFailed()))
