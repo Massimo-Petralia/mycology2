@@ -1,27 +1,27 @@
 <div class="container">
   <mat-form-field>
-    <mat-label>Filter</mat-label>
-    <input matInput type="text" (keyup)="applyFilter($event)">
+    <mat-label for="filter">Filter</mat-label>
+    <input matInput id="filter" type="text" (keyup)="applyFilter($event)">
   </mat-form-field>
-  <table mat-table matSort   [dataSource]="dataSource" matSortActive="gender" matSortDirection="desc" matSortDisableClear (matSortChange)="handleSorting($event)">
+  <table mat-table matSort   [dataSource]="dataSource" matSortActive="gender" matSortDirection="asc" matSortDisableClear (matSortChange)="handleSorting($event)">
     <ng-container matColumnDef="species">
       <th mat-header-cell *matHeaderCellDef>Species</th>
       <td mat-cell *matCellDef="let mushroom">  <a mat-button (click)="onMushroom(mushroom.id)">{{ mushroom.taxonomy.species }}</a> </td>
     </ng-container>
     <ng-container matColumnDef="gender">
-      <th mat-header-cell *matHeaderCellDef  mat-sort-header start="desc">Gender</th>
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header>Gender</th>
       <td mat-cell *matCellDef="let mushroom">{{ mushroom.taxonomy.gender }}</td>
     </ng-container>
     <ng-container matColumnDef="family">
-      <th mat-header-cell *matHeaderCellDef  mat-sort-header start="desc">Family</th>
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header>Family</th>
       <td mat-cell *matCellDef="let mushroom">{{ mushroom.taxonomy.family }}</td>
     </ng-container>
     <ng-container matColumnDef="order">
-      <th mat-header-cell *matHeaderCellDef  mat-sort-header start="desc">Order</th>
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header>Order</th>
       <td mat-cell *matCellDef="let mushroom">{{ mushroom.taxonomy.order }}</td>
     </ng-container>
     <ng-container matColumnDef="AA">
-      <th mat-header-cell *matHeaderCellDef  mat-sort-header start="desc">A.A.</th>
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header>A.A.</th>
       <td mat-cell *matCellDef="let mushroom">{{ mushroom.taxonomy.AA }}</td>
     </ng-container>
 

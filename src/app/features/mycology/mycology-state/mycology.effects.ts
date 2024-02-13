@@ -4,6 +4,7 @@ import { catchError, mergeMap, of, switchMap, tap } from 'rxjs';
 import { MycologyService } from '../services/mycology.service';
 import * as MycologyActions from '../mycology-state/mycology.actions';
 import { Router } from '@angular/router';
+import { SharedParametersService } from '../services/shared-parameters.service';
 
 @Injectable()
 export class LoadMushroomsEffects {
@@ -37,7 +38,8 @@ export class CreateMushroomEffects {
   constructor(
     private actions$: Actions,
     private mycologyService: MycologyService,
-    private router: Router
+    private router: Router,
+    private paramsService: SharedParametersService
   ) {}
 
   createMushroom$ = createEffect(() =>
@@ -202,10 +204,12 @@ export class DeleteIconographyEffects {
           .pipe(
             switchMap(() => {
               return of(
-                MycologyActions.deleteIconographySucces({
-                  iconographicContainerID:
-                    requestPayload.iconographicContainerID,
-                })
+                MycologyActions.deleteIconographySucces(
+                //   {
+                //   iconographicContainerID:
+                //     requestPayload.iconographicContainerID,
+                // }
+                )
               );
             }),
             catchError(() => of(MycologyActions.deleteIconographyFailed()))
@@ -219,7 +223,8 @@ export class DeleteIconographyEffects {
 export class UpdateMushroomEffects {
   constructor(
     private actions$: Actions,
-    private mycologyService: MycologyService
+    private mycologyService: MycologyService,
+    private paramsService: SharedParametersService
   ) {}
 
   updateMushroom$ = createEffect(() =>

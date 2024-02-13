@@ -51,7 +51,7 @@ export class MushroomTablePageComponent
   subs = new Subscription();
 
   ngOnInit(): void {
-    this.store.dispatch(MycologyActions.resetState());
+    // this.store.dispatch(MycologyActions.resetState());
     this.page = this.paramsService.page;
     this.store.dispatch(
       MycologyActions.loadMushroomsRequest({ pageIndex: this.page! })

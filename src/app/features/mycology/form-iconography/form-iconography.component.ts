@@ -5,6 +5,7 @@ import {
   ViewChild,
   OnChanges,
   SimpleChanges,
+  OnInit, AfterViewInit
 } from '@angular/core';
 import {
   ReactiveFormsModule,
@@ -20,6 +21,9 @@ import { TextFieldModule } from '@angular/cdk/text-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { CustomImgComponent } from '../custom-img/custom-img.component';
+import { Store } from '@ngrx/store';
+import * as MycologyActions from '../mycology-state/mycology.actions';
+
 
 @Component({
   selector: 'app-form-iconography',
@@ -37,9 +41,9 @@ import { CustomImgComponent } from '../custom-img/custom-img.component';
   templateUrl: './form-iconography.component.html',
   styleUrl: './form-iconography.component.scss',
 })
-export class FormIconographyComponent implements OnChanges {
+export class FormIconographyComponent implements OnChanges, AfterViewInit {
   @ViewChild('inputfile') inputfileElem!: ElementRef<HTMLInputElement>;
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, private store: Store) {}
 
   @Input() iconographicContainer: IconographicContainer = {
     formiconographyarray: [],
@@ -55,6 +59,7 @@ export class FormIconographyComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    this.store.dispatch(MycologyActions.resetState());
     const { iconographicContainer } = changes;
     if (
       iconographicContainer &&
@@ -84,7 +89,13 @@ export class FormIconographyComponent implements OnChanges {
     }
   }
 
+  ngAfterViewInit(): void {
+  }
+
+
+
   handleFiles() {
+  
     const files = Array.from(
       this.inputfileElem.nativeElement.files as FileList
     );
@@ -107,6 +118,8 @@ export class FormIconographyComponent implements OnChanges {
       };
       reader.readAsDataURL(file);
     }
+    this.inputfileElem.nativeElement.value = ''
+
   }
 
   removeControl(index: number) {

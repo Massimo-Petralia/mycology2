@@ -21,3 +21,8 @@ export const selectIconographyFeature = createSelector(
   selectFeature,
   getIconography
 );
+
+export const selectNotificationsFeature = createSelector(
+  selectFeature,
+  ({notifications}) => notifications
+)

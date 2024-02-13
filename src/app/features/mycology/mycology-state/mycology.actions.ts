@@ -91,7 +91,7 @@ export const deleteIconographyRequest = createAction(
 
 export const deleteIconographySucces = createAction(
   '[Iconography API] Delete Iconography Succes',
-  props<{ iconographicContainerID: string }>()
+  //props<{ iconographicContainerID: string }>()
 );
 
 export const deleteIconographyFailed = createAction(
@@ -138,3 +138,5 @@ export const saveMycologyFailed = createAction(
 );
 
 export const resetState = createAction('[Mycology Page] Reset State');
+
+export const resetNotificationsState = createAction('[Mycology Page] Reset Notifications State')

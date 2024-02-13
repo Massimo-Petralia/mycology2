@@ -7,4 +7,7 @@ export class SharedParametersService {
   constructor() {}
   page: number = 1;
   length: number = 0;
+
+
+
 }

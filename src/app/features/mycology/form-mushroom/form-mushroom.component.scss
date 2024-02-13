@@ -1,18 +1,37 @@
-.isFocused{
-    color: #c2185b;
+.isFocused {
+  color: #7b1fa2;
 }
 
-.subForm-container{
-    border: 1px solid lightgray;
-    border-radius: 15px;
-    margin: 10px;
+.subForm-container {
+  border: 1px solid lightgray;
+  border-radius: 15px;
+  margin: 10px;
 }
 
-.flex-container{
-    display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-    border-top: 1px dotted lightgray;
-    padding-top: 20px;
+.flex-container {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  border-top: 1px dotted lightgray;
+  padding-top: 20px;
 }
 
+.flex-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.notifications {
+  font-style: oblique;
+  color: rgb(3, 255, 3);
+}
+
+.note {
+  max-width: fit-content;
+border: 1px solid lightgrey;
+padding-top: 5px;
+padding-bottom: 5px;
+padding-left: 10px;
+padding-right: 10px;
+}
