@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 @Component({
@@ -15,9 +15,15 @@ import { MatCardModule } from '@angular/material/card';
     }
   ]
 })
-export class CustomImgComponent implements ControlValueAccessor {
+export class CustomImgComponent implements ControlValueAccessor, OnChanges {
 
 value: string = ''
+
+@Input() index?: number
+
+ngOnChanges(changes: SimpleChanges): void {
+
+}
 
 onChange = (value: string) => {}
 
@@ -30,5 +36,9 @@ registerOnChange(fn: any): void {
 }
 
 registerOnTouched(fn: any): void {}
+
+getCollection(event: Event){
+  console.log('collection: ', document.querySelectorAll('.image'))
+}
 
 }

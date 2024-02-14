@@ -1,12 +1,17 @@
 <div #container>
   <img
+    [id]="index"
+    class="image"
     #img
     [src]="value"
     (click)="
-      img.classList.toggle('fullsize-img');
+     getCollection($event);
       container.parentElement?.parentElement?.scrollIntoView({
         behavior: 'smooth'
       })
     "
   />
 </div>
+
+
+<!-- img.classList.toggle('fullsize-img') -->

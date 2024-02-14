@@ -5,7 +5,8 @@ import {
   ViewChild,
   OnChanges,
   SimpleChanges,
-  OnInit, AfterViewInit
+  OnInit,
+  AfterViewInit,
 } from '@angular/core';
 import {
   ReactiveFormsModule,
@@ -23,7 +24,6 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { CustomImgComponent } from '../custom-img/custom-img.component';
 import { Store } from '@ngrx/store';
 import * as MycologyActions from '../mycology-state/mycology.actions';
-
 
 @Component({
   selector: 'app-form-iconography',
@@ -61,11 +61,7 @@ export class FormIconographyComponent implements OnChanges, AfterViewInit {
   ngOnChanges(changes: SimpleChanges): void {
     this.store.dispatch(MycologyActions.resetState());
     const { iconographicContainer } = changes;
-    if (
-      iconographicContainer &&
-      this.iconographicContainer
-    ) {
-      
+    if (iconographicContainer && this.iconographicContainer) {
       this.formIconography.controls.id.patchValue(
         this.iconographicContainer.id
       );
@@ -89,13 +85,9 @@ export class FormIconographyComponent implements OnChanges, AfterViewInit {
     }
   }
 
-  ngAfterViewInit(): void {
-  }
-
-
+  ngAfterViewInit(): void {}
 
   handleFiles() {
-  
     const files = Array.from(
       this.inputfileElem.nativeElement.files as FileList
     );
@@ -116,10 +108,10 @@ export class FormIconographyComponent implements OnChanges, AfterViewInit {
           })
         );
       };
+
       reader.readAsDataURL(file);
     }
-    this.inputfileElem.nativeElement.value = ''
-
+    this.inputfileElem.nativeElement.value = '';
   }
 
   removeControl(index: number) {

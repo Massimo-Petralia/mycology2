@@ -25,7 +25,7 @@
             <mat-card-header>
               <mat-card-subtitle>Image N°{{ i + 1 }}</mat-card-subtitle>
             </mat-card-header>
-            <app-custom-img 
+            <app-custom-img [index]="i + 1"
             mat-card-image formControlName="imageURL"></app-custom-img>
             <mat-card-content>
               <mat-form-field>
