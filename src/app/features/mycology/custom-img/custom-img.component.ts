@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
+import { CounterService } from '../services/counter.service';
 @Component({
   selector: 'app-custom-img',
   standalone: true,
@@ -11,34 +12,44 @@ import { MatCardModule } from '@angular/material/card';
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting: CustomImgComponent
-    }
-  ]
+      useExisting: CustomImgComponent,
+    },
+  ],
 })
 export class CustomImgComponent implements ControlValueAccessor, OnChanges {
+  constructor(private counter: CounterService) {}
+  value: string = '';
 
-value: string = ''
+  @Input() index?: number;
 
-@Input() index?: number
+  ngOnChanges(changes: SimpleChanges): void {}
 
-ngOnChanges(changes: SimpleChanges): void {
+  onChange = (value: string) => {};
 
-}
+  writeValue(value: any): void {
+    this.value = value;
+  }
 
-onChange = (value: string) => {}
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
 
-writeValue(value: any): void {
-  this.value = value
-}
+  registerOnTouched(fn: any): void {}
 
-registerOnChange(fn: any): void {
-  this.onChange = fn
-}
+  toggleZoom(event: Event) {
+    const clickedID = (event.target as HTMLImageElement).id;
 
-registerOnTouched(fn: any): void {}
+    this.counter.idState.previousID = this.counter.idState.currentID;
+    this.counter.idState.currentID = clickedID;
+    // if (this.counter.idState.previousID === null) {
+    //   this.counter.idState.previousID;
+    // }
 
-getCollection(event: Event){
-  console.log('collection: ', document.querySelectorAll('.image'))
-}
-
+    console.log(
+      'previousID: ',
+      this.counter.idState.previousID,
+      'currentID: ',
+      this.counter.idState.currentID
+    );
+  }
 }

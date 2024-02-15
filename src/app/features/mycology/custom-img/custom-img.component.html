@@ -1,11 +1,11 @@
 <div #container>
   <img
+  
     [id]="index"
-    class="image"
     #img
     [src]="value"
     (click)="
-     getCollection($event);
+     toggleZoom($event);
       container.parentElement?.parentElement?.scrollIntoView({
         behavior: 'smooth'
       })
