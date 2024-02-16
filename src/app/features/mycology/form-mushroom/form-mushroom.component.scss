@@ -1,9 +1,10 @@
 .flex-header {
-  padding-top: 10px;
-  padding-left: 10px;
+  padding: 10px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  background-color: #7b1fa2;
+  align-items: baseline;
 }
 
 .title {
@@ -61,7 +62,6 @@ mat-button-toggle {
   color: rgb(3, 255, 3);
 }
 
-
 .group-1-taxonomy {
   display: flex;
   flex-direction: row;
@@ -78,10 +78,6 @@ mat-button-toggle {
 
 .mat-form-field-taxonomy {
   flex-basis: 30%;
-}
-
-.border-top{
-  border-top: 1px solid lightgrey;
 }
 
 @media (max-width: 775px) {
