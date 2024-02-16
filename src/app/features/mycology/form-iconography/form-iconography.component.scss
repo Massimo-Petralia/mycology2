@@ -1,3 +1,27 @@
+.main-container{
+  background-color: #424242;
+  color: white;
+  padding-top: 10px;
+  padding-left: 10px;
+  
+}
+
+.flex-header{
+  display: flex;
+  flex-direction: row;
+}
+
+.title{
+  flex-grow: 1;
+  font-style: italic;
+  margin-left: 10px;
+}
+.subtitle{
+  flex-grow: 2;
+  font-style: italic;
+  color: #c6c6c6;;
+}
+
 .card {
   max-width: fit-content;
   border: 1px solid lightgrey;

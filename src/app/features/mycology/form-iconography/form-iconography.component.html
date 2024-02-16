@@ -1,8 +1,9 @@
-<mat-expansion-panel expanded="true">
-  <mat-expansion-panel-header>
-    <mat-panel-title>Iconography</mat-panel-title>
-    <mat-panel-description>Image gallery</mat-panel-description>
-  </mat-expansion-panel-header>
+<div #parent class="main-container">
+  <div class="flex-header">
+    <h4 class="title">Iconography</h4>
+    <h4 class="subtitle">Image collection</h4>
+    <mat-button-toggle (change)="parent.parentElement?.parentElement?.classList?.toggle('flex-container')">Invert views</mat-button-toggle>
+  </div>
   <input
     #inputfile
     hidden
@@ -45,4 +46,4 @@
       </div>
     </div>
   </div>
-</mat-expansion-panel>
+</div>

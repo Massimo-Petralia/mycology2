@@ -17,6 +17,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { Notifications } from '../mycology-page/mycology-page.component';
 import { RouterLink } from '@angular/router'; 
+import {MatButtonToggleModule} from '@angular/material/button-toggle'
 
 @Component({
   selector: 'app-form-mushroom',
@@ -28,7 +29,8 @@ import { RouterLink } from '@angular/router';
     TextFieldModule,
     MatButtonModule,
     CommonModule,
-    RouterLink
+    RouterLink,
+    MatButtonToggleModule
   ],
   templateUrl: './form-mushroom.component.html',
   styleUrl: './form-mushroom.component.scss',
