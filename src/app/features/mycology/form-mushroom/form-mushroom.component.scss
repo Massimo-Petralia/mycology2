@@ -1,29 +1,39 @@
-.main-container{
-  background-color: #424242;
-  color: white;
+.flex-header {
   padding-top: 10px;
   padding-left: 10px;
-  
-}
-
-.flex-header{
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
 }
 
-.title{
+.title {
   flex-grow: 1;
   font-style: italic;
   margin-left: 10px;
 }
-.subtitle{
+.subtitle {
   flex-grow: 2;
   font-style: italic;
-  color: #c6c6c6;;
+  color: #c6c6c6;
+}
+
+mat-button-toggle {
+  margin-right: 40%;
+}
+
+.save-button {
+  margin-left: 10px;
+}
+.delete-button {
+  margin-right: 10px;
 }
 
 .isFocused {
   color: #7b1fa2;
+}
+
+.form-mushroom {
+  margin-top: 10px;
 }
 
 .subForm-container {
@@ -35,7 +45,6 @@
 .flex-container {
   display: flex;
   flex-direction: column;
-  //justify-content: space-evenly;
   flex-wrap: nowrap;
   border-top: 1px dotted lightgray;
   padding-top: 20px;
@@ -52,14 +61,6 @@
   color: rgb(3, 255, 3);
 }
 
-.note {
-  max-width: fit-content;
-  border: 1px solid lightgrey;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 10px;
-  padding-right: 10px;
-}
 
 .group-1-taxonomy {
   display: flex;
@@ -73,7 +74,14 @@
   flex-direction: row;
   justify-content: space-around;
   flex-wrap: wrap;
- 
+}
+
+.mat-form-field-taxonomy {
+  flex-basis: 30%;
+}
+
+.border-top{
+  border-top: 1px solid lightgrey;
 }
 
 @media (max-width: 775px) {
@@ -85,4 +93,3 @@
     flex-direction: column;
   }
 }
-

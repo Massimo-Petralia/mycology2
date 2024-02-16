@@ -1,19 +1,13 @@
-<div #parent class="main-container">
-  <div class="flex-header">
+
+  <div #parent class="flex-header">
     <h4 class="title">Mushroom</h4>
     <h4 class="subtitle">Characteristics</h4>
     <mat-button-toggle (change)="parent.parentElement?.parentElement?.classList?.toggle('flex-container')">Invert views</mat-button-toggle>
   </div>
-  <form [formGroup]="formMushroom" (ngSubmit)="onSave()">
-    <p *ngIf="!mushroom" class="note">
-      NOTE:
-      <span style="font-style: oblique"
-        >Each new mushroom is added at the last page of the
-        <a mat-button routerLink="/mycology/mushrooms">mushroom table</a></span
-      >
-    </p>
+  <form class="form-mushroom" [formGroup]="formMushroom" (ngSubmit)="onSave()">
+
     <div class="flex-buttons">
-      <button mat-stroked-button type="submit">Save</button>
+      <button class="save-button" mat-stroked-button type="submit">Save</button>
       <div class="notifications" *ngIf="notifications.creation.isCreated">
         {{ notifications.creation.notification }}
       </div>
@@ -21,7 +15,9 @@
         {{ notifications.update.notification }}
       </div>
       <button
+      class="delete-button"
         mat-stroked-button
+        color="warn"
         *ngIf="mushroom"
         type="button"
         (click)="onDelete()"
@@ -37,7 +33,7 @@
       </mat-expansion-panel-header>
       <form formGroupName="taxonomy" class="flex-container">
         <div class="group-1-taxonomy">
-          <mat-form-field>
+          <mat-form-field class="mat-form-field-taxonomy">
             <label #specieslabel for="species" className="">Species</label>
             <input
               id="species"
@@ -49,7 +45,7 @@
             />
           </mat-form-field>
 
-          <mat-form-field>
+          <mat-form-field class="mat-form-field-taxonomy">
             <label #genderlabel for="gender" className="">Gender</label>
             <input
               id="gender"
@@ -60,7 +56,7 @@
               (blur)="genderlabel.className = ''"
             />
           </mat-form-field>
-          <mat-form-field>
+          <mat-form-field class="mat-form-field-taxonomy">
             <label #familylabel for="family" className="">Family</label>
             <input
               id="family"
@@ -73,7 +69,7 @@
           </mat-form-field>
         </div>
         <div class="group-2-taxonomy">
-          <mat-form-field>
+          <mat-form-field class="mat-form-field-taxonomy">
             <label #orderlabel for="order" className="">Order</label>
             <input
               id="order"
@@ -84,7 +80,7 @@
               (blur)="orderlabel.className = ''"
             />
           </mat-form-field>
-          <mat-form-field>
+          <mat-form-field class="mat-form-field-taxonomy">
             <label #synonymouslabel for="synonymous" className=""
               >Synonymous</label
             >
@@ -97,14 +93,14 @@
               (blur)="synonymouslabel.className = ''"
             />
           </mat-form-field>
-          <mat-form-field>
+          <mat-form-field class="mat-form-field-taxonomy">
             <label #aalabel for="AA" className="">A.A.</label>
             <input
               id="AA"
               matInput
               type="text"
               formControlName="AA"
-              (focus)="aalabel.className = 'isFocused'"
+              (focus)="aalabel.className = 'isFocused'" class="mat-form-field-taxonomy"
               (blur)="aalabel.className = ''"
             />
           </mat-form-field>
@@ -254,4 +250,4 @@
       </form>
     </mat-expansion-panel>
   </form>
-</div>
+

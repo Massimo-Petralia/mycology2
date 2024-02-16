@@ -1,25 +1,38 @@
-.main-container{
-  background-color: #424242;
-  color: white;
+.flex-header {
   padding-top: 10px;
   padding-left: 10px;
-  
-}
-
-.flex-header{
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
 }
 
-.title{
+.title {
   flex-grow: 1;
   font-style: italic;
   margin-left: 10px;
 }
-.subtitle{
+.subtitle {
   flex-grow: 2;
   font-style: italic;
-  color: #c6c6c6;;
+  color: #c6c6c6;
+}
+
+mat-button-toggle {
+  margin-right: 40%;
+}
+
+.shose-file-button{
+  margin-left: 10px;
+}
+
+
+
+.form-iconography {
+  margin-top: 10px;
+}
+
+.collection-empty{
+  margin: 10px 0px 0px 20px;
 }
 
 .card {
@@ -39,3 +52,8 @@ mat-form-field {
   flex-wrap: wrap;
   justify-content: flex-start;
 }
+
+.border-top{
+  border-top: 1px solid lightgrey;
+}
+
