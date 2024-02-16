@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
+import { IdManagementService } from '../services/id-management.service';
 @Component({
   selector: 'app-custom-img',
   standalone: true,
@@ -11,24 +12,61 @@ import { MatCardModule } from '@angular/material/card';
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting: CustomImgComponent
-    }
-  ]
+      useExisting: CustomImgComponent,
+    },
+  ],
 })
-export class CustomImgComponent implements ControlValueAccessor {
+export class CustomImgComponent implements ControlValueAccessor, OnChanges {
+  constructor(private idManagement: IdManagementService) {}
+  value: string = '';
 
-value: string = ''
+  @Input() index?: number;
 
-onChange = (value: string) => {}
+  ngOnChanges(changes: SimpleChanges): void {}
 
-writeValue(value: any): void {
-  this.value = value
-}
+  onChange = (value: string) => {};
 
-registerOnChange(fn: any): void {
-  this.onChange = fn
-}
+  writeValue(value: any): void {
+    this.value = value;
+  }
 
-registerOnTouched(fn: any): void {}
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
 
+  registerOnTouched(fn: any): void {}
+
+  toggleZoom(event: Event) {
+    const clickedID = (event.target as HTMLImageElement).id;
+
+    this.idManagement.idState.previousID = this.idManagement.idState.currentID;
+
+    this.idManagement.idState.currentID = clickedID;
+
+    if (
+      this.idManagement.idState.previousID !== null &&
+      document
+        .getElementById(this.idManagement.idState.currentID)
+        ?.classList.contains('fullsize-img') !==
+        document
+          .getElementById(this.idManagement.idState.previousID)
+          ?.classList.contains('fullsize-img')
+    ) {
+      document
+        .getElementById(this.idManagement.idState.previousID)
+        ?.classList.toggle('fullsize-img');
+      if (
+        this.idManagement.idState.currentID ===
+        this.idManagement.idState.previousID
+      ) {
+        console.log('the prev e current id is equal');
+        document
+          .getElementById(this.idManagement.idState.currentID)
+          ?.classList.toggle('fullsize-img');
+      }
+    }
+    document
+      .getElementById(this.idManagement.idState.currentID)
+      ?.classList.toggle('fullsize-img');
+  }
 }
