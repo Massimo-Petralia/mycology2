@@ -1,20 +1,23 @@
-<mat-expansion-panel ngSkipHydration expanded="true">
-  <mat-expansion-panel-header>
-    <mat-panel-title>Mushroom</mat-panel-title>
 
-    <mat-panel-description>Characteristics</mat-panel-description>
-  </mat-expansion-panel-header>
-  <form [formGroup]="formMushroom" (ngSubmit)="onSave()">
-    <p *ngIf="!mushroom" class="note">
-      NOTE: <span style="font-style: oblique;">Each new mushroom is added at the last page of the <a mat-button routerLink="/mycology/mushrooms">mushroom table</a></span> 
-    </p>
+  <div #parent class="flex-header">
+    <h4 class="title">Mushroom {{mushroom?.taxonomy?.species}}</h4>
+    <h4 class="subtitle">Description</h4>
+    <mat-button-toggle (change)="parent.parentElement?.parentElement?.classList?.toggle('flex-container')">Invert views</mat-button-toggle>
+  </div>
+  <form class="form-mushroom" [formGroup]="formMushroom" (ngSubmit)="onSave()">
+
     <div class="flex-buttons">
-      <button mat-stroked-button type="submit">Save</button>
-    <div class="notifications" *ngIf="notifications.creation.isCreated">{{notifications.creation.notification}}</div>
-    <div class="notifications" *ngIf="notifications.update.isUpdate">{{notifications.update.notification}}</div>
+      <button class="save-button" mat-stroked-button type="submit">Save</button>
+      <div class="notifications" *ngIf="notifications.creation.isCreated">
+        {{ notifications.creation.notification }}
+      </div>
+      <div class="notifications" *ngIf="notifications.update.isUpdate">
+        {{ notifications.update.notification }}
+      </div>
       <button
-     
+      class="delete-button"
         mat-stroked-button
+        color="warn"
         *ngIf="mushroom"
         type="button"
         (click)="onDelete()"
@@ -29,75 +32,79 @@
         <mat-panel-description>Systematic nomenclature</mat-panel-description>
       </mat-expansion-panel-header>
       <form formGroupName="taxonomy" class="flex-container">
-        <mat-form-field>
-          <label #specieslabel for="species" className="">Species</label>
-          <input
-            id="species"
-            matInput
-            type="text"
-            formControlName="species"
-            (focus)="specieslabel.className = 'isFocused'"
-            (blur)="specieslabel.className = ''"
-          />
-        </mat-form-field>
+        <div class="group-1-taxonomy">
+          <mat-form-field class="mat-form-field-taxonomy">
+            <label #specieslabel for="species" className="">Species</label>
+            <input
+              id="species"
+              matInput
+              type="text"
+              formControlName="species"
+              (focus)="specieslabel.className = 'isFocused'"
+              (blur)="specieslabel.className = ''"
+            />
+          </mat-form-field>
 
-        <mat-form-field>
-          <label #genderlabel for="gender" className="">Gender</label>
-          <input
-            id="gender"
-            matInput
-            type="text"
-            formControlName="gender"
-            (focus)="genderlabel.className = 'isFocused'"
-            (blur)="genderlabel.className = ''"
-          />
-        </mat-form-field>
-        <mat-form-field>
-          <label #familylabel for="family" className="">Family</label>
-          <input
-            id="family"
-            matInput
-            type="text"
-            formControlName="family"
-            (focus)="familylabel.className = 'isFocused'"
-            (blur)="familylabel.className = ''"
-          />
-        </mat-form-field>
-        <mat-form-field>
-          <label #orderlabel for="order" className="">Order</label>
-          <input
-            id="order"
-            matInput
-            type="text"
-            formControlName="order"
-            (focus)="orderlabel.className = 'isFocused'"
-            (blur)="orderlabel.className = ''"
-          />
-        </mat-form-field>
-        <mat-form-field>
-          <label #synonymouslabel for="synonymous" className=""
-            >Synonymous</label
-          >
-          <input
-            id="synonymous"
-            matInput
-            type="text"
-            formControlName="synonymous"
-            (focus)="synonymouslabel.className = 'isFocused'"
-            (blur)="synonymouslabel.className = ''"
-          />
-        </mat-form-field>
-        <mat-form-field>
-          <label #aalabel for="AA" className="">A.A.</label>
-          <input
-            id="AA"
-            matInput
-            type="text"
-            formControlName="AA"
-            (focus)="aalabel.className = 'isFocused'"
-            (blur)="aalabel.className = ''"
-          />
-        </mat-form-field>
+          <mat-form-field class="mat-form-field-taxonomy">
+            <label #genderlabel for="gender" className="">Gender</label>
+            <input
+              id="gender"
+              matInput
+              type="text"
+              formControlName="gender"
+              (focus)="genderlabel.className = 'isFocused'"
+              (blur)="genderlabel.className = ''"
+            />
+          </mat-form-field>
+          <mat-form-field class="mat-form-field-taxonomy">
+            <label #familylabel for="family" className="">Family</label>
+            <input
+              id="family"
+              matInput
+              type="text"
+              formControlName="family"
+              (focus)="familylabel.className = 'isFocused'"
+              (blur)="familylabel.className = ''"
+            />
+          </mat-form-field>
+        </div>
+        <div class="group-2-taxonomy">
+          <mat-form-field class="mat-form-field-taxonomy">
+            <label #orderlabel for="order" className="">Order</label>
+            <input
+              id="order"
+              matInput
+              type="text"
+              formControlName="order"
+              (focus)="orderlabel.className = 'isFocused'"
+              (blur)="orderlabel.className = ''"
+            />
+          </mat-form-field>
+          <mat-form-field class="mat-form-field-taxonomy">
+            <label #synonymouslabel for="synonymous" className=""
+              >Synonymous</label
+            >
+            <input
+              id="synonymous"
+              matInput
+              type="text"
+              formControlName="synonymous"
+              (focus)="synonymouslabel.className = 'isFocused'"
+              (blur)="synonymouslabel.className = ''"
+            />
+          </mat-form-field>
+          <mat-form-field class="mat-form-field-taxonomy">
+            <label #aalabel for="AA" className="">A.A.</label>
+            <input
+              id="AA"
+              matInput
+              type="text"
+              formControlName="AA"
+              (focus)="aalabel.className = 'isFocused'" class="mat-form-field-taxonomy"
+              (blur)="aalabel.className = ''"
+            />
+          </mat-form-field>
+        </div>
       </form>
     </mat-expansion-panel>
     <mat-expansion-panel class="subForm-container">
@@ -243,4 +250,4 @@
       </form>
     </mat-expansion-panel>
   </form>
-</mat-expansion-panel>
+

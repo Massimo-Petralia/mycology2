@@ -23,6 +23,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { CustomImgComponent } from '../custom-img/custom-img.component';
 import { Store } from '@ngrx/store';
 import * as MycologyActions from '../mycology-state/mycology.actions';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @Component({
   selector: 'app-form-iconography',
@@ -36,6 +37,7 @@ import * as MycologyActions from '../mycology-state/mycology.actions';
     MatButtonModule,
     MatExpansionModule,
     CustomImgComponent,
+    MatButtonToggleModule,
   ],
   templateUrl: './form-iconography.component.html',
   styleUrl: './form-iconography.component.scss',
@@ -44,9 +46,12 @@ export class FormIconographyComponent implements OnChanges, AfterViewInit {
   @ViewChild('inputfile') inputfileElem!: ElementRef<HTMLInputElement>;
   constructor(private formBuilder: FormBuilder, private store: Store) {}
 
+  @Input()  mushroomspecies: string = ''
+
   @Input() iconographicContainer: IconographicContainer = {
     formiconographyarray: [],
   };
+  
 
   formIconography = this.formBuilder.group({
     id: this.iconographicContainer?.id,
