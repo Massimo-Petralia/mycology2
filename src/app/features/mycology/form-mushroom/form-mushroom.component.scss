@@ -10,8 +10,9 @@
 
 .flex-container {
   display: flex;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
+  flex-direction: column;
+  //justify-content: space-evenly;
+  flex-wrap: nowrap;
   border-top: 1px dotted lightgray;
   padding-top: 20px;
 }
@@ -40,3 +41,17 @@ padding-right: 10px;
 .mat-form-field-flesh{
   width: 100%;
 }
+
+.group-1-taxonomy{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  
+}
+
+.group-2-taxonomy{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
