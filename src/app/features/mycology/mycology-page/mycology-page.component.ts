@@ -60,6 +60,8 @@ export class MycologyPageComponent
     length: <string>'',
   };
 
+  mushroomspecies: string = ''
+
   @Input() set id(mushroomID: string) {
     this.mushroomID = mushroomID;
   }
@@ -188,6 +190,10 @@ export class MycologyPageComponent
       this.paramsService.page = this.paramsService.page - 1;
     }
     // this.router.navigate([`mycology/mushrooms`]);
+  }
+
+  onMushroomSpecies(mushroomspecies: string){
+    this.mushroomspecies = mushroomspecies
   }
 
   ngOnDestroy(): void {

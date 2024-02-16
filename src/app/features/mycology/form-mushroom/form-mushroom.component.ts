@@ -7,6 +7,7 @@ import {
   OnInit,
   OnChanges,
   SimpleChanges,
+  AfterViewInit
 } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { IconographicContainer, Mushroom } from '../models/mycology.models';
@@ -38,6 +39,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle'
 export class FormMushroomComponent implements OnChanges {
   constructor(private formbuilder: FormBuilder) {}
 
+
   @Input() mushroom!: Mushroom | null;
 
   @Input() notifications!: Notifications 
@@ -46,14 +48,19 @@ export class FormMushroomComponent implements OnChanges {
 
   @Output() delete = new EventEmitter();
 
+  @Output() imushroomspecies = new EventEmitter<string>()
+
 
 
   ngOnChanges(changes: SimpleChanges): void {
     const { mushroom } = changes;
     if (mushroom) {
       this.formMushroom.patchValue(this.mushroom!);
+      this.imushroomspecies.emit(this.mushroom?.taxonomy.species!)
     }
   }
+
+
 
   formMushroom = this.formbuilder.group({
     id: this.mushroom?.id,

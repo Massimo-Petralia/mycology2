@@ -1,6 +1,6 @@
 
   <div #parent class="flex-header">
-    <h4 class="title">Mushroom</h4>
+    <h4 class="title">Mushroom {{mushroom?.taxonomy?.species}}</h4>
     <h4 class="subtitle">Characteristics</h4>
     <mat-button-toggle (change)="parent.parentElement?.parentElement?.classList?.toggle('flex-container')">Invert views</mat-button-toggle>
   </div>

@@ -3,10 +3,12 @@
   [mushroom]="mushroom"
   (save)="onSave()"
   (delete)="onDelete()"
+  (imushroomspecies)="onMushroomSpecies($event)"
   [notifications]="notifications"
   ngSkipHydration
 ></app-form-mushroom>
 <app-form-iconography
+  [mushroomspecies]="mushroomspecies"
   [iconographicContainer]="iconographicContainer"
 ></app-form-iconography>
 </div>
