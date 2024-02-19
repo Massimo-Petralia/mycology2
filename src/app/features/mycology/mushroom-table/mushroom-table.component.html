@@ -1,33 +1,68 @@
 <div class="container">
+  <form [formGroup]="formSearch">
+    <mat-form-field>
+      <mat-label>Filters</mat-label>
+      <select
+        matNativeControl
+        formControlName="filter"
+      >
+        <option value="species">Species</option>
+        <option value="gender">Gender</option>
+        <option value="family">Family</option>
+        <option value="order">Order</option>
+        <option value="AA">A.A.</option>
+      </select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label for="search">Search</mat-label>
+      <input matInput type="search" formControlName="search" (keyup)="onSearch()">
+    </mat-form-field>
+    <!-- <button mat-stroked-button (click)="onSearch()">Go</button> -->
+  </form>
   <mat-form-field>
-    <mat-label for="filter">Filter</mat-label>
-    <input matInput id="filter" type="text" (keyup)="applyFilter($event)">
+    <mat-label for="filter">Table filter</mat-label>
+    <input matInput id="filter" type="text" (keyup)="applyFilter($event)" />
   </mat-form-field>
-  <table mat-table matSort   [dataSource]="dataSource" matSortActive="gender" matSortDirection="asc" matSortDisableClear (matSortChange)="handleSorting($event)">
+  <table
+    mat-table
+    matSort
+    [dataSource]="dataSource"
+    matSortActive="gender"
+    matSortDirection="asc"
+    matSortDisableClear
+    (matSortChange)="handleSorting($event)"
+  >
     <ng-container matColumnDef="species">
       <th mat-header-cell *matHeaderCellDef>Species</th>
-      <td mat-cell *matCellDef="let mushroom">  <a mat-button (click)="onMushroom(mushroom.id)">{{ mushroom.taxonomy.species }}</a> </td>
+      <td mat-cell *matCellDef="let mushroom">
+        <a mat-button (click)="onMushroom(mushroom.id)">{{
+          mushroom.taxonomy.species
+        }}</a>
+      </td>
     </ng-container>
     <ng-container matColumnDef="gender">
-      <th mat-header-cell *matHeaderCellDef  mat-sort-header>Gender</th>
-      <td mat-cell *matCellDef="let mushroom">{{ mushroom.taxonomy.gender }}</td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Gender</th>
+      <td mat-cell *matCellDef="let mushroom">
+        {{ mushroom.taxonomy.gender }}
+      </td>
     </ng-container>
     <ng-container matColumnDef="family">
-      <th mat-header-cell *matHeaderCellDef  mat-sort-header>Family</th>
-      <td mat-cell *matCellDef="let mushroom">{{ mushroom.taxonomy.family }}</td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Family</th>
+      <td mat-cell *matCellDef="let mushroom">
+        {{ mushroom.taxonomy.family }}
+      </td>
     </ng-container>
     <ng-container matColumnDef="order">
-      <th mat-header-cell *matHeaderCellDef  mat-sort-header>Order</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Order</th>
       <td mat-cell *matCellDef="let mushroom">{{ mushroom.taxonomy.order }}</td>
     </ng-container>
     <ng-container matColumnDef="AA">
-      <th mat-header-cell *matHeaderCellDef  mat-sort-header>A.A.</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>A.A.</th>
       <td mat-cell *matCellDef="let mushroom">{{ mushroom.taxonomy.AA }}</td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="columsToDisplay"></tr>
     <tr mat-row *matRowDef="let rowData; columns: columsToDisplay"></tr>
-
   </table>
   <p class="note">
     NOTE:
@@ -35,5 +70,7 @@
       >Each new mushroom is added at the last page of the table</span
     >
   </p>
-  <button mat-stroked-button type="button" (click)="goToFormMushroom()">Add</button>
+  <button mat-stroked-button type="button" (click)="goToFormMushroom()">
+    Add
+  </button>
 </div>

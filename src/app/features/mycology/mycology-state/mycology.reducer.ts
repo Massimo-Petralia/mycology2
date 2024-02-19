@@ -1,6 +1,24 @@
 import { createReducer, on } from '@ngrx/store';
-import { Mushroom, initialState } from '../models/mycology.models';
+import { Mushroom } from '../models/mycology.models';
 import * as MycologyActions from '../mycology-state/mycology.actions';
+import { MycologyState } from '../models/mycology.models';
+
+
+export const initialState: MycologyState = {
+  mushrooms: null,
+  items: 0,
+  iconographicContainer: null,
+  notifications: {
+    creation: {
+      isCreated: false,
+      notification: 'Created'
+    },
+    update: {
+      isUpdate: false,
+      notification: 'Updated'
+    }
+  }
+};
 
 export const mycologyReducer = createReducer(
   initialState,

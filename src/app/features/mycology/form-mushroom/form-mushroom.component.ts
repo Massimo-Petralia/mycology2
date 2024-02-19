@@ -16,7 +16,7 @@ import { MatInputModule } from '@angular/material/input';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
-import { Notifications } from '../mycology-page/mycology-page.component';
+import { Notifications } from '../models/mycology.models';
 import { RouterLink } from '@angular/router'; 
 import {MatButtonToggleModule} from '@angular/material/button-toggle'
 
@@ -72,7 +72,7 @@ export class FormMushroomComponent implements OnChanges {
       gender: this.formbuilder.control<string>(''),
       family: this.formbuilder.control<string>(''),
       order: this.formbuilder.control<string>(''),
-      synonymous: this.formbuilder.control<string>(''),
+      commonName: this.formbuilder.control<string>(''),
       AA: this.formbuilder.control<string>(''),
     }),
     morphology: this.formbuilder.group({

@@ -81,14 +81,14 @@
             />
           </mat-form-field>
           <mat-form-field class="mat-form-field-taxonomy">
-            <label #synonymouslabel for="synonymous" className=""
-              >Synonymous</label
+            <label #synonymouslabel for="commonName" className=""
+              >Common name</label
             >
             <input
-              id="synonymous"
+              id="commonName"
               matInput
               type="text"
-              formControlName="synonymous"
+              formControlName="commonName"
               (focus)="synonymouslabel.className = 'isFocused'"
               (blur)="synonymouslabel.className = ''"
             />

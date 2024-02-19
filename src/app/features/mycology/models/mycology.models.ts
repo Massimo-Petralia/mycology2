@@ -2,33 +2,21 @@ export interface MycologyState {
   mushrooms: {[id: string]: Mushroom}|null;
   items: number;
   iconographicContainer: IconographicContainer|null;
-  notifications: {
-    creation: {
-      isCreated: boolean;
-      notification: string
-    };
-    update: {
-      isUpdate: boolean;
-      notification: string
-    }
-  }
+  notifications: Notifications
 }
 
-export const initialState: MycologyState = {
-  mushrooms: null,
-  items: 0,
-  iconographicContainer: null,
-  notifications: {
-    creation: {
-      isCreated: false,
-      notification: 'Created'
-    },
-    update: {
-      isUpdate: false,
-      notification: 'Updated'
-    }
-  }
-};
+export interface Notifications {
+  creation: {
+    isCreated: boolean;
+    notification: string;
+  };
+  update: {
+    isUpdate: boolean;
+    notification: string;
+  };
+}
+
+
 
 export interface Taxonomy {
   species: string | null;
@@ -36,7 +24,7 @@ export interface Taxonomy {
   gender: string | null;
   family: string | null;
   order: string | null;
-  synonymous: string | null;
+  commonName: string | null;
 }
 
 export interface Morphology {

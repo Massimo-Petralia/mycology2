@@ -24,16 +24,7 @@ import {
 import { Observable, Subscription, filter, timeout } from 'rxjs';
 import { SharedParametersService } from '../services/shared-parameters.service';
 
-export interface Notifications {
-  creation: {
-    isCreated: boolean;
-    notification: string;
-  };
-  update: {
-    isUpdate: boolean;
-    notification: string;
-  };
-}
+import { Notifications } from '../models/mycology.models'; 
 
 @Component({
   selector: 'app-mycology-page',

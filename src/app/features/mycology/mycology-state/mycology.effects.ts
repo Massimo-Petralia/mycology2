@@ -16,8 +16,8 @@ export class LoadMushroomsEffects {
   loadMushrooms$ = createEffect(() =>
     this.actions$.pipe(
       ofType(MycologyActions.loadMushroomsRequest),
-      switchMap(({ pageIndex }) =>
-        this.mycologyService.getMushrooms(pageIndex).pipe(
+      switchMap((requestPayload) =>
+        this.mycologyService.getMushrooms(requestPayload.pageIndex, requestPayload.filter, requestPayload.search).pipe(
           switchMap((response) => {
             return of(
               MycologyActions.loadMushroomsSucces({

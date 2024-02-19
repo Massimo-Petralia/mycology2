@@ -21,9 +21,10 @@ export interface Response {
 export class MycologyService {
   constructor(private http: HttpClient) {}
 
-  getMushrooms(pageIndex: number): Observable<Response> {
+  getMushrooms(pageIndex: number, filter: string, search: string): Observable<Response> {
+
     return this.http
-      .get<Response>(`${mushroomsDataURL}?_page=${pageIndex}`)
+      .get<Response>( filter  === 'species' && !search ? `${mushroomsDataURL}?_page=${pageIndex}`: `${mushroomsDataURL}?taxonomy.${filter}=${search}&_page=${pageIndex}`)
       .pipe(
         catchError((error) => {
           console.error('get request failed', error);
@@ -33,7 +34,6 @@ export class MycologyService {
   }
 
   createMushroom(mushroom: Mushroom) {
-    debugger
     return this.http.post<Mushroom>(mushroomsDataURL, mushroom).pipe(
       catchError((error) => {
         console.error('post mushroom failed', error);
