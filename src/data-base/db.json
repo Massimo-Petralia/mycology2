@@ -8,7 +8,7 @@
         "gender": "Amanita",
         "family": "Amanitaceae",
         "order": "Agaricales",
-        "synonymous": "Ovolo malefico",
+        "commonName": "Ovolo malefico",
         "AA": "(L. : Fr.) Lam. 1783"
       },
       "morphology": {
@@ -33,12 +33,12 @@
       "id": "b330",
       "iconographyID": "6fe7",
       "taxonomy": {
-        "species": "Pleurotus",
-        "gender": "aringii",
-        "family": "",
-        "order": "",
-        "synonymous": "",
-        "AA": ""
+        "species": "Pleurotus ostreatus",
+        "gender": "Pleurotus",
+        "family": "Pleurotaceae",
+        "order": "Agaricales",
+        "commonName": "Orecchione , fungo di ferla",
+        "AA": "(Jacq.) P. Kumm., 1871"
       },
       "morphology": {
         "cap": "",

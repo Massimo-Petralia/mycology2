@@ -6,9 +6,10 @@ import {
   OnChanges,
   SimpleChanges,
   AfterViewInit,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import {
-  MatTable,
   MatTableDataSource,
   MatTableModule,
 } from '@angular/material/table';
@@ -19,6 +20,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSortModule, Sort, MatSort } from '@angular/material/sort';
 import { SharedParametersService } from '../services/shared-parameters.service';
 import { MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
+import { Subscription, debounceTime } from 'rxjs';
+export interface FormSearch {
+  filter: string | null;
+  search: string | null;
+}
 @Component({
   selector: 'app-mushroom-table',
   standalone: true,
@@ -28,17 +36,27 @@ import { MatInputModule } from '@angular/material/input';
     MatButtonModule,
     MatSortModule,
     MatInputModule,
+    ReactiveFormsModule,
+    MatSelectModule,
   ],
   templateUrl: './mushroom-table.component.html',
   styleUrl: './mushroom-table.component.scss',
+  host: {
+    '(window:resize)': 'updateValue($event)',
+    '(document:DOMContentLoaded)': 'updateValue($event)',
+  },
 })
 export class MushroomTableComponent
   implements OnChanges, OnInit, AfterViewInit
 {
   constructor(
     private router: Router,
-    private paramsService: SharedParametersService
+    private paramsService: SharedParametersService,
+    private fb: FormBuilder
   ) {}
+
+subs = new Subscription()
+
   @Input() page: number | undefined;
   @Input() mushrooms: Mushroom[] = [];
 
@@ -47,6 +65,14 @@ export class MushroomTableComponent
   columsToDisplay = ['species', 'gender', 'family', 'order', 'AA'];
 
   @ViewChild(MatSort) sort!: MatSort;
+
+  @Output() formValue = new EventEmitter<FormSearch>();
+
+
+  formSearch = this.fb.group({
+    filter: this.fb.control<string>('species'),
+    search: this.fb.control<string>(''),
+  });
 
   ngOnChanges(changes: SimpleChanges): void {
     const dataSource = new MatTableDataSource(this.mushrooms);
@@ -57,9 +83,19 @@ export class MushroomTableComponent
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.subs.add(
+      this.formSearch.controls.search.valueChanges.pipe(debounceTime(500)).subscribe(searchvalue => {
+        this.formValue.emit({
+          filter: this.formSearch.controls.filter.value,
+          search: searchvalue
+        })
+      })
+    )
+  }
 
   ngAfterViewInit(): void {
+    // this.formsearch.emit(this.formSearch.value as FormSearch)
     this.handleSorting(this.sort);
   }
 
@@ -101,4 +137,31 @@ export class MushroomTableComponent
 
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
+  // onSearch() {
+  //  // this.formsearch.emit(this.formSearch.value as FormSearch);
+  // }
+
+  updateValue(event: Event) {
+    const windowSize: number | null =
+      event.type === 'DOMContentLoaded'
+        ? window.innerWidth
+        : event.type === 'resize'
+        ? (event.target as Window).innerWidth
+        : null;
+    if (windowSize! >= 775) {
+      this.columsToDisplay = ['species', 'gender', 'family', 'order', 'AA'];
+    }
+    if (windowSize! <= 775) {
+      this.columsToDisplay = ['species', 'gender', 'family', 'order'];
+    }
+    if (windowSize! <= 500) {
+      this.columsToDisplay = ['species', 'gender', 'family'];
+    }
+    if (windowSize! <= 350) {
+      this.columsToDisplay = ['species', 'family'];
+    }
+  }
+
+
 }
