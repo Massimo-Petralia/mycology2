@@ -64,13 +64,16 @@
     <tr mat-header-row *matHeaderRowDef="columsToDisplay"></tr>
     <tr mat-row *matRowDef="let rowData; columns: columsToDisplay"></tr>
   </table>
-  <p class="note">
-    NOTE:
-    <span style="font-style: italic"
-      >Each new mushroom is added at the last page of the table</span
-    >
-  </p>
-  <button mat-stroked-button type="button" (click)="goToFormMushroom()">
-    Add
-  </button>
+  <div class="flex-container-add-button">
+    <p class="note">
+      NOTE:
+      <span style="font-style: italic"
+        >Each new mushroom is added at the last page of the table</span
+      >
+    </p>
+    <button mat-stroked-button type="button" (click)="goToFormMushroom()">
+      Add
+    </button>
+  </div>
+
 </div>
