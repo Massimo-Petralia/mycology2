@@ -1,28 +1,28 @@
 <div class="container">
-  <form [formGroup]="formSearch">
-    <mat-form-field>
-      <mat-label>Filters</mat-label>
-      <select
-        matNativeControl
-        formControlName="filter"
-      >
-        <option value="species">Species</option>
-        <option value="gender">Gender</option>
-        <option value="family">Family</option>
-        <option value="order">Order</option>
-        <option value="AA">A.A.</option>
-      </select>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label for="search">Search</mat-label>
-      <input matInput type="search" formControlName="search" (keyup)="onSearch()">
-    </mat-form-field>
-    <!-- <button mat-stroked-button (click)="onSearch()">Go</button> -->
-  </form>
-  <mat-form-field>
-    <mat-label for="filter">Table filter</mat-label>
-    <input matInput id="filter" type="text" (keyup)="applyFilter($event)" />
-  </mat-form-field>
+  
+    <form [formGroup]="formSearch" class="flex-container">
+      <mat-form-field>
+        <mat-label>Filters</mat-label>
+        <select
+          matNativeControl
+          formControlName="filter"
+        >
+          <option value="species">Species</option>
+          <option value="gender">Gender</option>
+          <option value="family">Family</option>
+          <option value="order">Order</option>
+          <option value="AA">A.A.</option>
+        </select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label for="search">Search</mat-label>
+        <input matInput type="search" formControlName="search">
+      </mat-form-field>
+    </form>
+ 
+  
+
+
   <table
     mat-table
     matSort

@@ -22,6 +22,7 @@ import { SharedParametersService } from '../services/shared-parameters.service';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
+import { Subscription, debounceTime } from 'rxjs';
 export interface FormSearch {
   filter: string | null;
   search: string | null;
@@ -54,6 +55,8 @@ export class MushroomTableComponent
     private fb: FormBuilder
   ) {}
 
+subs = new Subscription()
+
   @Input() page: number | undefined;
   @Input() mushrooms: Mushroom[] = [];
 
@@ -63,7 +66,8 @@ export class MushroomTableComponent
 
   @ViewChild(MatSort) sort!: MatSort;
 
-  @Output() formsearch = new EventEmitter<FormSearch>();
+  @Output() formValue = new EventEmitter<FormSearch>();
+
 
   formSearch = this.fb.group({
     filter: this.fb.control<string>('species'),
@@ -79,7 +83,16 @@ export class MushroomTableComponent
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.subs.add(
+      this.formSearch.controls.search.valueChanges.pipe(debounceTime(500)).subscribe(searchvalue => {
+        this.formValue.emit({
+          filter: this.formSearch.controls.filter.value,
+          search: searchvalue
+        })
+      })
+    )
+  }
 
   ngAfterViewInit(): void {
     // this.formsearch.emit(this.formSearch.value as FormSearch)
@@ -125,9 +138,9 @@ export class MushroomTableComponent
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  onSearch() {
-    this.formsearch.emit(this.formSearch.value as FormSearch);
-  }
+  // onSearch() {
+  //  // this.formsearch.emit(this.formSearch.value as FormSearch);
+  // }
 
   updateValue(event: Event) {
     const windowSize: number | null =
