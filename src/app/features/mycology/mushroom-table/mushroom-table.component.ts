@@ -85,10 +85,10 @@ subs = new Subscription()
 
   ngOnInit(): void {
     this.subs.add(
-      this.formSearch.controls.search.valueChanges.pipe(debounceTime(500)).subscribe(searchvalue => {
+      this.formSearch.valueChanges.pipe(debounceTime(500)).subscribe(value => {
         this.formValue.emit({
-          filter: this.formSearch.controls.filter.value,
-          search: searchvalue
+          filter: value.filter!,
+          search: value.search!
         })
       })
     )
