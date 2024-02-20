@@ -9,10 +9,7 @@ import {
   Output,
   EventEmitter,
 } from '@angular/core';
-import {
-  MatTableDataSource,
-  MatTableModule,
-} from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Mushroom, Taxonomy } from '../models/mycology.models';
 import { CommonModule } from '@angular/common';
@@ -42,8 +39,9 @@ export interface FormSearch {
   templateUrl: './mushroom-table.component.html',
   styleUrl: './mushroom-table.component.scss',
   host: {
-    '(window:resize)': 'updateValue($event)',
-    '(document:DOMContentLoaded)': 'updateValue($event)',
+    '(window:resize)': 'updateColums($event)',
+    //'(window:load)': 'updateColums($event)',
+    // '(window:pageshow)': 'updateColums($event)',
   },
 })
 export class MushroomTableComponent
@@ -55,7 +53,7 @@ export class MushroomTableComponent
     private fb: FormBuilder
   ) {}
 
-subs = new Subscription()
+  subs = new Subscription();
 
   @Input() page: number | undefined;
   @Input() mushrooms: Mushroom[] = [];
@@ -67,7 +65,6 @@ subs = new Subscription()
   @ViewChild(MatSort) sort!: MatSort;
 
   @Output() formValue = new EventEmitter<FormSearch>();
-
 
   formSearch = this.fb.group({
     filter: this.fb.control<string>('species'),
@@ -84,18 +81,23 @@ subs = new Subscription()
   }
 
   ngOnInit(): void {
+    if (typeof window !== 'undefined') {
+      this.updateColums();
+    }
+
     this.subs.add(
-      this.formSearch.valueChanges.pipe(debounceTime(500)).subscribe(value => {
-        this.formValue.emit({
-          filter: value.filter!,
-          search: value.search!
+      this.formSearch.valueChanges
+        .pipe(debounceTime(500))
+        .subscribe((value) => {
+          this.formValue.emit({
+            filter: value.filter!,
+            search: value.search!,
+          });
         })
-      })
-    )
+    );
   }
 
   ngAfterViewInit(): void {
-    // this.formsearch.emit(this.formSearch.value as FormSearch)
     this.handleSorting(this.sort);
   }
 
@@ -138,17 +140,12 @@ subs = new Subscription()
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  // onSearch() {
-  //  // this.formsearch.emit(this.formSearch.value as FormSearch);
-  // }
+  updateColums(event?: Event) {
+    let windowSize: number;
+    if (event?.type === 'resize') {
+      windowSize = (event.currentTarget as Window).innerWidth;
+    } else windowSize = window.innerWidth;
 
-  updateValue(event: Event) {
-    const windowSize: number | null =
-      event.type === 'DOMContentLoaded'
-        ? window.innerWidth
-        : event.type === 'resize'
-        ? (event.target as Window).innerWidth
-        : null;
     if (windowSize! >= 775) {
       this.columsToDisplay = ['species', 'gender', 'family', 'order', 'AA'];
     }
@@ -162,6 +159,4 @@ subs = new Subscription()
       this.columsToDisplay = ['species', 'family'];
     }
   }
-
-
 }
