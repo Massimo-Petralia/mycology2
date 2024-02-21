@@ -5,7 +5,7 @@ import {
   OnDestroy,
   ViewChild,
 } from '@angular/core';
-import { FormSearch, MushroomTableComponent } from '../mushroom-table/mushroom-table.component';
+import { MushroomTableComponent } from '../mushroom-table/mushroom-table.component';
 import {
   MatPaginator,
   MatPaginatorModule,
@@ -21,6 +21,7 @@ import {
 import { Observable, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { SharedParametersService } from '../services/shared-parameters.service';
+import { FormSearch } from '../models/mycology.models';
 @Component({
   selector: 'app-mushroom-table-page',
   standalone: true,
@@ -51,16 +52,15 @@ export class MushroomTablePageComponent
 
   subs = new Subscription();
 
-  formSearch?: FormSearch 
+  formSearch?: FormSearch;
 
   ngOnInit(): void {
-    // this.store.dispatch(MycologyActions.resetState());
     this.page = this.paramsService.page;
     this.store.dispatch(
       MycologyActions.loadMushroomsRequest({
         pageIndex: this.page!,
         filter: 'species',
-        search: ''
+        search: '',
       })
     );
     this.subs.add(
@@ -90,20 +90,20 @@ export class MushroomTablePageComponent
     this.page = pageEvent.pageIndex;
     this.page++;
     this.store.dispatch(
-      MycologyActions.loadMushroomsRequest({ 
+      MycologyActions.loadMushroomsRequest({
         pageIndex: this.page,
-        filter: this.formSearch?.filter!,
-        search: this.formSearch?.search!
-       })
+        filter: this.mushroomTable.formSearch.controls.filter.value,
+        search: this.mushroomTable.formSearch.controls.search.value,
+      })
     );
   }
 
-  onFormSearch(formSearch: FormSearch){
+  onFormSearch(formSearch: FormSearch) {
     this.store.dispatch(
       MycologyActions.loadMushroomsRequest({
         pageIndex: this.page!,
-        filter: formSearch?.filter!,
-        search: formSearch?.search!
+        filter: formSearch.filter,
+        search: formSearch.search,
       })
     );
   }

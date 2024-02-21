@@ -21,7 +21,7 @@ export interface Response {
 export class MycologyService {
   constructor(private http: HttpClient) {}
 
-  getMushrooms(pageIndex: number, filter: string, search: string): Observable<Response> {
+  getMushrooms(pageIndex: number, filter: string|null, search: string|null): Observable<Response> {
 
     return this.http
       .get<Response>( filter  === 'species' && !search ? `${mushroomsDataURL}?_page=${pageIndex}`: `${mushroomsDataURL}?taxonomy.${filter}=${search}&_page=${pageIndex}`)

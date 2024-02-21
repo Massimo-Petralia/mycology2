@@ -20,10 +20,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { Subscription, debounceTime } from 'rxjs';
-export interface FormSearch {
-  filter: string | null;
-  search: string | null;
-}
+import { FormSearch } from '../models/mycology.models';
 @Component({
   selector: 'app-mushroom-table',
   standalone: true,
@@ -40,8 +37,6 @@ export interface FormSearch {
   styleUrl: './mushroom-table.component.scss',
   host: {
     '(window:resize)': 'updateColums($event)',
-    //'(window:load)': 'updateColums($event)',
-    // '(window:pageshow)': 'updateColums($event)',
   },
 })
 export class MushroomTableComponent
@@ -142,21 +137,28 @@ export class MushroomTableComponent
 
   updateColums(event?: Event) {
     let windowSize: number;
+    const columsToDisplay: string[] = [
+      'species',
+      'gender',
+      'family',
+      'order',
+      'AA',
+    ];
     if (event?.type === 'resize') {
       windowSize = (event.currentTarget as Window).innerWidth;
     } else windowSize = window.innerWidth;
 
-    if (windowSize! >= 775) {
-      this.columsToDisplay = ['species', 'gender', 'family', 'order', 'AA'];
+    if (windowSize >= 775) {
+      this.columsToDisplay = columsToDisplay;
     }
-    if (windowSize! <= 775) {
-      this.columsToDisplay = ['species', 'gender', 'family', 'order'];
+    if (windowSize <= 775) {
+      this.columsToDisplay = columsToDisplay.slice(0, 4);
     }
-    if (windowSize! <= 500) {
-      this.columsToDisplay = ['species', 'gender', 'family'];
+    if (windowSize <= 500) {
+      this.columsToDisplay = columsToDisplay.slice(0, 3);
     }
-    if (windowSize! <= 350) {
-      this.columsToDisplay = ['species', 'family'];
+    if (windowSize <= 350) {
+      this.columsToDisplay = [columsToDisplay[0], columsToDisplay[2]];
     }
   }
 }

@@ -1,8 +1,8 @@
 export interface MycologyState {
-  mushrooms: {[id: string]: Mushroom}|null;
+  mushrooms: { [id: string]: Mushroom } | null;
   items: number;
-  iconographicContainer: IconographicContainer|null;
-  notifications: Notifications
+  iconographicContainer: IconographicContainer | null;
+  notifications: Notifications;
 }
 
 export interface Notifications {
@@ -16,7 +16,10 @@ export interface Notifications {
   };
 }
 
-
+export interface FormSearch {
+  filter: string | null;
+  search: string | null;
+}
 
 export interface Taxonomy {
   species: string | null;
@@ -52,7 +55,7 @@ export interface Mushroom {
   morphology: Morphology;
   features: Features;
   microscopicFeatures: MicroscopicFeatures;
-  iconographyID?: string|null
+  iconographyID?: string | null;
 }
 
 export interface Iconography {
