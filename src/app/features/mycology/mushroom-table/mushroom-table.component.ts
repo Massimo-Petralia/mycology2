@@ -20,7 +20,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { Subscription, debounceTime } from 'rxjs';
-import { FormSearch } from '../models/mycology.models';
+import { FormFilteredSearch } from '../models/mycology.models';
 @Component({
   selector: 'app-mushroom-table',
   standalone: true,
@@ -59,9 +59,9 @@ export class MushroomTableComponent
 
   @ViewChild(MatSort) sort!: MatSort;
 
-  @Output() formValue = new EventEmitter<FormSearch>();
+  @Output() formValue = new EventEmitter<FormFilteredSearch>();
 
-  formSearch = this.fb.group({
+  formFilteredSearch = this.fb.group({
     filter: this.fb.control<string>('species'),
     search: this.fb.control<string>(''),
   });
@@ -76,12 +76,8 @@ export class MushroomTableComponent
   }
 
   ngOnInit(): void {
-    if (typeof window !== 'undefined') {
-      this.updateColums();
-    }
-
     this.subs.add(
-      this.formSearch.valueChanges
+      this.formFilteredSearch.valueChanges
         .pipe(debounceTime(500))
         .subscribe((value) => {
           this.formValue.emit({
@@ -90,6 +86,9 @@ export class MushroomTableComponent
           });
         })
     );
+    if (typeof window !== 'undefined') {
+      this.updateColums();
+    }
   }
 
   ngAfterViewInit(): void {

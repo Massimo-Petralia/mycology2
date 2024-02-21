@@ -1,10 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {
-  IconographicContainer,
-  Iconography,
-  Mushroom,
-} from '../models/mycology.models';
+import { IconographicContainer, Mushroom } from '../models/mycology.models';
 import { Observable, catchError } from 'rxjs';
 
 const mushroomsDataURL = 'http://localhost:3000/mushrooms';
@@ -21,10 +17,17 @@ export interface Response {
 export class MycologyService {
   constructor(private http: HttpClient) {}
 
-  getMushrooms(pageIndex: number, filter: string|null, search: string|null): Observable<Response> {
-
+  getMushrooms(
+    pageIndex: number,
+    filter: string | null,
+    search: string | null
+  ): Observable<Response> {
     return this.http
-      .get<Response>( filter  === 'species' && !search ? `${mushroomsDataURL}?_page=${pageIndex}`: `${mushroomsDataURL}?taxonomy.${filter}=${search}&_page=${pageIndex}`)
+      .get<Response>(
+        filter === 'species' && !search
+          ? `${mushroomsDataURL}?_page=${pageIndex}`
+          : `${mushroomsDataURL}?taxonomy.${filter}=${search}&_page=${pageIndex}`
+      )
       .pipe(
         catchError((error) => {
           console.error('get request failed', error);
@@ -118,13 +121,14 @@ export class MycologyService {
       );
   }
 
-updateMushroomProperties(id: string, propertiesToChange: Partial<Mushroom>) {
-  return this.http.patch(`${mushroomsDataURL}/${id}`, propertiesToChange).pipe(
-    catchError(error => {
-      console.error('update properties failed')
-      throw error
-    })
-  )
-}
-
+  updateMushroomProperties(id: string, propertiesToChange: Partial<Mushroom>) {
+    return this.http
+      .patch(`${mushroomsDataURL}/${id}`, propertiesToChange)
+      .pipe(
+        catchError((error) => {
+          console.error('update properties failed');
+          throw error;
+        })
+      );
+  }
 }

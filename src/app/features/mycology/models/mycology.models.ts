@@ -16,7 +16,7 @@ export interface Notifications {
   };
 }
 
-export interface FormSearch {
+export interface FormFilteredSearch {
   filter: string | null;
   search: string | null;
 }
