@@ -3,22 +3,22 @@ import {
   EventEmitter,
   Input,
   Output,
-  ViewChild,
-  OnInit,
   OnChanges,
   SimpleChanges,
-  AfterViewInit
+  TemplateRef,
+  ViewChild,
 } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
-import { IconographicContainer, Mushroom } from '../models/mycology.models';
+import { Mushroom } from '../models/mycology.models';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatInputModule } from '@angular/material/input';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { Notifications } from '../models/mycology.models';
-import { RouterLink } from '@angular/router'; 
-import {MatButtonToggleModule} from '@angular/material/button-toggle'
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatDialogModule, MatDialog } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-form-mushroom',
@@ -30,37 +30,36 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle'
     TextFieldModule,
     MatButtonModule,
     CommonModule,
-    //RouterLink,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatDialogModule,
   ],
   templateUrl: './form-mushroom.component.html',
   styleUrl: './form-mushroom.component.scss',
 })
 export class FormMushroomComponent implements OnChanges {
-  constructor(private formbuilder: FormBuilder) {}
+  constructor(private formbuilder: FormBuilder, public dialog: MatDialog) {}
 
+  @ViewChild('invalidFieldDialogBox') invalidFieldDialogBox!: TemplateRef<any>;
 
   @Input() mushroom!: Mushroom | null;
 
-  @Input() notifications!: Notifications 
+  @Input() notifications!: Notifications;
 
   @Output() save = new EventEmitter();
 
   @Output() delete = new EventEmitter();
 
-  @Output() imushroomspecies = new EventEmitter<string>()
+  @Output() mushroomspecies = new EventEmitter<string>();
 
-
+  subs = new Subscription();
 
   ngOnChanges(changes: SimpleChanges): void {
     const { mushroom } = changes;
     if (mushroom) {
       this.formMushroom.patchValue(this.mushroom!);
-      this.imushroomspecies.emit(this.mushroom?.taxonomy.species!)
+      this.mushroomspecies.emit(this.mushroom?.taxonomy.species!);
     }
   }
-
-
 
   formMushroom = this.formbuilder.group({
     id: this.mushroom?.id,
@@ -95,21 +94,17 @@ export class FormMushroomComponent implements OnChanges {
 
   onSave() {
     if (!this.formMushroom.valid) {
-      window.alert(
-        'You must specify a name in the Species field of the Taxonomy form'
-      );
-      return;
+      this.dialog.open(this.invalidFieldDialogBox);
     } else {
       this.save.emit();
     }
   }
 
-  // onUpdate() {
-  //   this.update.emit();
-  // }
-
   onDelete() {
     this.delete.emit();
   }
-}
 
+  openDialogWithRef(templateRef: TemplateRef<any>) {
+    this.dialog.open(templateRef);
+  }
+}

@@ -1,4 +1,32 @@
-mat-paginator{
+.flex-container{
     background-color: #7b1fa2;
     color: white;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+}
+
+.title {
+    flex-grow: 1;
+    font-style: italic;
+    margin-left: 10px;
+    font-weight: bolder;
+  }
+
+  mat-paginator{
+    flex-grow: 1;
+    background-color: #7b1fa2;
+    //color: white;
+}
+
+::ng-deep .mat-mdc-paginator-range-label{
+  display: none;
+}
+
+.range-label{
+    margin-right: 10px;
+    text-align: right;
+    flex-grow: 1;
+    font-size: 12px;
 }

@@ -1,27 +1,20 @@
 <div class="container">
-  
-    <form [formGroup]="formSearch" class="flex-container">
-      <mat-form-field>
-        <mat-label>Filters</mat-label>
-        <select
-          matNativeControl
-          formControlName="filter"
-        >
-          <option value="species">Species</option>
-          <option value="gender">Gender</option>
-          <option value="family">Family</option>
-          <option value="order">Order</option>
-          <option value="AA">A.A.</option>
-        </select>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label for="search">Search</mat-label>
-        <input matInput type="search" formControlName="search">
-      </mat-form-field>
-    </form>
- 
-  
-
+  <form [formGroup]="formSearch" class="flex-container">
+    <mat-form-field>
+      <mat-label for="filters">Filters</mat-label>
+      <select matNativeControl id="filters" formControlName="filter">
+        <option value="species">Species</option>
+        <option value="gender">Gender</option>
+        <option value="family">Family</option>
+        <option value="order">Order</option>
+        <option value="AA">A.A.</option>
+      </select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label for="search">Search</mat-label>
+      <input id="search" matInput type="search" formControlName="search" />
+    </mat-form-field>
+  </form>
 
   <table
     mat-table
@@ -75,5 +68,4 @@
       Add
     </button>
   </div>
-
 </div>

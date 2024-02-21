@@ -3,7 +3,7 @@ import { IconographicContainer, Mushroom } from '../models/mycology.models';
 
 export const loadMushroomsRequest = createAction(
   '[Mushroom Table Page] Load Paginated Mushroom Table Request',
-  props<{ pageIndex: number, filter: string, search: string }>()
+  props<{ pageIndex: number, filter: string|null, search: string|null }>()
 );
 
 export const loadMushroomsSucces = createAction(
