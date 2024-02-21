@@ -92,10 +92,17 @@ mat-button-toggle {
   }
 }
 
-.buttons-container{
+.buttons-container {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-between;
 }
 
+.invalidFieldDialogBox-title {
+  background-color: #7b1fa2;
+}
+
+.deleteDialogBox-title {
+  background-color: #7b1fa2;
+}

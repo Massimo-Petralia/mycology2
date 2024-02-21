@@ -21,7 +21,7 @@ import {
 import { Observable, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { SharedParametersService } from '../services/shared-parameters.service';
-import { FormSearch } from '../models/mycology.models';
+import { FormFilteredSearch } from '../models/mycology.models';
 @Component({
   selector: 'app-mushroom-table-page',
   standalone: true,
@@ -52,7 +52,7 @@ export class MushroomTablePageComponent
 
   subs = new Subscription();
 
-  formSearch?: FormSearch;
+  formFilteredSearch?: FormFilteredSearch;
 
   ngOnInit(): void {
     this.page = this.paramsService.page;
@@ -92,18 +92,18 @@ export class MushroomTablePageComponent
     this.store.dispatch(
       MycologyActions.loadMushroomsRequest({
         pageIndex: this.page,
-        filter: this.mushroomTable.formSearch.controls.filter.value,
-        search: this.mushroomTable.formSearch.controls.search.value,
+        filter: this.mushroomTable.formFilteredSearch.controls.filter.value,
+        search: this.mushroomTable.formFilteredSearch.controls.search.value,
       })
     );
   }
 
-  onFormSearch(formSearch: FormSearch) {
+  onFormSearch(formFilteredSearch: FormFilteredSearch) {
     this.store.dispatch(
       MycologyActions.loadMushroomsRequest({
         pageIndex: this.page!,
-        filter: formSearch.filter,
-        search: formSearch.search,
+        filter: formFilteredSearch.filter,
+        search: formFilteredSearch.search,
       })
     );
   }
