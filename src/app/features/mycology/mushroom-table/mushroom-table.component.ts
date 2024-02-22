@@ -59,7 +59,7 @@ export class MushroomTableComponent
 
   dataSource!: MatTableDataSource<Mushroom>;
 
-  columsToDisplay = ['species', 'gender', 'family', 'order', 'AA'];
+  columsToDisplay = ['species', 'gender', 'family', 'order', 'AA', 'opzioni'];
 
   @ViewChild(MatSort) sort!: MatSort;
 
