@@ -256,13 +256,21 @@
       Do you want to <strong>delete</strong> the mushroom
       <strong>{{ mushroom?.taxonomy?.species }}</strong> ?
     </p>
+    <p>
+      This operation will also <strong>delete</strong> the
+      <strong>iconographic gallery</strong> if present.
+    </p>
   </mat-dialog-content>
 
   <mat-dialog-actions class="buttons-container">
-    <button mat-stroked-button (click)="onDelete(); dialog.closeAll()">
+    <button
+      class="yes-button"
+      mat-stroked-button
+      (click)="onDelete(); dialog.closeAll()"
+    >
       Yes
     </button>
-    <button mat-stroked-button mat-dialog-close>No</button>
+    <button class="no-button" mat-stroked-button mat-dialog-close>No</button>
   </mat-dialog-actions>
 </ng-template>
 
@@ -270,8 +278,13 @@
   <h2 class="invalidFieldDialogBox-title" mat-dialog-title>Attention !</h2>
   <mat-dialog-content>
     <p>
-      You must specify a <strong>name</strong> in the
+      You must specify a <strong>Species</strong> in the
       <strong>Species</strong> field
+    </p>
+    <p class="species-name-note">
+      The species of a mushroom is written with the first term (gender name)
+      capitalized and the second term (species name) in lower case (for example
+      <strong style="font-family: cursive">Amanita muscaria</strong>).
     </p>
   </mat-dialog-content>
   <mat-dialog-actions align="center">
