@@ -72,7 +72,8 @@ export const mycologyReducer = createReducer(
   on(MycologyActions.deleteMushroomSucces, (mycologystate, { id }) => {
     const updatedMushrooms = { ...mycologystate.mushrooms };
     delete updatedMushrooms[id];
-    return { ...mycologystate, mushrooms: updatedMushrooms };
+    let mycologyStateItems = mycologystate.items -1
+    return { ...mycologystate, mushrooms: updatedMushrooms, items:  mycologyStateItems};
   }),
 
   on(MycologyActions.updateMushroomSucces, (mycologystate, mushroom) => ({

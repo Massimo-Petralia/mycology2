@@ -171,10 +171,11 @@ export class DeleteMushroomEffects {
       switchMap(({ mushroom }) =>
         this.mycologyService.deleteMushroom(mushroom.id!).pipe(
           switchMap(() => {
+            const deleteMushroomSucces = MycologyActions.deleteMushroomSucces({
+              id: mushroom.id!,
+            });
             this.router.navigate(['mycology/mushrooms']);
-            return of(
-              MycologyActions.deleteMushroomSucces({ id: mushroom.id! })
-            ).pipe(
+            return of(deleteMushroomSucces).pipe(
               switchMap(() => {
                 if (mushroom.iconographyID !== null) {
                   return of(
@@ -183,7 +184,7 @@ export class DeleteMushroomEffects {
                     })
                   );
                 }
-                return of();
+                return of(deleteMushroomSucces);
               })
             );
           }),
