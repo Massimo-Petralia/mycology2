@@ -109,4 +109,12 @@ mat-button-toggle {
 
 ::ng-deep .mat-mdc-dialog-surface {
   border-radius:  15px !important;
+  border: 1px solid lightgray;
+}
+
+.yes-button{
+  margin: 0px 0px 5px 5px;
+}
+.no-button{
+  margin: 0px 5px 5px 0px;
 }

@@ -259,10 +259,10 @@
   </mat-dialog-content>
 
   <mat-dialog-actions class="buttons-container">
-    <button mat-stroked-button (click)="onDelete(); dialog.closeAll()">
+    <button class="yes-button" mat-stroked-button (click)="onDelete(); dialog.closeAll()">
       Yes
     </button>
-    <button mat-stroked-button mat-dialog-close>No</button>
+    <button class="no-button" mat-stroked-button mat-dialog-close>No</button>
   </mat-dialog-actions>
 </ng-template>
 
