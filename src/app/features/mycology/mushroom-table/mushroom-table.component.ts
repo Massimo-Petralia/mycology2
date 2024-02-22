@@ -22,6 +22,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { Subscription, debounceTime } from 'rxjs';
 import { FormFilteredSearch } from '../models/mycology.models';
 import { MatMenuModule } from '@angular/material/menu'
+import { MatIconModule } from '@angular/material/icon'
 @Component({
   selector: 'app-mushroom-table',
   standalone: true,
@@ -33,7 +34,8 @@ import { MatMenuModule } from '@angular/material/menu'
     MatInputModule,
     ReactiveFormsModule,
     MatSelectModule,
-    MatMenuModule
+    MatMenuModule,
+    MatIconModule
   ],
   templateUrl: './mushroom-table.component.html',
   styleUrl: './mushroom-table.component.scss',
