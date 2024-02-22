@@ -31,7 +31,7 @@ import { Subscription } from 'rxjs';
     MatButtonModule,
     CommonModule,
     MatButtonToggleModule,
-    MatDialogModule,
+    MatDialogModule
   ],
   templateUrl: './form-mushroom.component.html',
   styleUrl: './form-mushroom.component.scss',

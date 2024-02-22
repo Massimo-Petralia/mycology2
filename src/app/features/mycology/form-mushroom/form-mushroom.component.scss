@@ -106,3 +106,7 @@ mat-button-toggle {
 .deleteDialogBox-title {
   background-color: #7b1fa2;
 }
+
+::ng-deep .mat-mdc-dialog-surface {
+  border-radius:  15px !important;
+}
