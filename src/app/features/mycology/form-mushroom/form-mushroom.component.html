@@ -23,7 +23,7 @@
       color="warn"
       *ngIf="mushroom"
       type="button"
-      (click)="openDialogWithRef(deleteDialogBox)"
+      (click)="openDialog()"
     >
       Delete
     </button>
@@ -249,7 +249,7 @@
   </mat-expansion-panel>
 </form>
 
-<ng-template #deleteDialogBox>
+<!-- <ng-template #deleteDialogBox>
   <h2 class="deleteDialogBox-title" mat-dialog-title>Attention !</h2>
   <mat-dialog-content>
     <p>
@@ -272,7 +272,12 @@
     </button>
     <button class="no-button" mat-stroked-button mat-dialog-close>No</button>
   </mat-dialog-actions>
-</ng-template>
+</ng-template> -->
+
+<!-- <ng-template>
+
+  <app-dialog-deletion-information (delete)="onDelete()" [mushroom]="mushroom"></app-dialog-deletion-information>
+</ng-template> -->
 
 <ng-template #invalidFieldDialogBox>
   <h2 class="invalidFieldDialogBox-title" mat-dialog-title>Attention !</h2>

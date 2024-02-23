@@ -11,8 +11,8 @@
 </mat-dialog-content>
 
 <mat-dialog-actions class="buttons-container">
-  <button class="yes-button" mat-stroked-button (click)="onDelete(); onClose()">
+  <button class="yes-button" mat-stroked-button (click)="closeDialog('delete')">
     Yes
   </button>
-  <button class="no-button" mat-stroked-button mat-dialog-close>No</button>
+  <button class="no-button" mat-stroked-button (click)="closeDialog()">No</button>
 </mat-dialog-actions>
