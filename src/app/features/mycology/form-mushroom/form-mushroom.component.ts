@@ -17,11 +17,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { Notifications } from '../models/mycology.models';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import {
-  MatDialogModule,
-  MatDialog,
-  MatDialogRef,
-} from '@angular/material/dialog';
+import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { DialogDeletionInformationComponent } from '../dialog-deletion-information/dialog-deletion-information.component';
 
@@ -46,8 +42,6 @@ export class FormMushroomComponent implements OnChanges {
   constructor(private formbuilder: FormBuilder, public dialog: MatDialog) {}
 
   @ViewChild('invalidFieldDialogBox') invalidFieldDialogBox!: TemplateRef<any>;
-
-  //@ViewChild(DialogDeletionInformationComponent)  dialogDeletionInformationComponent!: DialogDeletionInformationComponent
 
   @Input() mushroom!: Mushroom | null;
 
@@ -115,7 +109,7 @@ export class FormMushroomComponent implements OnChanges {
   openDialog() {
     let subs = new Subscription();
     const dialogRef = this.dialog.open(DialogDeletionInformationComponent, {
-      data: { mushroom: this.mushroom },
+      data: { species: this.mushroom?.taxonomy.species },
     });
 
     subs = dialogRef.afterClosed().subscribe((result) => {

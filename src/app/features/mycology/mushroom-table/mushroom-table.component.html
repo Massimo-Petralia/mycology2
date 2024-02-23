@@ -68,7 +68,7 @@
         <mat-icon>more_vert</mat-icon>
         <mat-menu #menu="matMenu" >
           <a mat-menu-item (click)="onMushroom(mushroom.id)">edit</a>
-          <a mat-menu-item >delete</a >
+          <a mat-menu-item class="delete-button" (click)="openDialog(mushroom.id)">delete</a >
         
         </mat-menu>
       </button>

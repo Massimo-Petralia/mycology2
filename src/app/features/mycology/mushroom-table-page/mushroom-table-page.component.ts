@@ -4,6 +4,7 @@ import {
   AfterViewInit,
   OnDestroy,
   ViewChild,
+  ElementRef,
 } from '@angular/core';
 import { MushroomTableComponent } from '../mushroom-table/mushroom-table.component';
 import {
@@ -38,6 +39,7 @@ export class MushroomTablePageComponent
   ) {}
   @ViewChild('paginator') paginator!: MatPaginator;
   @ViewChild(MushroomTableComponent) mushroomTable!: MushroomTableComponent;
+  @ViewChild('rangeLabel') rangeLabelElem!: ElementRef<HTMLDivElement>;
 
   page: number | undefined;
 
@@ -84,6 +86,12 @@ export class MushroomTablePageComponent
     if (this.page !== 1) {
       this.paginator.pageIndex = this.page! - 1;
     }
+    this.rangeLabelElem.nativeElement.innerText =
+      this.paginator._intl.getRangeLabel(
+        this.paginator.pageIndex,
+        this.paginator.pageSize,
+        this.paginator.length
+      );
   }
 
   handlePagination(pageEvent: PageEvent) {
@@ -104,6 +112,21 @@ export class MushroomTablePageComponent
         pageIndex: this.page!,
         filter: formFilteredSearch.filter,
         search: formFilteredSearch.search,
+      })
+    );
+  }
+
+  onDelete(mushroomID: string) {
+    const collection = this.mushrooms.reduce(
+      (collection: { [id: string]: Mushroom }, mushroom) => {
+        collection[mushroom.id!] = mushroom;
+        return collection;
+      },
+      {}
+    );
+    this.store.dispatch(
+      MycologyActions.deleteMushroomRequest({
+        mushroom: collection[mushroomID],
       })
     );
   }

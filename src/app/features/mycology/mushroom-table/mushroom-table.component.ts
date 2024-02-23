@@ -23,6 +23,9 @@ import { Subscription, debounceTime } from 'rxjs';
 import { FormFilteredSearch } from '../models/mycology.models';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
+import { DialogDeletionInformationComponent } from '../dialog-deletion-information/dialog-deletion-information.component';
+import { MatDialog } from '@angular/material/dialog';
+
 @Component({
   selector: 'app-mushroom-table',
   standalone: true,
@@ -49,7 +52,8 @@ export class MushroomTableComponent
   constructor(
     private router: Router,
     private paramsService: SharedParametersService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private dialog: MatDialog
   ) {}
 
   subs = new Subscription();
@@ -64,6 +68,8 @@ export class MushroomTableComponent
   @ViewChild(MatSort) sort!: MatSort;
 
   @Output() formValue = new EventEmitter<FormFilteredSearch>();
+
+  @Output() delete = new EventEmitter<string>()
 
   formFilteredSearch = this.fb.group({
     filter: this.fb.control<string>('species'),
@@ -137,6 +143,23 @@ export class MushroomTableComponent
 
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
+
+ openDialog(mushroomID: string){
+  const collection = this.mushrooms.reduce(
+    (collection: { [id: string]: Mushroom }, mushroom) => {
+      collection[mushroom.id!] = mushroom;
+      return collection;
+    },
+    {}
+  )
+  const dialogRef = this.dialog.open(DialogDeletionInformationComponent, {data:{species: collection[mushroomID].taxonomy.species}}).afterClosed().subscribe(result =>{
+    if(result === 'delete'){
+      //emetti l'evento cancella
+      this.delete.emit(mushroomID)
+    }
+  })
+ } 
 
   updateColums(event?: Event) {
     let windowSize: number;

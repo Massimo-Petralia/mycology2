@@ -30,6 +30,9 @@ mat-button-toggle {
 .delete-button {
   margin-right: 10px;
 }
+.delete-button:hover{
+  color: rgba(255, 2, 2, 0.801);
+}
 
 .isFocused {
   color: #7b1fa2;
