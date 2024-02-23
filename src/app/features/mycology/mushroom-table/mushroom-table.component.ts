@@ -187,7 +187,7 @@ export class MushroomTableComponent
         columsToDisplay[5],
       ];
     }
-    if (windowSize <= 500) {
+    if (windowSize <= 640) {
       this.columsToDisplay = [
         columsToDisplay[0],
         columsToDisplay[1],
@@ -195,7 +195,7 @@ export class MushroomTableComponent
         columsToDisplay[5],
       ];
     }
-    if (windowSize <= 350) {
+    if (windowSize <= 460) {
       this.columsToDisplay = [
         columsToDisplay[0],
         columsToDisplay[2],
