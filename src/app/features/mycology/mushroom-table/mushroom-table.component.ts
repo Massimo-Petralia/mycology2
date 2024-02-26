@@ -71,6 +71,8 @@ export class MushroomTableComponent
 
   @Output() delete = new EventEmitter<string>()
 
+  @Output() selected = new EventEmitter<Mushroom>()
+
   formFilteredSearch = this.fb.group({
     filter: this.fb.control<string>('species'),
     search: this.fb.control<string>(''),
@@ -160,6 +162,10 @@ export class MushroomTableComponent
     }
   })
  } 
+
+ onSelect(mushroom: Mushroom){
+  this.selected.emit(mushroom)
+ }
 
   updateColums(event?: Event) {
     let windowSize: number;

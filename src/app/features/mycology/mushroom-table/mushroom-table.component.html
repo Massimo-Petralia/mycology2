@@ -67,6 +67,7 @@
       <button mat-icon-button [matMenuTriggerFor]="menu" title="Options">
         <mat-icon>more_vert</mat-icon>
         <mat-menu #menu="matMenu" >
+          <a mat-menu-item (click)="onSelect(mushroom)">select</a>
           <a mat-menu-item (click)="onMushroom(mushroom.id)">edit</a>
           <a mat-menu-item class="delete-button" (click)="openDialog(mushroom.id)">delete</a >
         
