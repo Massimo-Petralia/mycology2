@@ -42,7 +42,6 @@ export class MushroomTablePageComponent
   ) {}
   @ViewChild('paginator') paginator!: MatPaginator;
   @ViewChild(MushroomTableComponent) mushroomTable!: MushroomTableComponent;
-  @ViewChild('rangeLabel') rangeLabelElem!: ElementRef<HTMLDivElement>;
 
   page: number | undefined;
 
@@ -59,17 +58,7 @@ export class MushroomTablePageComponent
 
   formFilteredSearch?: FormFilteredSearch;
 
-  ngOnChanges(changes: SimpleChanges): void {
-    // const {items} = changes
-    // if(items && this.paginator){
-    //   this.rangeLabelElem.nativeElement.innerText =
-    //   this.paginator._intl.getRangeLabel(
-    //     this.paginator.pageIndex,
-    //     this.paginator.pageSize,
-    //     this.paginator.length
-    //   );
-    // }
-  }
+  ngOnChanges(changes: SimpleChanges): void {}
 
   ngOnInit(): void {
     this.page = this.paramsService.page;
@@ -103,13 +92,6 @@ export class MushroomTablePageComponent
     if (this.page !== 1) {
       this.paginator.pageIndex = this.page! - 1;
     }
-
-    // this.rangeLabelElem.nativeElement.innerText =
-    //   this.paginator._intl.getRangeLabel(
-    //     this.paginator.pageIndex,
-    //     this.paginator.pageSize,
-    //     this.items
-    //   );
   }
 
   handlePagination(pageEvent: PageEvent) {
@@ -151,9 +133,5 @@ export class MushroomTablePageComponent
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();
-  }
-
-  readLength() {
-    console.log('length: ', this.paginator.length);
   }
 }
