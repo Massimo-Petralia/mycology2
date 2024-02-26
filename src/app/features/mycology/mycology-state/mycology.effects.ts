@@ -5,6 +5,7 @@ import { MycologyService } from '../services/mycology.service';
 import * as MycologyActions from '../mycology-state/mycology.actions';
 import { Router } from '@angular/router';
 import { SharedParametersService } from '../services/shared-parameters.service';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class LoadMushroomsEffects {
@@ -163,7 +164,9 @@ export class DeleteMushroomEffects {
   constructor(
     private actions$: Actions,
     private mycologyService: MycologyService,
-    private router: Router
+    private router: Router,
+    private paramsServices: SharedParametersService,
+    private store: Store
   ) {}
   deleteMushroom$ = createEffect(() =>
     this.actions$.pipe(
@@ -174,7 +177,17 @@ export class DeleteMushroomEffects {
             const deleteMushroomSucces = MycologyActions.deleteMushroomSucces({
               id: mushroom.id!,
             });
-            this.router.navigate(['mycology/mushrooms']);
+            if (this.router.url === `/mycology/mushrooms/${mushroom.id}`) {
+              this.router.navigate(['mycology/mushrooms']);
+            } else if (this.router.url === '/mycology/mushrooms') {
+              this.store.dispatch(
+                MycologyActions.loadMushroomsRequest({
+                  pageIndex: this.paramsServices.page,
+                  filter: null,
+                  search: null,
+                })
+              );
+            }
             return of(deleteMushroomSucces).pipe(
               switchMap(() => {
                 if (mushroom.iconographyID !== null) {

@@ -1,10 +1,13 @@
 import {
   Component,
   OnInit,
+  OnChanges,
   AfterViewInit,
   OnDestroy,
   ViewChild,
   ElementRef,
+  SimpleChanges,
+  Input,
 } from '@angular/core';
 import { MushroomTableComponent } from '../mushroom-table/mushroom-table.component';
 import {
@@ -31,7 +34,7 @@ import { FormFilteredSearch } from '../models/mycology.models';
   styleUrl: './mushroom-table-page.component.scss',
 })
 export class MushroomTablePageComponent
-  implements OnInit, AfterViewInit, OnDestroy
+  implements OnChanges, OnInit, AfterViewInit, OnDestroy
 {
   constructor(
     private store: Store<MycologyState>,
@@ -50,11 +53,23 @@ export class MushroomTablePageComponent
 
   items$!: Observable<number>;
 
-  items: number = 0;
+  @Input() items: number = 0;
 
   subs = new Subscription();
 
   formFilteredSearch?: FormFilteredSearch;
+
+  ngOnChanges(changes: SimpleChanges): void {
+    // const {items} = changes
+    // if(items && this.paginator){
+    //   this.rangeLabelElem.nativeElement.innerText =
+    //   this.paginator._intl.getRangeLabel(
+    //     this.paginator.pageIndex,
+    //     this.paginator.pageSize,
+    //     this.paginator.length
+    //   );
+    // }
+  }
 
   ngOnInit(): void {
     this.page = this.paramsService.page;
@@ -78,6 +93,8 @@ export class MushroomTablePageComponent
     this.subs.add(
       this.items$.subscribe((items) => {
         this.items = items;
+
+        debugger;
       })
     );
   }
@@ -86,12 +103,13 @@ export class MushroomTablePageComponent
     if (this.page !== 1) {
       this.paginator.pageIndex = this.page! - 1;
     }
-    this.rangeLabelElem.nativeElement.innerText =
-      this.paginator._intl.getRangeLabel(
-        this.paginator.pageIndex,
-        this.paginator.pageSize,
-        this.paginator.length
-      );
+
+    // this.rangeLabelElem.nativeElement.innerText =
+    //   this.paginator._intl.getRangeLabel(
+    //     this.paginator.pageIndex,
+    //     this.paginator.pageSize,
+    //     this.items
+    //   );
   }
 
   handlePagination(pageEvent: PageEvent) {
@@ -133,5 +151,9 @@ export class MushroomTablePageComponent
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();
+  }
+
+  readLength() {
+    console.log('length: ', this.paginator.length);
   }
 }

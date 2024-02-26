@@ -73,12 +73,12 @@ export const mycologyReducer = createReducer(
     })
   ),
   on(MycologyActions.deleteMushroomSucces, (mycologystate, { id }) => {
-    const updatedMushrooms = { ...mycologystate.mushrooms };
-    delete updatedMushrooms[id];
+    //const updatedMushrooms = { ...mycologystate.mushrooms };
+    //delete updatedMushrooms[id];
     const mycologyStateItems = mycologystate.items - 1;
     return {
       ...mycologystate,
-      mushrooms: updatedMushrooms,
+     // mushrooms: updatedMushrooms,//??
       items: mycologyStateItems,
     };
   }),

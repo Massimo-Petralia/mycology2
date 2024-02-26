@@ -24,7 +24,8 @@ export class MycologyService {
   ): Observable<Response> {
     return this.http
       .get<Response>(
-        filter === 'species' && !search
+        filter === 'species' && !search ||
+        !filter && !search 
           ? `${mushroomsDataURL}?_page=${pageIndex}`
           : `${mushroomsDataURL}?taxonomy.${filter}=${search}&_page=${pageIndex}`
       )
