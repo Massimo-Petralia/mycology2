@@ -30,6 +30,9 @@ mat-button-toggle {
 .delete-button {
   margin-right: 10px;
 }
+.delete-button:hover{
+  color: rgba(255, 2, 2, 0.801);
+}
 
 .isFocused {
   color: #7b1fa2;
@@ -92,33 +95,15 @@ mat-button-toggle {
   }
 }
 
-.buttons-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-}
-
 .invalidFieldDialogBox-title {
   background-color: #7b1fa2;
 }
 
-.deleteDialogBox-title {
-  background-color: #7b1fa2;
+.species-name-note {
+  font-size: medium;
 }
 
 ::ng-deep .mat-mdc-dialog-surface {
-  border-radius:  15px !important;
+  border-radius: 15px !important;
   border: 1px solid lightgray;
-}
-
-.yes-button{
-  margin: 0px 0px 5px 5px;
-}
-.no-button{
-  margin: 0px 5px 5px 0px;
-}
-
-.species-name-note{
-  font-size: medium;
 }

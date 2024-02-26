@@ -1,9 +1,13 @@
 import {
   Component,
   OnInit,
+  OnChanges,
   AfterViewInit,
   OnDestroy,
   ViewChild,
+  ElementRef,
+  SimpleChanges,
+  Input,
 } from '@angular/core';
 import { MushroomTableComponent } from '../mushroom-table/mushroom-table.component';
 import {
@@ -30,7 +34,7 @@ import { FormFilteredSearch } from '../models/mycology.models';
   styleUrl: './mushroom-table-page.component.scss',
 })
 export class MushroomTablePageComponent
-  implements OnInit, AfterViewInit, OnDestroy
+  implements OnChanges, OnInit, AfterViewInit, OnDestroy
 {
   constructor(
     private store: Store<MycologyState>,
@@ -48,11 +52,13 @@ export class MushroomTablePageComponent
 
   items$!: Observable<number>;
 
-  items: number = 0;
+  @Input() items: number = 0;
 
   subs = new Subscription();
 
   formFilteredSearch?: FormFilteredSearch;
+
+  ngOnChanges(changes: SimpleChanges): void {}
 
   ngOnInit(): void {
     this.page = this.paramsService.page;
@@ -76,6 +82,8 @@ export class MushroomTablePageComponent
     this.subs.add(
       this.items$.subscribe((items) => {
         this.items = items;
+
+        debugger;
       })
     );
   }
@@ -104,6 +112,21 @@ export class MushroomTablePageComponent
         pageIndex: this.page!,
         filter: formFilteredSearch.filter,
         search: formFilteredSearch.search,
+      })
+    );
+  }
+
+  onDelete(mushroomID: string) {
+    const collection = this.mushrooms.reduce(
+      (collection: { [id: string]: Mushroom }, mushroom) => {
+        collection[mushroom.id!] = mushroom;
+        return collection;
+      },
+      {}
+    );
+    this.store.dispatch(
+      MycologyActions.deleteMushroomRequest({
+        mushroom: collection[mushroomID],
       })
     );
   }

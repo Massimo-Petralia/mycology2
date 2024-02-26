@@ -21,6 +21,11 @@ import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { Subscription, debounceTime } from 'rxjs';
 import { FormFilteredSearch } from '../models/mycology.models';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { DialogDeletionInformationComponent } from '../dialog-deletion-information/dialog-deletion-information.component';
+import { MatDialog } from '@angular/material/dialog';
+
 @Component({
   selector: 'app-mushroom-table',
   standalone: true,
@@ -32,6 +37,8 @@ import { FormFilteredSearch } from '../models/mycology.models';
     MatInputModule,
     ReactiveFormsModule,
     MatSelectModule,
+    MatMenuModule,
+    MatIconModule,
   ],
   templateUrl: './mushroom-table.component.html',
   styleUrl: './mushroom-table.component.scss',
@@ -45,7 +52,8 @@ export class MushroomTableComponent
   constructor(
     private router: Router,
     private paramsService: SharedParametersService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private dialog: MatDialog
   ) {}
 
   subs = new Subscription();
@@ -55,11 +63,13 @@ export class MushroomTableComponent
 
   dataSource!: MatTableDataSource<Mushroom>;
 
-  columsToDisplay = ['species', 'gender', 'family', 'order', 'AA'];
+  columsToDisplay = ['species', 'gender', 'family', 'order', 'AA', 'options'];
 
   @ViewChild(MatSort) sort!: MatSort;
 
   @Output() formValue = new EventEmitter<FormFilteredSearch>();
+
+  @Output() delete = new EventEmitter<string>()
 
   formFilteredSearch = this.fb.group({
     filter: this.fb.control<string>('species'),
@@ -134,6 +144,23 @@ export class MushroomTableComponent
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+
+ openDialog(mushroomID: string){
+  const collection = this.mushrooms.reduce(
+    (collection: { [id: string]: Mushroom }, mushroom) => {
+      collection[mushroom.id!] = mushroom;
+      return collection;
+    },
+    {}
+  )
+  const dialogRef = this.dialog.open(DialogDeletionInformationComponent, {data:{species: collection[mushroomID].taxonomy.species}}).afterClosed().subscribe(result =>{
+    if(result === 'delete'){
+      //emetti l'evento cancella
+      this.delete.emit(mushroomID)
+    }
+  })
+ } 
+
   updateColums(event?: Event) {
     let windowSize: number;
     const columsToDisplay: string[] = [
@@ -142,6 +169,7 @@ export class MushroomTableComponent
       'family',
       'order',
       'AA',
+      'options',
     ];
     if (event?.type === 'resize') {
       windowSize = (event.currentTarget as Window).innerWidth;
@@ -151,13 +179,28 @@ export class MushroomTableComponent
       this.columsToDisplay = columsToDisplay;
     }
     if (windowSize <= 775) {
-      this.columsToDisplay = columsToDisplay.slice(0, 4);
+      this.columsToDisplay = [
+        columsToDisplay[0],
+        columsToDisplay[1],
+        columsToDisplay[2],
+        columsToDisplay[3],
+        columsToDisplay[5],
+      ];
     }
-    if (windowSize <= 500) {
-      this.columsToDisplay = columsToDisplay.slice(0, 3);
+    if (windowSize <= 640) {
+      this.columsToDisplay = [
+        columsToDisplay[0],
+        columsToDisplay[1],
+        columsToDisplay[2],
+        columsToDisplay[5],
+      ];
     }
-    if (windowSize <= 350) {
-      this.columsToDisplay = [columsToDisplay[0], columsToDisplay[2]];
+    if (windowSize <= 460) {
+      this.columsToDisplay = [
+        columsToDisplay[0],
+        columsToDisplay[2],
+        columsToDisplay[5],
+      ];
     }
   }
 }

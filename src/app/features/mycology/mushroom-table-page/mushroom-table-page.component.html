@@ -1,6 +1,25 @@
 <div class="flex-container">
-    <h4 class="title">Mushroom table</h4>
-    <mat-paginator #paginator pageSize="10" [length]="items" (page)="handlePagination($event)" showFirstLastButtons=""></mat-paginator>
-    <div class="range-label">{{paginator._intl.getRangeLabel(this.paginator.pageIndex, this.paginator.pageSize, this.paginator.length)}}</div>
+  <h4 class="title">Mushroom table</h4>
+  <mat-paginator
+    #paginator
+    pageSize="10"
+    [length]="items"
+    (page)="handlePagination($event)"
+    showFirstLastButtons=""
+  ></mat-paginator>
+  <div class="range-label" *ngIf="paginator">
+    {{
+      paginator._intl.getRangeLabel(
+        paginator.pageIndex,
+        paginator.pageSize,
+        paginator.length
+      )
+    }}
+  </div>
 </div>
-<app-mushroom-table [page]="page" [mushrooms]="mushrooms" (formValue)="onFormSearch($event)"></app-mushroom-table>
+<app-mushroom-table
+  [page]="page"
+  [mushrooms]="mushrooms"
+  (formValue)="onFormSearch($event)"
+  (delete)="onDelete($event)"
+></app-mushroom-table>

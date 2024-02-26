@@ -2,7 +2,6 @@ import {
   Component,
   OnInit,
   OnChanges,
-  AfterViewInit,
   Input,
   ViewChild,
   OnDestroy,
@@ -21,10 +20,10 @@ import {
   selectIconographyFeature,
   selectNotificationsFeature,
 } from '../mycology-state/mycology.selectors';
-import { Observable, Subscription, filter, timeout } from 'rxjs';
+import { Observable, Subscription, filter } from 'rxjs';
 import { SharedParametersService } from '../services/shared-parameters.service';
 
-import { Notifications } from '../models/mycology.models'; 
+import { Notifications } from '../models/mycology.models';
 
 @Component({
   selector: 'app-mycology-page',
@@ -37,9 +36,7 @@ import { Notifications } from '../models/mycology.models';
   templateUrl: './mycology-page.component.html',
   styleUrl: './mycology-page.component.scss',
 })
-export class MycologyPageComponent
-  implements OnChanges, OnInit, AfterViewInit, OnDestroy
-{
+export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
   constructor(
     private store: Store<MycologyState>,
     private router: Router,
@@ -51,7 +48,7 @@ export class MycologyPageComponent
     length: <string>'',
   };
 
-  mushroomspecies: string = ''
+  mushroomspecies: string = '';
 
   @Input() set id(mushroomID: string) {
     this.mushroomID = mushroomID;
@@ -94,7 +91,6 @@ export class MycologyPageComponent
         );
       }
     }
-    
   }
 
   ngOnInit(): void {
@@ -135,15 +131,7 @@ export class MycologyPageComponent
         }
       })
     );
-
-    // if (this.mushroomID !== ':id') {
-    //   this.store.dispatch(
-    //     MycologyActions.loadMushroomRequest({ id: this.mushroomID })
-    //   );
-    // }
   }
-
-  ngAfterViewInit(): void {}
 
   onSave() {
     const payload = {
@@ -158,7 +146,6 @@ export class MycologyPageComponent
     if (!payload.iconographicContainer.id) {
       delete payload.iconographicContainer['id'];
     }
-    debugger;
     this.store.dispatch(MycologyActions.saveMycologyRequest(payload));
   }
 
@@ -175,16 +162,14 @@ export class MycologyPageComponent
     this.store.dispatch(
       MycologyActions.deleteMushroomRequest({ mushroom: payload.mushroom })
     );
-    console.log('iconographicContainer: ', payload.iconographicContainer)
 
     if (this.paramsService.length <= 1) {
       this.paramsService.page = this.paramsService.page - 1;
     }
-    // this.router.navigate([`mycology/mushrooms`]);
   }
 
-  onMushroomSpecies(mushroomspecies: string){
-    this.mushroomspecies = mushroomspecies
+  onMushroomSpecies(mushroomspecies: string) {
+    this.mushroomspecies = mushroomspecies;
   }
 
   ngOnDestroy(): void {

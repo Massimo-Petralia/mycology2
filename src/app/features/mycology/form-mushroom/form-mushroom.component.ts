@@ -19,6 +19,7 @@ import { Notifications } from '../models/mycology.models';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
+import { DialogDeletionInformationComponent } from '../dialog-deletion-information/dialog-deletion-information.component';
 
 @Component({
   selector: 'app-form-mushroom',
@@ -32,6 +33,7 @@ import { Subscription } from 'rxjs';
     CommonModule,
     MatButtonToggleModule,
     MatDialogModule,
+    DialogDeletionInformationComponent,
   ],
   templateUrl: './form-mushroom.component.html',
   styleUrl: './form-mushroom.component.scss',
@@ -104,7 +106,16 @@ export class FormMushroomComponent implements OnChanges {
     this.delete.emit();
   }
 
-  openDialogWithRef(templateRef: TemplateRef<any>) {
-    this.dialog.open(templateRef);
+  openDialog() {
+    let subs = new Subscription();
+    const dialogRef = this.dialog.open(DialogDeletionInformationComponent, {
+      data: { species: this.mushroom?.taxonomy.species },
+    });
+
+    subs = dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'delete') {
+        this.onDelete();
+      }
+    });
   }
 }
