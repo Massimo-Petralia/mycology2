@@ -133,6 +133,13 @@ export class MushroomTablePageComponent
     );
   }
 
+  onSelect(mushroom: Mushroom) {
+    this.selectedMushrooms = {
+      ...this.selectedMushrooms,
+      [mushroom.id as string]: mushroom,
+    };
+  }
+
   ngOnDestroy(): void {
     this.subs.unsubscribe();
   }
