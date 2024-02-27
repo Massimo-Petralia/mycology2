@@ -72,7 +72,14 @@
     <td mat-cell *matCellDef="let mushroom">{{ mushroom.taxonomy.order }}</td>
   </ng-container>
   <ng-container matColumnDef="AA">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>A.A.</th>
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      mat-sort-header
+      title="Authoritative Author"
+    >
+      A.A.
+    </th>
     <td mat-cell *matCellDef="let mushroom" style="font-family: cursive">
       {{ mushroom.taxonomy.AA }}
     </td>

@@ -30,15 +30,15 @@
       "type": "[Form Mushroom Page] Update Mushroom Request"
     },
     {
-      "id": "31a2",
+      "id": "7096",
       "iconographyID": null,
       "taxonomy": {
-        "species": "Fungo Toad",
-        "gender": "bross",
-        "family": "",
-        "order": "",
-        "commonName": "",
-        "AA": ""
+        "species": "Bolletus aerus",
+        "gender": "Bolletus",
+        "family": "Bolletaceae",
+        "order": "xx",
+        "commonName": "yy",
+        "AA": "zz"
       },
       "morphology": {
         "cap": "",
