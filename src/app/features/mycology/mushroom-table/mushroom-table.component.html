@@ -30,6 +30,23 @@
   matSortDisableClear
   (matSortChange)="handleSorting($event)"
 >
+  <ng-container matColumnDef="select">
+    <th mat-header-cell *matHeaderCellDef>
+      <mat-checkbox
+        (change)="$event ? toggleAllRows() : null"
+        [checked]="selection.hasValue() && isAllSelected()"
+        [indeterminate]="selection.hasValue() && !isAllSelected()"
+      ></mat-checkbox>
+    </th>
+    <td mat-cell *matCellDef="let row; let mushroom">
+      <mat-checkbox
+        (click)="$event.stopPropagation()"
+        (change)="$event ? selection.toggle(row) : null"
+        [checked]="selection.isSelected(row)"
+      ></mat-checkbox>
+    </td>
+  </ng-container>
+
   <ng-container matColumnDef="species">
     <th mat-header-cell *matHeaderCellDef>Species</th>
     <td mat-cell *matCellDef="let mushroom">
@@ -66,11 +83,14 @@
     <td mat-cell *matCellDef="let mushroom">
       <button mat-icon-button [matMenuTriggerFor]="menu" title="Options">
         <mat-icon>more_vert</mat-icon>
-        <mat-menu #menu="matMenu" >
-          <a mat-menu-item (click)="onSelect(mushroom)">select</a>
+        <mat-menu #menu="matMenu">
           <a mat-menu-item (click)="onMushroom(mushroom.id)">edit</a>
-          <a mat-menu-item class="delete-button" (click)="openDialog(mushroom.id)">delete</a >
-        
+          <a
+            mat-menu-item
+            class="delete-button"
+            (click)="openDialog(mushroom.id)"
+            >delete</a
+          >
         </mat-menu>
       </button>
     </td>
@@ -90,3 +110,5 @@
     Add
   </button>
 </div>
+
+<button (click)="readSelectionModel()">read selection model values</button>
