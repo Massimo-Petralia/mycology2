@@ -58,6 +58,8 @@ export class MushroomTablePageComponent
 
   formFilteredSearch?: FormFilteredSearch;
 
+  selectedMushrooms: { [key: string]: Mushroom } | null = null;
+
   ngOnChanges(changes: SimpleChanges): void {}
 
   ngOnInit(): void {

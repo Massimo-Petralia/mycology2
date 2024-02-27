@@ -25,6 +25,16 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { DialogDeletionInformationComponent } from '../dialog-deletion-information/dialog-deletion-information.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatCheckboxModule } from '@angular/material/checkbox'
+import {  SelectionModel } from '@angular/cdk/collections'
+
+export interface PeriodicElement {
+  species: string;
+  gender: string;
+  family: string; 
+  order: string;
+  AA: string
+}
 
 @Component({
   selector: 'app-mushroom-table',
@@ -39,6 +49,7 @@ import { MatDialog } from '@angular/material/dialog';
     MatSelectModule,
     MatMenuModule,
     MatIconModule,
+    MatCheckboxModule
   ],
   templateUrl: './mushroom-table.component.html',
   styleUrl: './mushroom-table.component.scss',
@@ -63,13 +74,15 @@ export class MushroomTableComponent
 
   dataSource!: MatTableDataSource<Mushroom>;
 
-  columsToDisplay = ['species', 'gender', 'family', 'order', 'AA', 'options'];
+  selection = new SelectionModel<Mushroom>(true, [])
+
+  columsToDisplay = ['select', 'species', 'gender', 'family', 'order', 'AA', 'options'];
 
   @ViewChild(MatSort) sort!: MatSort;
 
   @Output() formValue = new EventEmitter<FormFilteredSearch>();
 
-  @Output() delete = new EventEmitter<string>()
+  @Output() delete = new EventEmitter<string>();
 
   formFilteredSearch = this.fb.group({
     filter: this.fb.control<string>('species'),
@@ -144,26 +157,45 @@ export class MushroomTableComponent
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  openDialog(mushroomID: string) {
+    const collection = this.mushrooms.reduce(
+      (collection: { [id: string]: Mushroom }, mushroom) => {
+        collection[mushroom.id!] = mushroom;
+        return collection;
+      },
+      {}
+    );
+    const dialogRef = this.dialog
+      .open(DialogDeletionInformationComponent, {
+        data: { species: collection[mushroomID].taxonomy.species },
+      })
+      .afterClosed()
+      .subscribe((result) => {
+        if (result === 'delete') {
+          this.delete.emit(mushroomID);
+        }
+      });
+  }
 
- openDialog(mushroomID: string){
-  const collection = this.mushrooms.reduce(
-    (collection: { [id: string]: Mushroom }, mushroom) => {
-      collection[mushroom.id!] = mushroom;
-      return collection;
-    },
-    {}
-  )
-  const dialogRef = this.dialog.open(DialogDeletionInformationComponent, {data:{species: collection[mushroomID].taxonomy.species}}).afterClosed().subscribe(result =>{
-    if(result === 'delete'){
-      //emetti l'evento cancella
-      this.delete.emit(mushroomID)
+
+  isAllSelected(){
+    const selectedNumber = this.selection.selected.length;
+    const rowNumber = this.mushrooms.length
+    return selectedNumber === rowNumber
+  }
+
+  toggleAllRows(){
+    if(this.isAllSelected()){
+      this.selection.clear();
+      return
     }
-  })
- } 
+    this.selection.select(...this.dataSource.data)
+  }
 
   updateColums(event?: Event) {
     let windowSize: number;
     const columsToDisplay: string[] = [
+      'select',
       'species',
       'gender',
       'family',
@@ -184,7 +216,8 @@ export class MushroomTableComponent
         columsToDisplay[1],
         columsToDisplay[2],
         columsToDisplay[3],
-        columsToDisplay[5],
+        columsToDisplay[4],
+        columsToDisplay[6]
       ];
     }
     if (windowSize <= 640) {
@@ -192,15 +225,29 @@ export class MushroomTableComponent
         columsToDisplay[0],
         columsToDisplay[1],
         columsToDisplay[2],
-        columsToDisplay[5],
+        columsToDisplay[3],
+        columsToDisplay[6],
       ];
     }
     if (windowSize <= 460) {
       this.columsToDisplay = [
         columsToDisplay[0],
-        columsToDisplay[2],
-        columsToDisplay[5],
+        columsToDisplay[1],
+        columsToDisplay[3],
+        columsToDisplay[6],
+      ];
+    }
+    if (windowSize <= 382) {
+      this.columsToDisplay = [
+        columsToDisplay[0],
+        columsToDisplay[1],
+        columsToDisplay[6],
       ];
     }
   }
+
+  readSelectionModel(){
+    console.log('selection model values: ', this.selection.selected, 'number of selected: ', this.selection.selected.length, 'is all selected?: ', this.isAllSelected())
+  }
+
 }
