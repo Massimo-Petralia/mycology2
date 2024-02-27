@@ -25,15 +25,15 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { DialogDeletionInformationComponent } from '../dialog-deletion-information/dialog-deletion-information.component';
 import { MatDialog } from '@angular/material/dialog';
-import { MatCheckboxModule } from '@angular/material/checkbox'
-import {  SelectionModel } from '@angular/cdk/collections'
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { SelectionModel } from '@angular/cdk/collections';
 
 export interface PeriodicElement {
   species: string;
   gender: string;
-  family: string; 
+  family: string;
   order: string;
-  AA: string
+  AA: string;
 }
 
 @Component({
@@ -49,7 +49,7 @@ export interface PeriodicElement {
     MatSelectModule,
     MatMenuModule,
     MatIconModule,
-    MatCheckboxModule
+    MatCheckboxModule,
   ],
   templateUrl: './mushroom-table.component.html',
   styleUrl: './mushroom-table.component.scss',
@@ -74,9 +74,17 @@ export class MushroomTableComponent
 
   dataSource!: MatTableDataSource<Mushroom>;
 
-  selection = new SelectionModel<Mushroom>(true, [])
+  selection = new SelectionModel<Mushroom>(true, []);
 
-  columsToDisplay = ['select', 'species', 'gender', 'family', 'order', 'AA', 'options'];
+  columsToDisplay = [
+    'select',
+    'species',
+    'gender',
+    'family',
+    'order',
+    'AA',
+    'options',
+  ];
 
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -95,17 +103,18 @@ export class MushroomTableComponent
     const { mushrooms } = changes;
     if (mushrooms && !mushrooms.isFirstChange()) {
       this.handleSorting(this.sort);
+      this.selection.clear();
     }
   }
 
   ngOnInit(): void {
     this.subs.add(
-      this.formFilteredSearch.valueChanges
+      this.formFilteredSearch.controls.search.valueChanges
         .pipe(debounceTime(500))
         .subscribe((value) => {
           this.formValue.emit({
-            filter: value.filter!,
-            search: value.search!,
+            filter: this.formFilteredSearch.controls.filter.value,
+            search: value,
           });
         })
     );
@@ -177,19 +186,18 @@ export class MushroomTableComponent
       });
   }
 
-
-  isAllSelected(){
+  isAllSelected() {
     const selectedNumber = this.selection.selected.length;
-    const rowNumber = this.mushrooms.length
-    return selectedNumber === rowNumber
+    const rowNumber = this.mushrooms.length;
+    return selectedNumber === rowNumber;
   }
 
-  toggleAllRows(){
-    if(this.isAllSelected()){
+  toggleAllRows() {
+    if (this.isAllSelected()) {
       this.selection.clear();
-      return
+      return;
     }
-    this.selection.select(...this.dataSource.data)
+    this.selection.select(...this.dataSource.data);
   }
 
   updateColums(event?: Event) {
@@ -217,7 +225,7 @@ export class MushroomTableComponent
         columsToDisplay[2],
         columsToDisplay[3],
         columsToDisplay[4],
-        columsToDisplay[6]
+        columsToDisplay[6],
       ];
     }
     if (windowSize <= 640) {
@@ -246,8 +254,14 @@ export class MushroomTableComponent
     }
   }
 
-  readSelectionModel(){
-    console.log('selection model values: ', this.selection.selected, 'number of selected: ', this.selection.selected.length, 'is all selected?: ', this.isAllSelected())
+  readSelectionModel() {
+    console.log(
+      'selection model values: ',
+      this.selection.selected,
+      'number of selected: ',
+      this.selection.selected.length,
+      'is all selected?: ',
+      this.isAllSelected()
+    );
   }
-
 }
