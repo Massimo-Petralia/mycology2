@@ -28,35 +28,6 @@
         "cystidia": "da ispezionare"
       },
       "type": "[Form Mushroom Page] Update Mushroom Request"
-    },
-    {
-      "id": "7096",
-      "iconographyID": null,
-      "taxonomy": {
-        "species": "Bolletus aerus",
-        "gender": "Bolletus",
-        "family": "Bolletaceae",
-        "order": "xx",
-        "commonName": "yy",
-        "AA": "zz"
-      },
-      "morphology": {
-        "cap": "",
-        "gills": "",
-        "stalk": "",
-        "flesh": ""
-      },
-      "features": {
-        "habitat": "",
-        "edibility": "",
-        "note": ""
-      },
-      "microscopicFeatures": {
-        "spores": "",
-        "pileipellis": "",
-        "cystidia": ""
-      },
-      "type": "[Form Mushroom Page] Create Mushroom Request"
     }
   ],
   "iconographies": [
