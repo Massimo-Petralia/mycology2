@@ -21,6 +21,8 @@
   </form>
 </fieldset>
 
+<button mat-flat-button *ngIf="selection.hasValue()" (click)="onDeleteSelected()">Delete selected</button>
+
 <table
   mat-table
   matSort

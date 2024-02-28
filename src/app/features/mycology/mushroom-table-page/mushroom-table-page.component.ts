@@ -128,8 +128,14 @@ export class MushroomTablePageComponent
     );
     this.store.dispatch(
       MycologyActions.deleteMushroomRequest({
-        mushroom: collection[mushroomID],
+        mushrooms: [collection[mushroomID]],
       })
+    );
+  }
+
+  onDeleteSelected(mushrooms: Mushroom[]) {
+    this.store.dispatch(
+      MycologyActions.deleteMushroomRequest({ mushrooms: mushrooms })
     );
   }
 

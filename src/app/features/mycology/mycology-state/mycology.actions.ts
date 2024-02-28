@@ -3,7 +3,7 @@ import { IconographicContainer, Mushroom } from '../models/mycology.models';
 
 export const loadMushroomsRequest = createAction(
   '[Mushroom Table Page] Load Paginated Mushroom Table Request',
-  props<{ pageIndex: number, filter: string|null, search: string|null }>()
+  props<{ pageIndex: number; filter: string | null; search: string | null }>()
 );
 
 export const loadMushroomsSucces = createAction(
@@ -72,12 +72,12 @@ export const loadIconographyFailed = createAction(
 
 export const deleteMushroomRequest = createAction(
   '[Form Mushroom] Delete Mushroom Request',
-  props<{ mushroom: Mushroom }>()
+  props<{ mushrooms: Mushroom[] }>()
 );
 
 export const deleteMushroomSucces = createAction(
   '[Mushroom API] Delete Mushroom Succes',
-  props<{ id: string }>()
+  props<{ deletedMushroomsNumber: number }>()
 );
 
 export const deleteMushroomFailed = createAction(
@@ -86,12 +86,11 @@ export const deleteMushroomFailed = createAction(
 
 export const deleteIconographyRequest = createAction(
   '[Delete Mushroom Effects] Delete Iconography Request',
-  props<{ iconographicContainerID: string }>()
+  props<{ mushroomsIconographyID: string[] }>()
 );
 
 export const deleteIconographySucces = createAction(
-  '[Iconography API] Delete Iconography Succes',
-  //props<{ iconographicContainerID: string }>()
+  '[Iconography API] Delete Iconography Succes'
 );
 
 export const deleteIconographyFailed = createAction(
@@ -139,4 +138,6 @@ export const saveMycologyFailed = createAction(
 
 export const resetState = createAction('[Mycology Page] Reset State');
 
-export const resetNotificationsState = createAction('[Mycology Page] Reset Notifications State')
+export const resetNotificationsState = createAction(
+  '[Mycology Page] Reset Notifications State'
+);
