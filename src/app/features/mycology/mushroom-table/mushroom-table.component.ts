@@ -72,9 +72,9 @@ export class MushroomTableComponent
   @Input() page: number | undefined;
   @Input() mushrooms: Mushroom[] = [];
   dataSource!: MatTableDataSource<Mushroom>;
-  
+
   selection = new SelectionModel<Mushroom>(true, []);
-  
+
   columsToDisplay = [
     'select',
     'species',
@@ -86,13 +86,13 @@ export class MushroomTableComponent
   ];
 
   @ViewChild(MatSort) sort!: MatSort;
-  
+
   @Output() formValue = new EventEmitter<FormFilteredSearch>();
-  
+
   @Output() delete = new EventEmitter<string>();
-  
-  @Output() deleteSelected = new EventEmitter<Mushroom[]>()
-  
+
+  @Output() deleteSelected = new EventEmitter<Mushroom[]>();
+
   formFilteredSearch = this.fb.group({
     filter: this.fb.control<string>('species'),
     search: this.fb.control<string>(''),
@@ -201,8 +201,17 @@ export class MushroomTableComponent
     this.selection.select(...this.dataSource.data);
   }
 
-  onDeleteSelected(){
-    this.deleteSelected.emit(this.selection.selected)
+  onDeleteSelected() {
+    const dialogRef = this.dialog
+      .open(DialogDeletionInformationComponent, {
+        data: this.selection.selected
+      })
+      .afterClosed()
+      .subscribe((result) => {
+        if (result === 'delete') {
+          this.deleteSelected.emit(this.selection.selected);
+        }
+      });
   }
 
   updateColums(event?: Event) {

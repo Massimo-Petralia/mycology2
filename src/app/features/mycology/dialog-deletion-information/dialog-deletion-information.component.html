@@ -1,13 +1,9 @@
 <h2 class="deleteDialogBox-title" mat-dialog-title>Attention !</h2>
 <mat-dialog-content>
-  <p>
-    Do you want to <strong>delete</strong> the mushroom
-    <strong>{{ inputData.species }}</strong> ?
+  <p [innerHTML]="text">
+  
   </p>
-  <p>
-    This operation will also <strong>delete</strong> the
-    <strong>iconographic gallery</strong> if present.
-  </p>
+
 </mat-dialog-content>
 
 <mat-dialog-actions class="buttons-container">
