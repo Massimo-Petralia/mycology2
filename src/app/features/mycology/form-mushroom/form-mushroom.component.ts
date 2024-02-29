@@ -20,6 +20,9 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { DialogDeletionInformationComponent } from '../dialog-deletion-information/dialog-deletion-information.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatIconModule } from '@angular/material/icon';
+import { tooltip } from '../models/mycology-tooltip-data.model';
 
 @Component({
   selector: 'app-form-mushroom',
@@ -34,12 +37,16 @@ import { DialogDeletionInformationComponent } from '../dialog-deletion-informati
     MatButtonToggleModule,
     MatDialogModule,
     DialogDeletionInformationComponent,
+    MatTooltipModule,
+    MatIconModule
   ],
   templateUrl: './form-mushroom.component.html',
   styleUrl: './form-mushroom.component.scss',
 })
 export class FormMushroomComponent implements OnChanges {
   constructor(private formbuilder: FormBuilder, public dialog: MatDialog) {}
+
+  tooltip :Mushroom = tooltip
 
   @ViewChild('invalidFieldDialogBox') invalidFieldDialogBox!: TemplateRef<any>;
 
