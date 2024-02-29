@@ -4,7 +4,7 @@
   <div *ngIf="paginator" class="page-label">page: {{ page }}</div>
   <mat-paginator
   #paginator
-  pageSize="10"
+  pageSize="8"
   [length]="items"
   (page)="handlePagination($event)"
   showFirstLastButtons=""

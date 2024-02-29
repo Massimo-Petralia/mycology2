@@ -26,8 +26,8 @@ export class MycologyService {
       .get<Response>(
         filter === 'species' && !search ||
         !filter && !search 
-          ? `${mushroomsDataURL}?_page=${pageIndex}`
-          : `${mushroomsDataURL}?taxonomy.${filter}=${search}&_page=${pageIndex}`
+          ? `${mushroomsDataURL}?_page=${pageIndex}&_per_page=8`
+          : `${mushroomsDataURL}?taxonomy.${filter}=${search}&_page=${pageIndex}&_per_page=8`
       )
       .pipe(
         catchError((error) => {
