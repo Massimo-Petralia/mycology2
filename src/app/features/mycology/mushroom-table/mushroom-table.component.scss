@@ -10,7 +10,6 @@ button {
   padding-left: 10px;
   padding-right: 10px;
   margin-left: 10px;
- 
 }
 
 .flex-container {
@@ -19,10 +18,9 @@ button {
   margin-top: 10px;
 }
 
-@media (max-width: 430px) {
+@media (max-width: 480px) {
   .flex-container {
     flex-direction: column-reverse;
-    justify-content: center;
   }
 }
 
@@ -47,7 +45,6 @@ button {
   margin: 10px;
 }
 
-.delete-button:hover{
-  color: rgba(255, 2, 2, 0.801);
+.delete-button:hover {
+  color:#f44336;
 }
-

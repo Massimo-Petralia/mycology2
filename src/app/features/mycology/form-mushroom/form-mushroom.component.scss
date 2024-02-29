@@ -12,6 +12,9 @@
   font-style: italic;
   margin-left: 10px;
   font-weight: bolder;
+  border-left: 5px solid;
+  border-top-left-radius: 20px;
+  padding-left: 10px;
 }
 
 .subtitle {
@@ -30,7 +33,7 @@ mat-button-toggle {
 .delete-button {
   margin-right: 10px;
 }
-.delete-button:hover{
+.delete-button:hover {
   color: rgba(255, 2, 2, 0.801);
 }
 

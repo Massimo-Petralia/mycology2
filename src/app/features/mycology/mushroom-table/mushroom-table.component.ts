@@ -28,14 +28,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { SelectionModel } from '@angular/cdk/collections';
 
-export interface PeriodicElement {
-  species: string;
-  gender: string;
-  family: string;
-  order: string;
-  AA: string;
-}
-
 @Component({
   selector: 'app-mushroom-table',
   standalone: true,
@@ -204,7 +196,7 @@ export class MushroomTableComponent
   onDeleteSelected() {
     const dialogRef = this.dialog
       .open(DialogDeletionInformationComponent, {
-        data: this.selection.selected
+        data: this.selection.selected,
       })
       .afterClosed()
       .subscribe((result) => {
@@ -266,16 +258,5 @@ export class MushroomTableComponent
         columsToDisplay[6],
       ];
     }
-  }
-
-  readSelectionModel() {
-    console.log(
-      'selection model values: ',
-      this.selection.selected,
-      'number of selected: ',
-      this.selection.selected.length,
-      'is all selected?: ',
-      this.isAllSelected()
-    );
   }
 }
