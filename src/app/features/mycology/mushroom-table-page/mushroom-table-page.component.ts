@@ -40,7 +40,6 @@ export class MushroomTablePageComponent
   ) {}
   @ViewChild('paginator') paginator!: MatPaginator;
   @ViewChild(MushroomTableComponent) mushroomTable!: MushroomTableComponent;
-  @ViewChild('title') title!: ElementRef<HTMLHeadingElement>;
 
   page: number | undefined;
 

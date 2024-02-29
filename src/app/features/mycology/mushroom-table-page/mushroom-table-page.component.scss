@@ -1,5 +1,5 @@
 .flex-container {
-  background-color: #7b1fa2;
+  background-color: #672f80;
   color: white;
   display: flex;
   flex-direction: row;
@@ -18,15 +18,21 @@
   padding-left: 10px;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 492px) {
   .title {
     margin-top: 10px;
+  }
+
+  .page-label {
+    padding-bottom: 5px;
+  }
+  mat-paginator {
+    padding-top: 5px;
   }
 }
 
 mat-paginator {
-  flex-grow: 1;
-  background-color: #7b1fa2;
+  background-color: #672f80;
 }
 
 ::ng-deep .mat-mdc-paginator-range-label {

@@ -1,14 +1,17 @@
 <div class="flex-container">
-  <h4 #title class="title">Mushroom table</h4>
-  <mat-paginator
-    #paginator
-    pageSize="10"
-    [length]="items"
-    (page)="handlePagination($event)"
-    showFirstLastButtons=""
-  ></mat-paginator>
+  <h4 class="title">Mushroom table</h4>
+
   <div *ngIf="paginator" class="page-label">page: {{ page }}</div>
+  <mat-paginator
+  #paginator
+  pageSize="10"
+  [length]="items"
+  (page)="handlePagination($event)"
+  showFirstLastButtons=""
+  >
+</mat-paginator>
 </div>
+
 <app-mushroom-table
   [page]="page"
   [mushrooms]="mushrooms"
