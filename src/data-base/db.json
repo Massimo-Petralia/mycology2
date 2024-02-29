@@ -28,6 +28,238 @@
         "cystidia": "da ispezionare"
       },
       "type": "[Form Mushroom Page] Update Mushroom Request"
+    },
+    {
+      "id": "d9f4",
+      "iconographyID": null,
+      "taxonomy": {
+        "species": "aa",
+        "gender": "",
+        "family": "",
+        "order": "",
+        "commonName": "",
+        "AA": ""
+      },
+      "morphology": {
+        "cap": "",
+        "gills": "",
+        "stalk": "",
+        "flesh": ""
+      },
+      "features": {
+        "habitat": "",
+        "edibility": "",
+        "note": ""
+      },
+      "microscopicFeatures": {
+        "spores": "",
+        "pileipellis": "",
+        "cystidia": ""
+      },
+      "type": "[Form Mushroom Page] Create Mushroom Request"
+    },
+    {
+      "id": "7097",
+      "iconographyID": null,
+      "taxonomy": {
+        "species": "bbb",
+        "gender": "",
+        "family": "",
+        "order": "",
+        "commonName": "",
+        "AA": ""
+      },
+      "morphology": {
+        "cap": "",
+        "gills": "",
+        "stalk": "",
+        "flesh": ""
+      },
+      "features": {
+        "habitat": "",
+        "edibility": "",
+        "note": ""
+      },
+      "microscopicFeatures": {
+        "spores": "",
+        "pileipellis": "",
+        "cystidia": ""
+      },
+      "type": "[Form Mushroom Page] Create Mushroom Request"
+    },
+    {
+      "id": "7971",
+      "iconographyID": null,
+      "taxonomy": {
+        "species": "ccc",
+        "gender": "",
+        "family": "",
+        "order": "",
+        "commonName": "",
+        "AA": ""
+      },
+      "morphology": {
+        "cap": "",
+        "gills": "",
+        "stalk": "",
+        "flesh": ""
+      },
+      "features": {
+        "habitat": "",
+        "edibility": "",
+        "note": ""
+      },
+      "microscopicFeatures": {
+        "spores": "",
+        "pileipellis": "",
+        "cystidia": ""
+      },
+      "type": "[Form Mushroom Page] Create Mushroom Request"
+    },
+    {
+      "id": "384d",
+      "iconographyID": null,
+      "taxonomy": {
+        "species": "ddd",
+        "gender": "",
+        "family": "",
+        "order": "",
+        "commonName": "",
+        "AA": ""
+      },
+      "morphology": {
+        "cap": "",
+        "gills": "",
+        "stalk": "",
+        "flesh": ""
+      },
+      "features": {
+        "habitat": "",
+        "edibility": "",
+        "note": ""
+      },
+      "microscopicFeatures": {
+        "spores": "",
+        "pileipellis": "",
+        "cystidia": ""
+      },
+      "type": "[Form Mushroom Page] Create Mushroom Request"
+    },
+    {
+      "id": "7809",
+      "iconographyID": null,
+      "taxonomy": {
+        "species": "fungo vuoto",
+        "gender": "",
+        "family": "",
+        "order": "",
+        "commonName": "",
+        "AA": ""
+      },
+      "morphology": {
+        "cap": "",
+        "gills": "",
+        "stalk": "",
+        "flesh": ""
+      },
+      "features": {
+        "habitat": "",
+        "edibility": "",
+        "note": ""
+      },
+      "microscopicFeatures": {
+        "spores": "",
+        "pileipellis": "",
+        "cystidia": ""
+      },
+      "type": "[Form Mushroom Page] Create Mushroom Request"
+    },
+    {
+      "id": "6154",
+      "iconographyID": null,
+      "taxonomy": {
+        "species": "Alcantara",
+        "gender": "",
+        "family": "",
+        "order": "",
+        "commonName": "",
+        "AA": ""
+      },
+      "morphology": {
+        "cap": "",
+        "gills": "",
+        "stalk": "",
+        "flesh": ""
+      },
+      "features": {
+        "habitat": "",
+        "edibility": "",
+        "note": ""
+      },
+      "microscopicFeatures": {
+        "spores": "",
+        "pileipellis": "",
+        "cystidia": ""
+      },
+      "type": "[Form Mushroom Page] Create Mushroom Request"
+    },
+    {
+      "id": "26f3",
+      "iconographyID": null,
+      "taxonomy": {
+        "species": "detectins chabges",
+        "gender": "",
+        "family": "",
+        "order": "",
+        "commonName": "",
+        "AA": ""
+      },
+      "morphology": {
+        "cap": "",
+        "gills": "",
+        "stalk": "",
+        "flesh": ""
+      },
+      "features": {
+        "habitat": "",
+        "edibility": "",
+        "note": ""
+      },
+      "microscopicFeatures": {
+        "spores": "",
+        "pileipellis": "",
+        "cystidia": ""
+      },
+      "type": "[Form Mushroom Page] Create Mushroom Request"
+    },
+    {
+      "id": "6e04",
+      "iconographyID": null,
+      "taxonomy": {
+        "species": "Fungo lanterna",
+        "gender": "",
+        "family": "",
+        "order": "",
+        "commonName": "",
+        "AA": ""
+      },
+      "morphology": {
+        "cap": "",
+        "gills": "",
+        "stalk": "",
+        "flesh": ""
+      },
+      "features": {
+        "habitat": "",
+        "edibility": "",
+        "note": ""
+      },
+      "microscopicFeatures": {
+        "spores": "",
+        "pileipellis": "",
+        "cystidia": ""
+      },
+      "type": "[Form Mushroom Page] Create Mushroom Request"
     }
   ],
   "iconographies": [

@@ -1,13 +1,11 @@
 import {
   Component,
   OnInit,
-  OnChanges,
   AfterViewInit,
   OnDestroy,
   ViewChild,
-  ElementRef,
-  SimpleChanges,
   Input,
+  ElementRef,
 } from '@angular/core';
 import { MushroomTableComponent } from '../mushroom-table/mushroom-table.component';
 import {
@@ -34,18 +32,16 @@ import { FormFilteredSearch } from '../models/mycology.models';
   styleUrl: './mushroom-table-page.component.scss',
 })
 export class MushroomTablePageComponent
-  implements OnChanges, OnInit, AfterViewInit, OnDestroy
+  implements OnInit, AfterViewInit, OnDestroy
 {
   constructor(
     private store: Store<MycologyState>,
-    private paramsService: SharedParametersService
+    public paramsService: SharedParametersService
   ) {}
   @ViewChild('paginator') paginator!: MatPaginator;
   @ViewChild(MushroomTableComponent) mushroomTable!: MushroomTableComponent;
 
   page: number | undefined;
-
-  provvisoria: any;
 
   mushrooms$ = this.store.select(selectMushroomsFeature);
   mushrooms: Mushroom[] = [];
@@ -59,8 +55,6 @@ export class MushroomTablePageComponent
   formFilteredSearch?: FormFilteredSearch;
 
   selectedMushrooms: { [key: string]: Mushroom } | null = null;
-
-  ngOnChanges(changes: SimpleChanges): void {}
 
   ngOnInit(): void {
     this.page = this.paramsService.page;
@@ -84,8 +78,6 @@ export class MushroomTablePageComponent
     this.subs.add(
       this.items$.subscribe((items) => {
         this.items = items;
-
-        debugger;
       })
     );
   }
