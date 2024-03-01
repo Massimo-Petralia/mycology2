@@ -178,8 +178,7 @@ export class MushroomTableComponent
             {
               filter: 'species',
               search: '',
-            },
-            { emitEvent: false }
+            }
           );
           this.delete.emit(mushroomID);
         }
@@ -212,8 +211,7 @@ export class MushroomTableComponent
             {
               filter: 'species',
               search: '',
-            },
-            { emitEvent: false }
+            }
           );
           this.deleteSelected.emit(this.selection.selected);
         }
