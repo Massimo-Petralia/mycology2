@@ -28,14 +28,25 @@
     </button>
   </div>
 
-  <mat-expansion-panel class="subForm-container" disabled="true" expanded="true">
+  <mat-expansion-panel
+    class="subForm-container"
+    disabled="true"
+    expanded="true"
+  >
     <mat-expansion-panel-header>
-      <mat-panel-title style="color: white;">Taxonomy</mat-panel-title>
-      <mat-panel-description style="color: #c6c6c6;">Systematic nomenclature</mat-panel-description>
+      <mat-panel-title style="color: white">Taxonomy</mat-panel-title>
+      <mat-panel-description style="color: #c6c6c6"
+        >Systematic nomenclature</mat-panel-description
+      >
     </mat-expansion-panel-header>
     <form formGroupName="taxonomy" class="flex-container">
       <div class="group-1-taxonomy">
-        <span class="tooltip" #tooltipspecies="matTooltip" matTooltip="{{tooltip.taxonomy.species}}" matTooltipPosition="above"></span>
+        <span
+          class="tooltip"
+          #tooltipspecies="matTooltip"
+          matTooltip="{{ tooltip.taxonomy.species }}"
+          matTooltipPosition="above"
+        ></span>
         <mat-form-field class="mat-form-field-taxonomy">
           <label #specieslabel for="species" className="">Species</label>
           <input
@@ -47,8 +58,15 @@
             (blur)="specieslabel.className = ''"
           />
         </mat-form-field>
-      <mat-icon title="click for info" (click)="tooltipspecies.toggle();">info</mat-icon>
-        <span class="tooltip" #tooltipgender="matTooltip" matTooltip="placeholder" matTooltipPosition="above"></span>
+        <mat-icon title="click for info" (click)="tooltipspecies.toggle()"
+          >info</mat-icon
+        >
+        <span
+          class="tooltip"
+          #tooltipgender="matTooltip"
+          matTooltip="The species of a mushroom is written with the first term (gender name) capitalized and the second term (species name) in lower case (for example Amanita muscaria )."
+          matTooltipPosition="above"
+        ></span>
 
         <mat-form-field class="mat-form-field-taxonomy">
           <label #genderlabel for="gender" className="">Gender</label>
@@ -61,9 +79,17 @@
             (blur)="genderlabel.className = ''"
           />
         </mat-form-field>
-        <mat-icon title="click for info" (click)="tooltipgender.toggle();">info</mat-icon>
+        <mat-icon title="click for info" (click)="tooltipgender.toggle()"
+          >info</mat-icon
+        >
+        <span
+          class="tooltip"
+          #tooltipfamily="matTooltip"
+          matTooltip="The species of a mushroom is written with the first term (gender name) capitalized and the second term (species name) in lower case (for example Amanita muscaria )."
+          matTooltipPosition="above"
+        ></span>
 
-        <mat-form-field class="mat-form-field-taxonomy" matTooltip="placeholder" matTooltipPosition="above">
+        <mat-form-field class="mat-form-field-taxonomy">
           <label #familylabel for="family" className="">Family</label>
           <input
             id="family"
@@ -74,11 +100,16 @@
             (blur)="familylabel.className = ''"
           />
         </mat-form-field>
-        <mat-icon title="click for info">info</mat-icon>
-
+        <mat-icon title="click for info" (click)="tooltipfamily.toggle()"
+          >info</mat-icon
+        >
       </div>
       <div class="group-2-taxonomy">
-        <mat-form-field class="mat-form-field-taxonomy" matTooltip="placeholder" matTooltipPosition="above">
+        <mat-form-field
+          class="mat-form-field-taxonomy"
+          matTooltip="placeholder"
+          matTooltipPosition="above"
+        >
           <label #orderlabel for="order" className="">Order</label>
           <input
             id="order"
@@ -91,7 +122,11 @@
         </mat-form-field>
         <mat-icon title="click for info">info</mat-icon>
 
-        <mat-form-field class="mat-form-field-taxonomy" matTooltip="placeholder" matTooltipPosition="above">
+        <mat-form-field
+          class="mat-form-field-taxonomy"
+          matTooltip="placeholder"
+          matTooltipPosition="above"
+        >
           <label #synonymouslabel for="commonName" className=""
             >Common name</label
           >
@@ -106,7 +141,11 @@
         </mat-form-field>
         <mat-icon title="click for info">info</mat-icon>
 
-        <mat-form-field class="mat-form-field-taxonomy" matTooltip="placeholder" matTooltipPosition="above">
+        <mat-form-field
+          class="mat-form-field-taxonomy"
+          matTooltip="placeholder"
+          matTooltipPosition="above"
+        >
           <label #aalabel for="AA" className="">A.A.</label>
           <input
             id="AA"
@@ -119,7 +158,6 @@
           />
         </mat-form-field>
         <mat-icon title="click for info">info</mat-icon>
-
       </div>
     </form>
   </mat-expansion-panel>
