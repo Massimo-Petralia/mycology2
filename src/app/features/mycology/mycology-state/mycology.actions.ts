@@ -70,18 +70,18 @@ export const loadIconographyFailed = createAction(
   '[Iconography API] Load Iconography Failed'
 );
 
-export const deleteMushroomRequest = createAction(
-  '[Form Mushroom] Delete Mushroom Request',
+export const deleteMushroomsRequest = createAction(
+  '[Form Mushroom] Delete Mushrooms Request',
   props<{ mushrooms: Mushroom[] }>()
 );
 
-export const deleteMushroomSucces = createAction(
-  '[Mushroom API] Delete Mushroom Succes',
+export const deleteMushroomsSucces = createAction(
+  '[Mushroom API] Delete Mushrooms Succes',
   props<{ deletedMushroomsNumber: number }>()
 );
 
-export const deleteMushroomFailed = createAction(
-  '[Mushroom API] Delete Mushroom failed'
+export const deleteMushroomsFailed = createAction(
+  '[Mushroom API] Delete Mushrooms failed'
 );
 
 export const deleteIconographyRequest = createAction(

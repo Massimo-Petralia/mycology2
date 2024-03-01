@@ -72,7 +72,7 @@ export const mycologyReducer = createReducer(
       iconographicContainer,
     })
   ),
-  on(MycologyActions.deleteMushroomSucces, (mycologystate, { deletedMushroomsNumber }) => {
+  on(MycologyActions.deleteMushroomsSucces, (mycologystate, { deletedMushroomsNumber }) => {
     //const updatedMushrooms = { ...mycologystate.mushrooms };
     //delete updatedMushrooms[id];
     const mycologyStateItems = mycologystate.items - deletedMushroomsNumber;

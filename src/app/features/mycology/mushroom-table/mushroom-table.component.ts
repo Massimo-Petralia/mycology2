@@ -174,6 +174,13 @@ export class MushroomTableComponent
       .afterClosed()
       .subscribe((result) => {
         if (result === 'delete') {
+          this.formFilteredSearch.reset(
+            {
+              filter: 'species',
+              search: '',
+            },
+            { emitEvent: false }
+          );
           this.delete.emit(mushroomID);
         }
       });
@@ -201,6 +208,13 @@ export class MushroomTableComponent
       .afterClosed()
       .subscribe((result) => {
         if (result === 'delete') {
+          this.formFilteredSearch.reset(
+            {
+              filter: 'species',
+              search: '',
+            },
+            { emitEvent: false }
+          );
           this.deleteSelected.emit(this.selection.selected);
         }
       });

@@ -3,13 +3,13 @@
 
   <div *ngIf="paginator" class="page-label">page: {{ page }}</div>
   <mat-paginator
-  #paginator
-  pageSize="8"
-  [length]="items"
-  (page)="handlePagination($event)"
-  showFirstLastButtons=""
+    #paginator
+    pageSize="8"
+    [length]="items"
+    (page)="handlePagination($event)"
+    showFirstLastButtons=""
   >
-</mat-paginator>
+  </mat-paginator>
 </div>
 
 <app-mushroom-table

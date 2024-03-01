@@ -77,7 +77,7 @@ export class MycologyService {
       );
   }
 
-  deleteMushroom(id: string) {
+  deleteMushrooms(id: string) {
     return this.http.delete(`${mushroomsDataURL}/${id}`).pipe(
       catchError((error) => {
         console.error('delete mushroom failed');
