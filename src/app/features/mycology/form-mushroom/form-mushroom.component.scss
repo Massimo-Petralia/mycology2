@@ -96,6 +96,9 @@ mat-button-toggle {
   .group-2-taxonomy {
     flex-direction: column;
   }
+  mat-icon{
+    margin-bottom: 10px;
+  }
 }
 
 .invalidFieldDialogBox-title {
@@ -109,4 +112,13 @@ mat-button-toggle {
 ::ng-deep .mat-mdc-dialog-surface {
   border-radius: 15px !important;
   border: 1px solid lightgray;
+}
+
+.tooltip{
+  position: relative;
+  left: 10%;
+}
+
+mat-icon:hover{
+ color:  lightskyblue;
 }

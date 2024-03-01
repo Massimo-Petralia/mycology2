@@ -176,7 +176,7 @@ export class DeleteMushroomEffects {
           this.mycologyService.deleteMushroom(mushroom.id!)
         );
         return forkJoin(observables).pipe(
-          switchMap((gg) => {
+          switchMap(() => {
             const deleteMushroomSucces = MycologyActions.deleteMushroomSucces({
               deletedMushroomsNumber: mushrooms.length,
             });
@@ -194,7 +194,6 @@ export class DeleteMushroomEffects {
                 })
               );
             }
-
             return of(deleteMushroomSucces).pipe(
               switchMap(() => {
                 const mushroomsIconographyID = mushrooms
@@ -207,7 +206,6 @@ export class DeleteMushroomEffects {
                     })
                   );
                 }
-
                 return of(deleteMushroomSucces);
               })
             );
