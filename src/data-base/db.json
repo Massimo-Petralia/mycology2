@@ -28,6 +28,35 @@
         "cystidia": "da ispezionare"
       },
       "type": "[Form Mushroom Page] Update Mushroom Request"
+    },
+    {
+      "id": "5fba",
+      "iconographyID": null,
+      "taxonomy": {
+        "species": "hhhh",
+        "gender": "mioGenere",
+        "family": "",
+        "order": "",
+        "commonName": "",
+        "AA": ""
+      },
+      "morphology": {
+        "cap": "",
+        "gills": "",
+        "stalk": "",
+        "flesh": ""
+      },
+      "features": {
+        "habitat": "",
+        "edibility": "",
+        "note": ""
+      },
+      "microscopicFeatures": {
+        "spores": "",
+        "pileipellis": "",
+        "cystidia": ""
+      },
+      "type": "[Form Mushroom Page] Create Mushroom Request"
     }
   ],
   "iconographies": [

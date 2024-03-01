@@ -38,7 +38,7 @@ export class MushroomTablePageComponent
 {
   constructor(
     private store: Store<MycologyState>,
-    public paramsService: SharedParametersService
+    public paramsService: SharedParametersService,
   ) {}
   @ViewChild('paginator') paginator!: MatPaginator;
   @ViewChild(MushroomTableComponent) mushroomTable!: MushroomTableComponent;
@@ -110,6 +110,7 @@ export class MushroomTablePageComponent
                 })
               );
             }
+
             this.items = newValue;
           }
           console.log('data emitted');
@@ -171,4 +172,7 @@ export class MushroomTablePageComponent
   ngOnDestroy(): void {
     this.subs.unsubscribe();
   }
+
+
+
 }

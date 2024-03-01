@@ -9,7 +9,11 @@ import {
   Output,
   EventEmitter,
 } from '@angular/core';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import {
+  MatTableDataSource,
+  MatTableModule,
+  MatTable,
+} from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Mushroom, Taxonomy } from '../models/mycology.models';
 import { CommonModule } from '@angular/common';
@@ -79,6 +83,8 @@ export class MushroomTableComponent
 
   @ViewChild(MatSort) sort!: MatSort;
 
+  //@ViewChild(MatTable) table!: MatTable<Mushroom>;
+
   @Output() formValue = new EventEmitter<FormFilteredSearch>();
 
   @Output() delete = new EventEmitter<string>();
@@ -102,12 +108,12 @@ export class MushroomTableComponent
 
   ngOnInit(): void {
     this.subs.add(
-      this.formFilteredSearch.controls.search.valueChanges
+      this.formFilteredSearch.valueChanges
         .pipe(debounceTime(500))
         .subscribe((value) => {
           this.formValue.emit({
-            filter: this.formFilteredSearch.controls.filter.value,
-            search: value,
+            filter: value.filter!,
+            search: value.search ? value.search : null,
           });
         })
     );
@@ -159,7 +165,7 @@ export class MushroomTableComponent
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  openDialog(mushroomID: string) {
+  onDeleteOption(mushroomID: string) {
     const collection = this.mushrooms.reduce(
       (collection: { [id: string]: Mushroom }, mushroom) => {
         collection[mushroom.id!] = mushroom;
@@ -174,12 +180,10 @@ export class MushroomTableComponent
       .afterClosed()
       .subscribe((result) => {
         if (result === 'delete') {
-          this.formFilteredSearch.reset(
-            {
-              filter: 'species',
-              search: '',
-            }
-          );
+          this.formFilteredSearch.reset({
+            filter: 'species',
+            search: '',
+          });
           this.delete.emit(mushroomID);
         }
       });
@@ -207,12 +211,10 @@ export class MushroomTableComponent
       .afterClosed()
       .subscribe((result) => {
         if (result === 'delete') {
-          this.formFilteredSearch.reset(
-            {
-              filter: 'species',
-              search: '',
-            }
-          );
+          this.formFilteredSearch.reset({
+            filter: 'species',
+            search: '',
+          });
           this.deleteSelected.emit(this.selection.selected);
         }
       });

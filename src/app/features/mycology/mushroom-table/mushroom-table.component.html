@@ -21,7 +21,7 @@
   </form>
 </fieldset>
 
-<table
+<table 
   mat-table
   matSort
   [dataSource]="dataSource"
@@ -104,7 +104,7 @@
           <a
             mat-menu-item
             class="delete-button"
-            (click)="openDialog(mushroom.id)"
+            (click)="onDeleteOption(mushroom.id)"
             >delete</a
           >
         </mat-menu>
