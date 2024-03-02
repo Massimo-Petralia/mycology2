@@ -21,9 +21,13 @@ export const tooltip: Mushroom = {
     it can vary greatly based on region and culture (for example "Boletus edulis": "Porcino" in Italy)`
   },
   morphology: {
-    cap: '',
-    gills: '',
-    stalk: '',
+    cap: `Description of : Size, Shape, Color, Surface, Margin, Sliminess, Smell etc... 
+    these are just some of the main macroscopic characteristics that can be observed on the cap of a mushroom`,
+    hymenophore: `The hymenophore hosts the elements for the reproduction of the mushroom, 
+    in Basidiomycete mushrooms it is made up of lamellae (they can be: Free, Decurrent, Adnate etc...) 
+    in Ascomycete mushrooms it is made up of aschi`,
+    stalk: `Description of : Size, Shape, Color, Surface, Ring, Base, Consistency 
+    These are just some of the main macroscopic features that can be observed on the stalk of a mushroom.`,
     flesh: '',
   },
   features: {

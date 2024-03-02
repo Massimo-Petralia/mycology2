@@ -85,7 +85,7 @@ export class FormMushroomComponent implements OnChanges {
     }),
     morphology: this.formbuilder.group({
       cap: this.formbuilder.control<string>(''),
-      gills: this.formbuilder.control<string>(''),
+      hymenophore: this.formbuilder.control<string>(''),
       stalk: this.formbuilder.control<string>(''),
       flesh: this.formbuilder.control<string>(''),
     }),

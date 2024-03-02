@@ -177,6 +177,15 @@
       <mat-panel-description>Macroscopic characteristics</mat-panel-description>
     </mat-expansion-panel-header>
     <form formGroupName="morphology" class="flex-container">
+      <mat-icon class="info-icon"  title="click for info" (click)="tooltipcap.toggle()"
+      >info</mat-icon
+    >
+    <span
+    class="tooltip"
+    #tooltipcap="matTooltip"
+    matTooltip="{{ tooltip.morphology.cap }}"
+    matTooltipPosition="above"
+  ></span>
       <mat-form-field>
         <label #caplabel for="cap" className="">Cap</label>
         <textarea
@@ -188,17 +197,37 @@
           (blur)="caplabel.className = ''"
         ></textarea>
       </mat-form-field>
+  
+    <mat-icon class="info-icon" title="click for info" (click)="tooltiphymenophore.toggle()"
+    >info</mat-icon
+  >
+  <span
+  class="tooltip"
+  #tooltiphymenophore="matTooltip"
+  matTooltip="{{ tooltip.morphology.hymenophore }}"
+  matTooltipPosition="above"
+></span>
       <mat-form-field>
-        <label #gillslabel for="gills" className="">Gills</label>
+        <label #hymenophorelabel for="hymenophore" className="">Hymenophore</label>
         <textarea
-          id="gills"
+          id="hymenophore"
           matInput
           cdkTextareaAutosize
-          formControlName="gills"
-          (focus)="gillslabel.className = 'isFocused'"
-          (blur)="gillslabel.className = ''"
+          formControlName="hymenophore"
+          (focus)="hymenophorelabel.className = 'isFocused'"
+          (blur)="hymenophorelabel.className = ''"
         ></textarea>
       </mat-form-field>
+ 
+    <mat-icon class="info-icon" title="click for info" (click)="tooltipstalk.toggle()"
+    >info</mat-icon
+  >
+  <span
+  class="tooltip"
+  #tooltipstalk="matTooltip"
+  matTooltip="{{ tooltip.morphology.stalk }}"
+  matTooltipPosition="above"
+></span>
       <mat-form-field>
         <label #stalklabel for="stalk" className="">Stalk</label>
         <textarea
@@ -210,6 +239,9 @@
           (blur)="stalklabel.className = ''"
         ></textarea>
       </mat-form-field>
+      <mat-icon class="info-icon" title="click for info" (click)="tooltipAA.toggle()"
+      >info</mat-icon
+    >
       <mat-form-field>
         <label #fleshlabel for="flesh" className="">Flesh</label>
         <textarea

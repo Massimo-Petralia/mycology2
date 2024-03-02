@@ -32,7 +32,7 @@ export interface Taxonomy {
 
 export interface Morphology {
   cap: string | null;
-  gills: string | null;
+  hymenophore: string | null;
   stalk: string | null;
   flesh: string | null;
 }
