@@ -43,12 +43,10 @@ export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
     private paramsService: SharedParametersService
   ) {}
 
-  parameters: { [k: string]: any } | undefined = {
-    page: <string>'',
-    length: <string>'',
-  };
-
-  mushroomspecies: string = '';
+  @ViewChild(FormMushroomComponent)
+  formMushroomComponent!: FormMushroomComponent;
+  @ViewChild(FormIconographyComponent)
+  formIconographyComponent!: FormIconographyComponent;
 
   @Input() set id(mushroomID: string) {
     this.mushroomID = mushroomID;
@@ -67,20 +65,25 @@ export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
     ) as Observable<IconographicContainer>;
 
   notifications$ = this.store.select(selectNotificationsFeature);
-  notifications!: Notifications;
+
+  subs = new Subscription();
 
   mushroomID!: string;
+
   mushroom!: Mushroom | null;
+
+  notifications!: Notifications;
+
+  mushroomspecies: string = '';
+
   iconographicContainer: IconographicContainer = {
     formiconographyarray: [],
   };
 
-  subs = new Subscription();
-
-  @ViewChild(FormMushroomComponent)
-  formMushroomComponent!: FormMushroomComponent;
-  @ViewChild(FormIconographyComponent)
-  formIconographyComponent!: FormIconographyComponent;
+  parameters: { [k: string]: any } | undefined = {
+    page: <string>'',
+    length: <string>'',
+  };
 
   ngOnChanges(changes: SimpleChanges): void {
     const { id } = changes;

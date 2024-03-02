@@ -40,16 +40,17 @@ export class MushroomTablePageComponent
   @ViewChild('paginator') paginator!: MatPaginator;
   @ViewChild(MushroomTableComponent) mushroomTable!: MushroomTableComponent;
 
-  page: number | undefined;
-
-  mushrooms$ = this.store.select(selectMushroomsFeature);
-  mushrooms: Mushroom[] = [];
+  @Input() items: number = 0;
 
   items$!: Observable<number>;
 
-  @Input() items: number = 0;
+  mushrooms$ = this.store.select(selectMushroomsFeature);
 
-  previousValue: number | undefined;
+  mushrooms: Mushroom[] = [];
+
+  page: number | undefined;
+
+  //previousValue: number | undefined;
 
   subs = new Subscription();
 

@@ -57,6 +57,7 @@ mat-button-toggle {
   flex-wrap: nowrap;
   border-top: 1px dotted lightgray;
   padding-top: 20px;
+  justify-content: space-evenly;
 }
 
 .flex-buttons {
@@ -73,14 +74,14 @@ mat-button-toggle {
 .group-1-taxonomy {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-evenly;
   flex-wrap: wrap;
 }
 
 .group-2-taxonomy {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-evenly;
   flex-wrap: wrap;
 }
 
@@ -120,5 +121,5 @@ mat-button-toggle {
 }
 
 mat-icon:hover{
- color:  lightskyblue;
+ color:  #69f0ae;
 }
