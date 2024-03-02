@@ -12,7 +12,6 @@ import {
 import {
   MatTableDataSource,
   MatTableModule,
-  MatTable,
 } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Mushroom, Taxonomy } from '../models/mycology.models';
@@ -82,8 +81,6 @@ export class MushroomTableComponent
   ];
 
   @ViewChild(MatSort) sort!: MatSort;
-
-  //@ViewChild(MatTable) table!: MatTable<Mushroom>;
 
   @Output() formValue = new EventEmitter<FormFilteredSearch>();
 

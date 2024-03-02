@@ -48,7 +48,7 @@ export const mycologyReducer = createReducer(
         creation: { ...mycologystate.notifications.creation, isCreated: true },
         update: { ...mycologystate.notifications.update, isUpdate: false },
       },
-      items: mycologyStateItems
+      items: mycologyStateItems,
     };
   }),
   on(
@@ -72,16 +72,16 @@ export const mycologyReducer = createReducer(
       iconographicContainer,
     })
   ),
-  on(MycologyActions.deleteMushroomsSucces, (mycologystate, { deletedMushroomsNumber }) => {
-    //const updatedMushrooms = { ...mycologystate.mushrooms };
-    //delete updatedMushrooms[id];
-    const mycologyStateItems = mycologystate.items - deletedMushroomsNumber;
-    return {
-      ...mycologystate,
-     // mushrooms: updatedMushrooms,//??
-      items: mycologyStateItems,
-    };
-  }),
+  on(
+    MycologyActions.deleteMushroomsSucces,
+    (mycologystate, { deletedMushroomsNumber }) => {
+      const mycologyStateItems = mycologystate.items - deletedMushroomsNumber;
+      return {
+        ...mycologystate,
+        items: mycologyStateItems,
+      };
+    }
+  ),
 
   on(MycologyActions.updateMushroomSucces, (mycologystate, mushroom) => ({
     ...mycologystate,

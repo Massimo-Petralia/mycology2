@@ -30,11 +30,40 @@
       "type": "[Form Mushroom Page] Update Mushroom Request"
     },
     {
-      "id": "5fba",
+      "id": "fceb",
       "iconographyID": null,
       "taxonomy": {
-        "species": "hhhh",
-        "gender": "mioGenere",
+        "species": "Pleurotus ostreatus",
+        "gender": "Pleurotus",
+        "family": "",
+        "order": "",
+        "commonName": "",
+        "AA": ""
+      },
+      "morphology": {
+        "cap": "",
+        "gills": "",
+        "stalk": "",
+        "flesh": ""
+      },
+      "features": {
+        "habitat": "",
+        "edibility": "",
+        "note": ""
+      },
+      "microscopicFeatures": {
+        "spores": "",
+        "pileipellis": "",
+        "cystidia": ""
+      },
+      "type": "[Form Mushroom Page] Create Mushroom Request"
+    },
+    {
+      "id": "dc4f",
+      "iconographyID": null,
+      "taxonomy": {
+        "species": "Bollettus areus",
+        "gender": "Bollettus",
         "family": "",
         "order": "",
         "commonName": "",

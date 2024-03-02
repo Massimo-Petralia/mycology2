@@ -4,8 +4,6 @@ import { catchError, forkJoin, mergeMap, of, switchMap } from 'rxjs';
 import { MycologyService } from '../services/mycology.service';
 import * as MycologyActions from '../mycology-state/mycology.actions';
 import { Router } from '@angular/router';
-import { SharedParametersService } from '../services/shared-parameters.service';
-import { Store } from '@ngrx/store';
 
 @Injectable()
 export class LoadMushroomsEffects {
@@ -164,9 +162,7 @@ export class DeleteMushroomsEffects {
   constructor(
     private actions$: Actions,
     private mycologyService: MycologyService,
-    private router: Router,
-    private paramsServices: SharedParametersService,
-    private store: Store
+    private router: Router
   ) {}
   deleteMushrooms$ = createEffect(() =>
     this.actions$.pipe(
@@ -177,24 +173,15 @@ export class DeleteMushroomsEffects {
         );
         return forkJoin(observables).pipe(
           switchMap(() => {
-            const deleteMushroomsSucces = MycologyActions.deleteMushroomsSucces({
-              deletedMushroomsNumber: mushrooms.length,
-            });
-            if (
-              this.router.url === `/mycology/mushrooms/${mushrooms[0].id}` 
-              && mushrooms.length === 1
-            ) {
+            const deleteMushroomsSucces = MycologyActions.deleteMushroomsSucces(
+              {
+                deletedMushroomsNumber: mushrooms.length,
+              }
+            );
+            if (this.router.url === `/mycology/mushrooms/${mushrooms[0].id}`) {
               this.router.navigate(['mycology/mushrooms']);
-            } 
-            //else if (this.router.url === '/mycology/mushrooms') {
-              // this.store.dispatch(
-              //   MycologyActions.loadMushroomsRequest({
-              //     pageIndex: this.paramsServices.page,
-              //     filter: null,
-              //     search: null,
-              //   })
-              // );
-           // }
+            }
+
             return of(deleteMushroomsSucces).pipe(
               switchMap(() => {
                 const mushroomsIconographyID = mushrooms

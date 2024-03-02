@@ -5,9 +5,6 @@ import {
   OnDestroy,
   ViewChild,
   Input,
-  ElementRef,
-  OnChanges,
-  SimpleChanges,
 } from '@angular/core';
 import { MushroomTableComponent } from '../mushroom-table/mushroom-table.component';
 import {
@@ -22,7 +19,7 @@ import {
   selectMushroomsFeature,
   selectItemsFeature,
 } from '../mycology-state/mycology.selectors';
-import { Observable, Subscription, of } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { SharedParametersService } from '../services/shared-parameters.service';
 import { FormFilteredSearch } from '../models/mycology.models';
@@ -34,11 +31,11 @@ import { FormFilteredSearch } from '../models/mycology.models';
   styleUrl: './mushroom-table-page.component.scss',
 })
 export class MushroomTablePageComponent
-  implements OnChanges, OnInit, AfterViewInit, OnDestroy
+  implements OnInit, AfterViewInit, OnDestroy
 {
   constructor(
     private store: Store<MycologyState>,
-    public paramsService: SharedParametersService,
+    public paramsService: SharedParametersService
   ) {}
   @ViewChild('paginator') paginator!: MatPaginator;
   @ViewChild(MushroomTableComponent) mushroomTable!: MushroomTableComponent;
@@ -60,19 +57,6 @@ export class MushroomTablePageComponent
 
   selectedMushrooms: { [key: string]: Mushroom } | null = null;
 
-  ngOnChanges(changes: SimpleChanges): void {
-    // const {items} = changes;
-    // if(!items.isFirstChange() && items.currentValue < items.previousValue){
-    //   this.store.dispatch(
-    //     MycologyActions.loadMushroomsRequest({
-    //       pageIndex: this.page!,
-    //       filter: null,
-    //       search: null,
-    //     })
-    //   );
-    // }
-  }
-
   ngOnInit(): void {
     this.page = this.paramsService.page;
     this.store.dispatch(
@@ -92,30 +76,21 @@ export class MushroomTablePageComponent
       })
     );
     this.items$ = this.store.select(selectItemsFeature);
-    // this.subs.add(
-    //   this.items$.subscribe((items) => {
-    //     this.items = items;
-    //   })
-    // );
     this.subs.add(
-      this.items$.subscribe({
-        next: (newValue) => {
-          if (this.items !== 0) {
-            if (newValue < this.items) {
-              this.store.dispatch(
-                MycologyActions.loadMushroomsRequest({
-                  pageIndex: this.page!,
-                  filter: null,
-                  search: null,
-                })
-              );
-            }
-
-            this.items = newValue;
+      this.items$.subscribe((newValue) => {
+        if (this.items !== 0) {
+          if (newValue < this.items) {
+            this.store.dispatch(
+              MycologyActions.loadMushroomsRequest({
+                pageIndex: this.page!,
+                filter: null,
+                search: null,
+              })
+            );
           }
-          console.log('data emitted');
-        },
-        error: (error) => console.error('error: ', error),
+
+          this.items = newValue;
+        }
       })
     );
   }
@@ -172,7 +147,4 @@ export class MushroomTablePageComponent
   ngOnDestroy(): void {
     this.subs.unsubscribe();
   }
-
-
-
 }

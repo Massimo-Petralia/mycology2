@@ -125,8 +125,6 @@ export const updateIconographyFailed = createAction(
   '[Iconography API] Update Iconography Failed'
 );
 
-//-----------------------------------------------------------------------------------------------------------------------------------------------------
-
 export const saveMycologyRequest = createAction(
   '[Mycology Page] Save Mycology Data Request',
   props<{ mushroom: Mushroom; iconographicContainer: IconographicContainer }>()
