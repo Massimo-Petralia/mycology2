@@ -20,7 +20,7 @@ import {
   LoadMushroomEffects,
   LoadIconographyEffects,
   DeleteMushroomsEffects,
-  DeleteIconographyEffects,
+  DeleteIconographiesEffects,
   UpdateMushroomEffects,
   UpdateIconographyEffects,
   SaveMycologyDataEffects,
@@ -40,7 +40,7 @@ export const appConfig: ApplicationConfig = {
       LoadMushroomEffects,
       LoadIconographyEffects,
       DeleteMushroomsEffects,
-      DeleteIconographyEffects,
+      DeleteIconographiesEffects,
       UpdateMushroomEffects,
       UpdateIconographyEffects,
       SaveMycologyDataEffects

@@ -85,7 +85,7 @@ export class MycologyService {
     );
   }
 
-  deleteIconography(id: string) {
+  deleteIconographies(id: string) {
     return this.http.delete(`${iconographiesDataURL}/${id}`).pipe(
       catchError((error) => {
         console.error('delete iconography failed');

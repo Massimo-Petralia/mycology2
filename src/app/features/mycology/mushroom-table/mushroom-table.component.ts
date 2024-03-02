@@ -9,10 +9,7 @@ import {
   Output,
   EventEmitter,
 } from '@angular/core';
-import {
-  MatTableDataSource,
-  MatTableModule,
-} from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Mushroom, Taxonomy } from '../models/mycology.models';
 import { CommonModule } from '@angular/common';
@@ -150,16 +147,6 @@ export class MushroomTableComponent
         ),
       ];
     }
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filterPredicate = (data: any, filter: string) => {
-      const dataStr = JSON.stringify(data).toLowerCase();
-      return dataStr.indexOf(filter.toLowerCase()) !== -1 ? true : false;
-    };
-
-    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   onDeleteOption(mushroomID: string) {

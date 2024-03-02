@@ -5,7 +5,6 @@ import {
   ViewChild,
   OnChanges,
   SimpleChanges,
-  AfterViewInit,
 } from '@angular/core';
 import {
   ReactiveFormsModule,
@@ -42,16 +41,15 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
   templateUrl: './form-iconography.component.html',
   styleUrl: './form-iconography.component.scss',
 })
-export class FormIconographyComponent implements OnChanges, AfterViewInit {
+export class FormIconographyComponent implements OnChanges {
   @ViewChild('inputfile') inputfileElem!: ElementRef<HTMLInputElement>;
   constructor(private formBuilder: FormBuilder, private store: Store) {}
 
-  @Input()  mushroomspecies: string = ''
+  @Input() mushroomspecies: string = '';
 
   @Input() iconographicContainer: IconographicContainer = {
     formiconographyarray: [],
   };
-  
 
   formIconography = this.formBuilder.group({
     id: this.iconographicContainer?.id,
@@ -88,8 +86,6 @@ export class FormIconographyComponent implements OnChanges, AfterViewInit {
       );
     }
   }
-
-  ngAfterViewInit(): void {}
 
   handleFiles() {
     const files = Array.from(
