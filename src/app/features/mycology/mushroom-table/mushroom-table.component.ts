@@ -102,12 +102,12 @@ export class MushroomTableComponent
 
   ngOnInit(): void {
     this.subs.add(
-      this.formFilteredSearch.controls.search.valueChanges
+      this.formFilteredSearch.valueChanges
         .pipe(debounceTime(500))
         .subscribe((value) => {
           this.formValue.emit({
-            filter: this.formFilteredSearch.controls.filter.value,
-            search: value,
+            filter: value.filter!,
+            search: value.search ? value.search : null,
           });
         })
     );
@@ -149,17 +149,7 @@ export class MushroomTableComponent
     }
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filterPredicate = (data: any, filter: string) => {
-      const dataStr = JSON.stringify(data).toLowerCase();
-      return dataStr.indexOf(filter.toLowerCase()) !== -1 ? true : false;
-    };
-
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
-  openDialog(mushroomID: string) {
+  onDeleteOption(mushroomID: string) {
     const collection = this.mushrooms.reduce(
       (collection: { [id: string]: Mushroom }, mushroom) => {
         collection[mushroom.id!] = mushroom;
@@ -174,6 +164,10 @@ export class MushroomTableComponent
       .afterClosed()
       .subscribe((result) => {
         if (result === 'delete') {
+          this.formFilteredSearch.reset({
+            filter: 'species',
+            search: '',
+          });
           this.delete.emit(mushroomID);
         }
       });
@@ -201,6 +195,10 @@ export class MushroomTableComponent
       .afterClosed()
       .subscribe((result) => {
         if (result === 'delete') {
+          this.formFilteredSearch.reset({
+            filter: 'species',
+            search: '',
+          });
           this.deleteSelected.emit(this.selection.selected);
         }
       });

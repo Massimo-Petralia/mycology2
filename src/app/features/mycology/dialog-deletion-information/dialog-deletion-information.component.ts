@@ -19,7 +19,6 @@ export class DialogDeletionInformationComponent implements OnInit {
 
   text: string = '';
   ngOnInit(): void {
-    console.log('data: ', this.inputData);
     if (this.inputData instanceof Array) {
       this.text = `Do you want to <strong>delete</strong> the <strong>selected mushrooms</strong> ?<br>
       This operation will also <strong>delete</strong> the

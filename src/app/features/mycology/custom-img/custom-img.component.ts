@@ -59,7 +59,6 @@ export class CustomImgComponent implements ControlValueAccessor, OnChanges {
         this.idManagement.idState.currentID ===
         this.idManagement.idState.previousID
       ) {
-        console.log('the prev e current id is equal');
         document
           .getElementById(this.idManagement.idState.currentID)
           ?.classList.toggle('fullsize-img');

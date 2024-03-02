@@ -5,7 +5,6 @@ import {
   OnDestroy,
   ViewChild,
   Input,
-  ElementRef,
 } from '@angular/core';
 import { MushroomTableComponent } from '../mushroom-table/mushroom-table.component';
 import {
@@ -50,6 +49,8 @@ export class MushroomTablePageComponent
 
   @Input() items: number = 0;
 
+  previousValue: number | undefined;
+
   subs = new Subscription();
 
   formFilteredSearch?: FormFilteredSearch;
@@ -76,8 +77,20 @@ export class MushroomTablePageComponent
     );
     this.items$ = this.store.select(selectItemsFeature);
     this.subs.add(
-      this.items$.subscribe((items) => {
-        this.items = items;
+      this.items$.subscribe((newValue) => {
+        if (this.items !== 0) {
+          if (newValue < this.items) {
+            this.store.dispatch(
+              MycologyActions.loadMushroomsRequest({
+                pageIndex: this.page!,
+                filter: null,
+                search: null,
+              })
+            );
+          }
+
+          this.items = newValue;
+        }
       })
     );
   }
@@ -119,7 +132,7 @@ export class MushroomTablePageComponent
       {}
     );
     this.store.dispatch(
-      MycologyActions.deleteMushroomRequest({
+      MycologyActions.deleteMushroomsRequest({
         mushrooms: [collection[mushroomID]],
       })
     );
@@ -127,7 +140,7 @@ export class MushroomTablePageComponent
 
   onDeleteSelected(mushrooms: Mushroom[]) {
     this.store.dispatch(
-      MycologyActions.deleteMushroomRequest({ mushrooms: mushrooms })
+      MycologyActions.deleteMushroomsRequest({ mushrooms: mushrooms })
     );
   }
 

@@ -160,7 +160,7 @@ export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
       delete payload.iconographicContainer['id'];
     }
     this.store.dispatch(
-      MycologyActions.deleteMushroomRequest({ mushrooms: [payload.mushroom] })
+      MycologyActions.deleteMushroomsRequest({ mushrooms: [payload.mushroom] })
     );
 
     if (this.paramsService.length <= 1) {

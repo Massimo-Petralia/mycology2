@@ -24,8 +24,7 @@ export class MycologyService {
   ): Observable<Response> {
     return this.http
       .get<Response>(
-        filter === 'species' && !search ||
-        !filter && !search 
+        filter === 'species' && !search
           ? `${mushroomsDataURL}?_page=${pageIndex}&_per_page=8`
           : `${mushroomsDataURL}?taxonomy.${filter}=${search}&_page=${pageIndex}&_per_page=8`
       )
@@ -77,7 +76,7 @@ export class MycologyService {
       );
   }
 
-  deleteMushroom(id: string) {
+  deleteMushrooms(id: string) {
     return this.http.delete(`${mushroomsDataURL}/${id}`).pipe(
       catchError((error) => {
         console.error('delete mushroom failed');
@@ -86,7 +85,7 @@ export class MycologyService {
     );
   }
 
-  deleteIconography(id: string) {
+  deleteIconographies(id: string) {
     return this.http.delete(`${iconographiesDataURL}/${id}`).pipe(
       catchError((error) => {
         console.error('delete iconography failed');
