@@ -14,16 +14,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 
 import {
-  LoadMushroomsEffects,
-  CreateMushroomEffects,
-  CreateIconographyEffects,
-  LoadMushroomEffects,
-  LoadIconographyEffects,
-  DeleteMushroomsEffects,
-  DeleteIconographiesEffects,
-  UpdateMushroomEffects,
-  UpdateIconographyEffects,
-  SaveMycologyDataEffects,
+  MyMicologyEffects
 } from '../app/features/mycology/mycology-state/mycology.effects';
 
 export const appConfig: ApplicationConfig = {
@@ -34,16 +25,7 @@ export const appConfig: ApplicationConfig = {
     provideStore(),
     provideState('mycology', mycologyReducer),
     provideEffects(
-      LoadMushroomsEffects,
-      CreateMushroomEffects,
-      CreateIconographyEffects,
-      LoadMushroomEffects,
-      LoadIconographyEffects,
-      DeleteMushroomsEffects,
-      DeleteIconographiesEffects,
-      UpdateMushroomEffects,
-      UpdateIconographyEffects,
-      SaveMycologyDataEffects
+      MyMicologyEffects
     ),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     provideAnimations(),

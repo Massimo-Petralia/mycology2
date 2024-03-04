@@ -74,22 +74,22 @@ mat-button-toggle {
 .group-1-taxonomy {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-around;
   flex-wrap: wrap;
 }
 
 .group-2-taxonomy {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-around;
   flex-wrap: wrap;
 }
 
 .mat-form-field-taxonomy {
-  flex-basis: 30%;
+  flex-grow: 1;
 }
 
-@media (max-width: 805px) {
+@media (max-width: 823px) {
   .group-1-taxonomy {
     flex-direction: column;
   }
@@ -97,9 +97,10 @@ mat-button-toggle {
   .group-2-taxonomy {
     flex-direction: column;
   }
-  mat-icon{
-    margin-bottom: 10px;
-  }
+
+  // .info {
+  //   display: none;
+  // }
 }
 
 .invalidFieldDialogBox-title {
@@ -115,15 +116,39 @@ mat-button-toggle {
   border: 1px solid lightgray;
 }
 
-.tooltip{
-  position: relative;
-  left: 10%;
+mat-icon {
+  margin: 0px 5px 0px 5px;
 }
 
-mat-icon:hover{
- color:  #69f0ae;
+mat-icon:hover {
+  color: #69f0ae;
 }
 
-.info-icon{
-  align-self:self-end;
+.info-icon {
+  align-self: self-end;
 }
+
+.input-flex-container {
+  display: flex;
+  flex-grow: 1;
+}
+
+// label {
+//  border-bottom: 1px solid #69f0ae;
+// }
+
+// .info {
+//   width: 50%;
+// }
+
+// .paragraph {
+//   text-align: justify;
+// }
+
+// h3 {
+//   border-bottom: 1px solid #7b1fa2;
+//   font-weight: bolder;
+//   font-style: italic;
+// }
+
+

@@ -72,7 +72,7 @@ export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
 
   mushroom!: Mushroom | null;
 
-  notifications!: Notifications;
+  notifications: Notifications | null = null;
 
   mushroomspecies: string = '';
 
@@ -113,7 +113,7 @@ export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
       this.notifications$.subscribe((notifications) => {
         this.notifications = notifications;
         if (
-          notifications.creation.isCreated !== notifications.update.isUpdate
+          this.notifications
         ) {
           setTimeout(
             () =>
@@ -148,6 +148,12 @@ export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
     }
     if (!payload.iconographicContainer.id) {
       delete payload.iconographicContainer['id'];
+    }
+    if(payload.mushroom.id){
+      //update
+    }
+    if(!payload.mushroom.id){
+      //create
     }
     this.store.dispatch(MycologyActions.saveMycologyRequest(payload));
   }

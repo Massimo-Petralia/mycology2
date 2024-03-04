@@ -1,19 +1,19 @@
 export interface MycologyState {
+  pagination?: {
+    totlaItems: number,
+    page: number
+  }
   mushrooms: { [id: string]: Mushroom } | null;
   items: number;
   iconographicContainer: IconographicContainer | null;
-  notifications: Notifications;
+  notifications: Notifications | null;
 }
 
+export type NotificationsType = 'create' | 'update'
+
 export interface Notifications {
-  creation: {
-    isCreated: boolean;
-    notification: string;
-  };
-  update: {
-    isUpdate: boolean;
-    notification: string;
-  };
+  type: NotificationsType;
+  message: string;
 }
 
 export interface FormFilteredSearch {
@@ -57,6 +57,12 @@ export interface Mushroom {
   microscopicFeatures: MicroscopicFeatures;
   iconographyID?: string | null;
 }
+
+export type CreateMushroomRequest =  Omit<Mushroom, 'id'>
+
+export type UpdateMushroomRequest =  Mushroom & {id: string}
+
+
 
 export interface Iconography {
   id?: number;

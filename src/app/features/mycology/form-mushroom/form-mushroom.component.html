@@ -11,12 +11,10 @@
 <form class="form-mushroom" [formGroup]="formMushroom" (ngSubmit)="onSave()">
   <div class="flex-buttons">
     <button class="save-button" mat-stroked-button type="submit">Save</button>
-    <div class="notifications" *ngIf="notifications.creation.isCreated">
-      {{ notifications.creation.notification }}
+    <div class="notifications" *ngIf="notifications">
+      {{ notifications.message }}
     </div>
-    <div class="notifications" *ngIf="notifications.update.isUpdate">
-      {{ notifications.update.notification }}
-    </div>
+   
     <button
       class="delete-button"
       mat-stroked-button
@@ -41,133 +39,170 @@
     </mat-expansion-panel-header>
     <form formGroupName="taxonomy" class="flex-container">
       <div class="group-1-taxonomy">
-        <span
-          class="tooltip"
-          #tooltipspecies="matTooltip"
-          matTooltip="{{ tooltip.taxonomy.species }}"
-          matTooltipPosition="above"
-        ></span>
-        <mat-form-field class="mat-form-field-taxonomy">
-          <label #specieslabel for="species" className="">Species</label>
-          <input
-            id="species"
-            matInput
-            type="text"
-            formControlName="species"
-            (focus)="specieslabel.className = 'isFocused'"
-            (blur)="specieslabel.className = ''"
-          />
-        </mat-form-field>
-        <mat-icon title="click for info" (click)="tooltipspecies.toggle()"
-          >info</mat-icon
-        >
-        <span
-          class="tooltip"
-          #tooltipgender="matTooltip"
-          matTooltip="{{ tooltip.taxonomy.gender }}"
-          matTooltipPosition="above"
-        ></span>
-
-        <mat-form-field class="mat-form-field-taxonomy">
-          <label #genderlabel for="gender" className="">Gender</label>
-          <input
-            id="gender"
-            matInput
-            type="text"
-            formControlName="gender"
-            (focus)="genderlabel.className = 'isFocused'"
-            (blur)="genderlabel.className = ''"
-          />
-        </mat-form-field>
-        <mat-icon title="click for info" (click)="tooltipgender.toggle()"
-          >info</mat-icon
-        >
-        <span
-          class="tooltip"
-          #tooltipfamily="matTooltip"
-          matTooltip="{{ tooltip.taxonomy.family }}"
-          matTooltipPosition="above"
-        ></span>
-
-        <mat-form-field class="mat-form-field-taxonomy">
-          <label #familylabel for="family" className="">Family</label>
-          <input
-            id="family"
-            matInput
-            type="text"
-            formControlName="family"
-            (focus)="familylabel.className = 'isFocused'"
-            (blur)="familylabel.className = ''"
-          />
-        </mat-form-field>
-        <mat-icon title="click for info" (click)="tooltipfamily.toggle()"
-          >info</mat-icon
-        >
+        <div class="input-flex-container">
+          <mat-form-field
+            #tooltipspecies="matTooltip"
+            matTooltip="{{ tooltip.taxonomy.species }}"
+            matTooltipPosition="above"
+            class="mat-form-field-taxonomy"
+          >
+            <label #specieslabel for="species" className="">Species</label>
+            <input
+              id="species"
+              matInput
+              type="text"
+              formControlName="species"
+              (focus)="specieslabel.className = 'isFocused'"
+              (blur)="specieslabel.className = ''"
+            />
+          </mat-form-field>
+          <mat-icon
+            title="click for info"
+            (click)="toggleTooltip(tooltipspecies)"
+            >info</mat-icon
+          >
+          <!-- <div class="info">
+            <h3>The Species taxon</h3>
+            <p class="paragraph">{{ tooltip.taxonomy.species }}</p>
+          </div> -->
+        </div>
+        <div class="input-flex-container">
+          <mat-form-field
+            #tooltipgender="matTooltip"
+            matTooltip="{{ tooltip.taxonomy.gender }}"
+            matTooltipPosition="above"
+            class="mat-form-field-taxonomy"
+          >
+            <label #genderlabel for="gender" className="">Gender</label>
+            <input
+              id="gender"
+              matInput
+              type="text"
+              formControlName="gender"
+              (focus)="genderlabel.className = 'isFocused'"
+              (blur)="genderlabel.className = ''"
+            />
+          </mat-form-field>
+          <mat-icon
+            title="click for info"
+            (click)="toggleTooltip(tooltipgender)"
+            >info</mat-icon
+          >
+          <!-- <div class="info">
+            <h3>The Gender taxon</h3>
+            <p class="paragraph">{{ tooltip.taxonomy.gender }}</p>
+          </div> -->
+        </div>
+        <div class="input-flex-container">
+          <mat-form-field
+            #tooltipfamily="matTooltip"
+            matTooltip="{{ tooltip.taxonomy.family }}"
+            matTooltipPosition="above"
+            class="mat-form-field-taxonomy"
+          >
+            <label #familylabel for="family" className="">Family</label>
+            <input
+              id="family"
+              matInput
+              type="text"
+              formControlName="family"
+              (focus)="familylabel.className = 'isFocused'"
+              (blur)="familylabel.className = ''"
+            />
+          </mat-form-field>
+          <mat-icon
+            title="click for info"
+            (click)="toggleTooltip(tooltipfamily)"
+            >info</mat-icon
+          >
+          <!-- <div class="info">
+            <h3>The Family taxon</h3>
+            <p class="paragraph">{{ tooltip.taxonomy.family }}</p>
+          </div> -->
+        </div>
       </div>
       <div class="group-2-taxonomy">
-        <span
-          class="tooltip"
-          #tooltiporder="matTooltip"
-          matTooltip="{{ tooltip.taxonomy.order }}"
-          matTooltipPosition="above"
-        ></span>
-        <mat-form-field class="mat-form-field-taxonomy">
-          <label #orderlabel for="order" className="">Order</label>
-          <input
-            id="order"
-            matInput
-            type="text"
-            formControlName="order"
-            (focus)="orderlabel.className = 'isFocused'"
-            (blur)="orderlabel.className = ''"
-          />
-        </mat-form-field>
-        <mat-icon title="click for info" (click)="tooltiporder.toggle()"
-          >info</mat-icon
-        >
-        <span
-          class="tooltip"
-          #tooltipcommonName="matTooltip"
-          matTooltip="{{ tooltip.taxonomy.commonName }}"
-          matTooltipPosition="above"
-        ></span>
-        <mat-form-field class="mat-form-field-taxonomy">
-          <label #synonymouslabel for="commonName" className=""
-            >Common name</label
-          >
-          <input
-            id="commonName"
-            matInput
-            type="text"
-            formControlName="commonName"
-            (focus)="synonymouslabel.className = 'isFocused'"
-            (blur)="synonymouslabel.className = ''"
-          />
-        </mat-form-field>
-        <mat-icon title="click for info" (click)="tooltipcommonName.toggle()"
-          >info</mat-icon
-        >
-        <span
-          class="tooltip"
-          #tooltipAA="matTooltip"
-          matTooltip="{{ tooltip.taxonomy.AA }}"
-          matTooltipPosition="above"
-        ></span>
-        <mat-form-field class="mat-form-field-taxonomy">
-          <label #aalabel for="AA" className="">A.A.</label>
-          <input
-            id="AA"
-            matInput
-            type="text"
-            formControlName="AA"
-            (focus)="aalabel.className = 'isFocused'"
+        <div class="input-flex-container">
+          <mat-form-field
+            #tooltiporder="matTooltip"
+            matTooltip="{{ tooltip.taxonomy.order }}"
+            matTooltipPosition="above"
             class="mat-form-field-taxonomy"
-            (blur)="aalabel.className = ''"
-          />
-        </mat-form-field>
-        <mat-icon title="click for info" (click)="tooltipAA.toggle()"
-          >info</mat-icon
-        >
+          >
+            <label #orderlabel for="order" className="">Order</label>
+            <input
+              id="order"
+              matInput
+              type="text"
+              formControlName="order"
+              (focus)="orderlabel.className = 'isFocused'"
+              (blur)="orderlabel.className = ''"
+            />
+          </mat-form-field>
+          <mat-icon title="click for info" (click)="toggleTooltip(tooltiporder)"
+            >info</mat-icon
+          >
+          <!-- <div class="info">
+            <h3>The Order taxon</h3>
+            <p class="paragraph">{{ tooltip.taxonomy.order }}</p>
+          </div> -->
+        </div>
+        <div class="input-flex-container">
+          <mat-form-field
+            #tooltipcommonName="matTooltip"
+            matTooltip="{{ tooltip.taxonomy.commonName }}"
+            matTooltipPosition="above"
+            class="mat-form-field-taxonomy"
+          >
+            <label #synonymouslabel for="commonName" className=""
+              >Common name</label
+            >
+            <input
+              id="commonName"
+              matInput
+              type="text"
+              formControlName="commonName"
+              (focus)="synonymouslabel.className = 'isFocused'"
+              (blur)="synonymouslabel.className = ''"
+            />
+          </mat-form-field>
+          <mat-icon
+            title="click for info"
+            (click)="toggleTooltip(tooltipcommonName)"
+            >info</mat-icon
+          >
+          <!-- <div class="info">
+            <h3>The Common name</h3>
+            <p class="paragraph">{{ tooltip.taxonomy.commonName }}</p>
+          </div> -->
+        </div>
+
+        <div class="input-flex-container">
+          <mat-form-field
+            #tooltipAA="matTooltip"
+            matTooltip="{{ tooltip.taxonomy.AA }}"
+            matTooltipPosition="above"
+            class="mat-form-field-taxonomy"
+          >
+            <label #aalabel for="AA" className="">A.A.</label>
+            <input
+              id="AA"
+              matInput
+              type="text"
+              formControlName="AA"
+              (focus)="aalabel.className = 'isFocused'"
+              class="mat-form-field-taxonomy"
+              (blur)="aalabel.className = ''"
+            />
+          </mat-form-field>
+          <mat-icon title="click for info" (click)="toggleTooltip(tooltipAA)"
+            >info</mat-icon
+          >
+          <!-- <div class="info">
+            <h3>A.A. Authoritative author</h3>
+            <p class="paragraph">{{ tooltip.taxonomy.AA }}</p>
+          </div> -->
+        </div>
       </div>
     </form>
   </mat-expansion-panel>
@@ -177,15 +212,18 @@
       <mat-panel-description>Macroscopic characteristics</mat-panel-description>
     </mat-expansion-panel-header>
     <form formGroupName="morphology" class="flex-container">
-      <mat-icon class="info-icon"  title="click for info" (click)="tooltipcap.toggle()"
-      >info</mat-icon
-    >
-    <span
-    class="tooltip"
-    #tooltipcap="matTooltip"
-    matTooltip="{{ tooltip.morphology.cap }}"
-    matTooltipPosition="above"
-  ></span>
+      <mat-icon
+        class="info-icon"
+        title="click for info"
+        (click)="tooltipcap.toggle()"
+        >info</mat-icon
+      >
+      <span
+        class="tooltip"
+        #tooltipcap="matTooltip"
+        matTooltip="{{ tooltip.morphology.cap }}"
+        matTooltipPosition="above"
+      ></span>
       <mat-form-field>
         <label #caplabel for="cap" className="">Cap</label>
         <textarea
@@ -197,18 +235,23 @@
           (blur)="caplabel.className = ''"
         ></textarea>
       </mat-form-field>
-  
-    <mat-icon class="info-icon" title="click for info" (click)="tooltiphymenophore.toggle()"
-    >info</mat-icon
-  >
-  <span
-  class="tooltip"
-  #tooltiphymenophore="matTooltip"
-  matTooltip="{{ tooltip.morphology.hymenophore }}"
-  matTooltipPosition="above"
-></span>
+
+      <mat-icon
+        class="info-icon"
+        title="click for info"
+        (click)="tooltiphymenophore.toggle()"
+        >info</mat-icon
+      >
+      <span
+        class="tooltip"
+        #tooltiphymenophore="matTooltip"
+        matTooltip="{{ tooltip.morphology.hymenophore }}"
+        matTooltipPosition="above"
+      ></span>
       <mat-form-field>
-        <label #hymenophorelabel for="hymenophore" className="">Hymenophore</label>
+        <label #hymenophorelabel for="hymenophore" className=""
+          >Hymenophore</label
+        >
         <textarea
           id="hymenophore"
           matInput
@@ -218,16 +261,19 @@
           (blur)="hymenophorelabel.className = ''"
         ></textarea>
       </mat-form-field>
- 
-    <mat-icon class="info-icon" title="click for info" (click)="tooltipstalk.toggle()"
-    >info</mat-icon
-  >
-  <span
-  class="tooltip"
-  #tooltipstalk="matTooltip"
-  matTooltip="{{ tooltip.morphology.stalk }}"
-  matTooltipPosition="above"
-></span>
+
+      <mat-icon
+        class="info-icon"
+        title="click for info"
+        (click)="tooltipstalk.toggle()"
+        >info</mat-icon
+      >
+      <span
+        class="tooltip"
+        #tooltipstalk="matTooltip"
+        matTooltip="{{ tooltip.morphology.stalk }}"
+        matTooltipPosition="above"
+      ></span>
       <mat-form-field>
         <label #stalklabel for="stalk" className="">Stalk</label>
         <textarea
@@ -239,9 +285,12 @@
           (blur)="stalklabel.className = ''"
         ></textarea>
       </mat-form-field>
-      <mat-icon class="info-icon" title="click for info" (click)="tooltipAA.toggle()"
-      >info</mat-icon
-    >
+      <mat-icon
+        class="info-icon"
+        title="click for info"
+        (click)="tooltipAA.toggle()"
+        >info</mat-icon
+      >
       <mat-form-field>
         <label #fleshlabel for="flesh" className="">Flesh</label>
         <textarea

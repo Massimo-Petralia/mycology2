@@ -2,17 +2,17 @@ import { createAction, props } from '@ngrx/store';
 import { IconographicContainer, Mushroom } from '../models/mycology.models';
 
 export const loadMushroomsRequest = createAction(
-  '[Mushroom Table Page] Load Paginated Mushroom Table Request',
+  '[Mushrooms Table Page] Load Paginated Mushrooms Table Request',
   props<{ pageIndex: number; filter: string | null; search: string | null }>()
 );
 
 export const loadMushroomsSucces = createAction(
-  '[Mushrooms API] Load Paginated Mushroom Table Succes',
+  '[Mushrooms API] Load Paginated Mushrooms Table Succes',
   props<{ items: number; mushrooms: Mushroom[] }>()
 );
 
 export const loadMushroomsFailed = createAction(
-  '[Mushrooms API] Load Paginated Mushroom Table Failed'
+  '[Mushrooms API] Load Paginated Mushrooms Table Failed'
 );
 
 export const createMushroomRequest = createAction(

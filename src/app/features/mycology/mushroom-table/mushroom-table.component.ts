@@ -105,9 +105,10 @@ export class MushroomTableComponent
       this.formFilteredSearch.valueChanges
         .pipe(debounceTime(500))
         .subscribe((value) => {
+          if(value.search !== null)
           this.formValue.emit({
             filter: value.filter!,
-            search: value.search ? value.search : null,
+            search: value.search!,
           });
         })
     );

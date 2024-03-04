@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { Mushroom } from '../models/mycology.models';
+import { Mushroom, NotificationsType } from '../models/mycology.models';
 import * as MycologyActions from '../mycology-state/mycology.actions';
 import { MycologyState } from '../models/mycology.models';
 
@@ -7,16 +7,7 @@ export const initialState: MycologyState = {
   mushrooms: null,
   items: 0,
   iconographicContainer: null,
-  notifications: {
-    creation: {
-      isCreated: false,
-      notification: 'Created',
-    },
-    update: {
-      isUpdate: false,
-      notification: 'Updated',
-    },
-  },
+  notifications: null
 };
 
 export const mycologyReducer = createReducer(
@@ -36,6 +27,7 @@ export const mycologyReducer = createReducer(
     })
   ),
   on(MycologyActions.createMushroomSucces, (mycologystate, mushroom) => {
+    const type: NotificationsType = 'create'
     const mycologyStateItems = mycologystate.items + 1;
     return {
       ...mycologystate,
@@ -44,9 +36,8 @@ export const mycologyReducer = createReducer(
         [mushroom.id as string]: mushroom,
       },
       notifications: {
-        ...mycologystate.notifications,
-        creation: { ...mycologystate.notifications.creation, isCreated: true },
-        update: { ...mycologystate.notifications.update, isUpdate: false },
+        type,
+        message: 'created'
       },
       items: mycologyStateItems,
     };
@@ -83,18 +74,20 @@ export const mycologyReducer = createReducer(
     }
   ),
 
-  on(MycologyActions.updateMushroomSucces, (mycologystate, mushroom) => ({
-    ...mycologystate,
-    mushrooms: {
-      ...mycologystate.mushrooms,
-      [mushroom.id as string]: mushroom,
-    },
-    notifications: {
-      ...mycologystate.notifications,
-      update: { ...mycologystate.notifications.update, isUpdate: true },
-      creation: { ...mycologystate.notifications.creation, isCreated: false },
-    },
-  })),
+  on(MycologyActions.updateMushroomSucces, (mycologystate, mushroom) => {
+    const type: NotificationsType = 'update'
+    return {
+      ...mycologystate,
+      mushrooms: {
+        ...mycologystate.mushrooms,
+        [mushroom.id as string]: mushroom,
+      },
+      notifications: {
+        type,
+        message: 'updated'
+      },
+    }
+  }),
 
   on(
     MycologyActions.updateIconographySucces,
@@ -111,10 +104,6 @@ export const mycologyReducer = createReducer(
   })),
   on(MycologyActions.resetNotificationsState, (mycologystate) => ({
     ...mycologystate,
-    notifications: {
-      ...mycologystate.notifications,
-      creation: { ...mycologystate.notifications.creation, isCreated: false },
-      update: { ...mycologystate.notifications.update, isUpdate: false },
-    },
+    notifications: null
   }))
 );
