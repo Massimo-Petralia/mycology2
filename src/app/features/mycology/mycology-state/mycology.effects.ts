@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { Action } from '@ngrx/store';
 
 @Injectable()
-export class MyMicologyEffects {
+export class MicologyEffects {
   constructor(
     private actions$: Actions,
     private mycologyService: MycologyService,

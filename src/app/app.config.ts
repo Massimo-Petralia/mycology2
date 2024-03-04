@@ -14,7 +14,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 
 import {
-  MyMicologyEffects
+  MicologyEffects
 } from '../app/features/mycology/mycology-state/mycology.effects';
 
 export const appConfig: ApplicationConfig = {
@@ -25,7 +25,7 @@ export const appConfig: ApplicationConfig = {
     provideStore(),
     provideState('mycology', mycologyReducer),
     provideEffects(
-      MyMicologyEffects
+      MicologyEffects
     ),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     provideAnimations(),
