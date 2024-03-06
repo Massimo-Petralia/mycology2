@@ -1,10 +1,10 @@
 export interface MycologyState {
-  pagination?: {
-    totlaItems: number,
+  pagination: {
+    totalItems: number,
     page: number
   }
   mushrooms: { [id: string]: Mushroom } | null;
-  items: number;
+ // items: number;
   iconographicContainer: IconographicContainer | null;
   notifications: Notifications | null;
 }

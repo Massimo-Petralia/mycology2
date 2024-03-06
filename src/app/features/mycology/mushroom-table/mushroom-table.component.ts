@@ -105,11 +105,11 @@ export class MushroomTableComponent
       this.formFilteredSearch.valueChanges
         .pipe(debounceTime(500))
         .subscribe((value) => {
-          if(value.search !== null)
-          this.formValue.emit({
-            filter: value.filter!,
-            search: value.search!,
-          });
+          if (value.search !== null)
+            this.formValue.emit({
+              filter: value.filter!,
+              search: value.search!,
+            });
         })
     );
     if (typeof window !== 'undefined') {
@@ -122,7 +122,7 @@ export class MushroomTableComponent
   }
 
   goToFormMushroom() {
-    this.paramsService.page = this.page!;
+    //this.paramsService.page = this.page!;
     this.router.navigate([`mycology/mushrooms/:id`]);
   }
 

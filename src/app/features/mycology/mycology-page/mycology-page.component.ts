@@ -21,9 +21,10 @@ import {
   selectNotificationsFeature,
 } from '../mycology-state/mycology.selectors';
 import { Observable, Subscription, filter } from 'rxjs';
-import { SharedParametersService } from '../services/shared-parameters.service';
 
 import { Notifications } from '../models/mycology.models';
+
+import { selectPaginationFeature } from '../mycology-state/mycology.selectors';
 
 @Component({
   selector: 'app-mycology-page',
@@ -40,7 +41,6 @@ export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
   constructor(
     private store: Store<MycologyState>,
     private router: Router,
-    private paramsService: SharedParametersService
   ) {}
 
   @ViewChild(FormMushroomComponent)
@@ -66,6 +66,10 @@ export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
 
   notifications$ = this.store.select(selectNotificationsFeature);
 
+  pagination$ = this.store.select(selectPaginationFeature)
+  
+
+
   subs = new Subscription();
 
   mushroomID!: string;
@@ -80,9 +84,9 @@ export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
     formiconographyarray: [],
   };
 
-  parameters: { [k: string]: any } | undefined = {
-    page: <string>'',
-    length: <string>'',
+  parameters: { [k: string]: number }  = {
+    page: <number>0,
+    mushroomsLength: <number>0,
   };
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -98,8 +102,15 @@ export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subs.add(
+      this.pagination$.subscribe(pagination => {
+        this.parameters['page'] = pagination.page
+      })
+    )
+
+    this.subs.add(
       this.mushrooms$.subscribe((mushrooms) => {
         this.mushroom = mushrooms[this.mushroomID];
+        this.parameters['mushroomsLength'] = Object.keys(mushrooms).length
       })
     );
 
@@ -149,13 +160,13 @@ export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
     if (!payload.iconographicContainer.id) {
       delete payload.iconographicContainer['id'];
     }
-    if(payload.mushroom.id){
-      //update
-    }
     if(!payload.mushroom.id){
-      //create
+     this.store.dispatch(MycologyActions.createMycologyRequest(payload)) 
     }
-    this.store.dispatch(MycologyActions.saveMycologyRequest(payload));
+    // if(payload.mushroom.id){
+    //   //update
+    // }
+   // this.store.dispatch(MycologyActions.saveMycologyRequest(payload));
   }
 
   onDelete() {
@@ -172,8 +183,9 @@ export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
       MycologyActions.deleteMushroomsRequest({ mushrooms: [payload.mushroom] })
     );
 
-    if (this.paramsService.length <= 1) {
-      this.paramsService.page = this.paramsService.page - 1;
+    if (this.parameters['mushroomsLength'] <= 1) {
+      const page = this.parameters['page'] -1
+     this.store.dispatch(MycologyActions.updatePageIndexRequest({pageIndex : page}))
     }
   }
 

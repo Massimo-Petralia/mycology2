@@ -76,7 +76,7 @@ export const deleteMushroomsRequest = createAction(
 );
 
 export const deleteMushroomsSucces = createAction(
-  '[Mushroom API] Delete Mushrooms Succes',
+  '[Mushroom API] Delete Mushrooms Success',
   props<{ deletedMushroomsNumber: number }>()
 );
 
@@ -125,6 +125,14 @@ export const updateIconographyFailed = createAction(
   '[Iconography API] Update Iconography Failed'
 );
 
+export const resetState = createAction('[Mycology Page] Reset State');
+
+export const resetNotificationsState = createAction(
+  '[Mycology Page] Reset Notifications State'
+);
+
+//---------------------------------------------------------------------------------------------------------//
+
 export const saveMycologyRequest = createAction(
   '[Mycology Page] Save Mycology Data Request',
   props<{ mushroom: Mushroom; iconographicContainer: IconographicContainer }>()
@@ -134,8 +142,34 @@ export const saveMycologyFailed = createAction(
   '[Mycology API] Save Mycology Data Failed'
 );
 
-export const resetState = createAction('[Mycology Page] Reset State');
-
-export const resetNotificationsState = createAction(
-  '[Mycology Page] Reset Notifications State'
+//---------------------------------------------------------------------------------------------------------//
+//1
+export const createMycologyRequest = createAction(
+  '[Mycology Page] Create Mycology Request',
+  props<{ mushroom: Mushroom; iconographicContainer: IconographicContainer }>()
 );
+
+export const createMycologyFailed = createAction(
+  '[Mycology Effects] Create Mycology Failed'
+)
+
+//2
+export const updateMycologyRequest = createAction(
+  '[Mycology Page] Update Mycology Request',
+  props<{ mushroom: Mushroom; iconographicContainer: IconographicContainer }>()
+);
+
+export const updateMycologyFailed = createAction(
+  '[Mycology Effects] Update Mycology Failed'
+)
+
+//pagination
+export const updatePageIndexRequest = createAction(
+  '[Mushrooms Page] Update Page Index Request',
+  props<{pageIndex: number}>()
+)
+
+export const updatePageIndexSuccess = createAction(
+  '[Mycology Effects]  Update Page Index success',
+  props<{pageIndex: number}>()
+)
