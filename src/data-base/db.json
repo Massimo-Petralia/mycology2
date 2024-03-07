@@ -34,7 +34,7 @@
       "iconographyID": null,
       "taxonomy": {
         "species": "gianmona",
-        "gender": "",
+        "gender": "ranger",
         "family": "",
         "order": "",
         "commonName": "",
@@ -56,7 +56,7 @@
         "pileipellis": "",
         "cystidia": ""
       },
-      "type": "[Form Mushroom Page] Create Mushroom Request"
+      "type": "[Form Mushroom Page] Update Mushroom Request"
     },
     {
       "id": "916b",
@@ -233,64 +233,6 @@
       "type": "[Form Mushroom Page] Create Mushroom Request"
     },
     {
-      "id": "34b4",
-      "iconographyID": null,
-      "taxonomy": {
-        "species": "altra pagina",
-        "gender": "",
-        "family": "",
-        "order": "",
-        "commonName": "",
-        "AA": ""
-      },
-      "morphology": {
-        "cap": "",
-        "hymenophore": "",
-        "stalk": "",
-        "flesh": ""
-      },
-      "features": {
-        "habitat": "",
-        "edibility": "",
-        "note": ""
-      },
-      "microscopicFeatures": {
-        "spores": "",
-        "pileipellis": "",
-        "cystidia": ""
-      },
-      "type": "[Form Mushroom Page] Create Mushroom Request"
-    },
-    {
-      "id": "da1f",
-      "iconographyID": null,
-      "taxonomy": {
-        "species": "salvino",
-        "gender": "",
-        "family": "",
-        "order": "",
-        "commonName": "",
-        "AA": ""
-      },
-      "morphology": {
-        "cap": "",
-        "hymenophore": "",
-        "stalk": "",
-        "flesh": ""
-      },
-      "features": {
-        "habitat": "",
-        "edibility": "",
-        "note": ""
-      },
-      "microscopicFeatures": {
-        "spores": "",
-        "pileipellis": "",
-        "cystidia": ""
-      },
-      "type": "[Form Mushroom Page] Create Mushroom Request"
-    },
-    {
       "id": "fadd",
       "iconographyID": null,
       "taxonomy": {
@@ -320,68 +262,10 @@
       "type": "[Form Mushroom Page] Create Mushroom Request"
     },
     {
-      "id": "b173",
-      "iconographyID": null,
-      "taxonomy": {
-        "species": "cartaman",
-        "gender": "",
-        "family": "",
-        "order": "",
-        "commonName": "",
-        "AA": ""
-      },
-      "morphology": {
-        "cap": "",
-        "hymenophore": "",
-        "stalk": "",
-        "flesh": ""
-      },
-      "features": {
-        "habitat": "",
-        "edibility": "",
-        "note": ""
-      },
-      "microscopicFeatures": {
-        "spores": "",
-        "pileipellis": "",
-        "cystidia": ""
-      },
-      "type": "[Form Mushroom Page] Create Mushroom Request"
-    },
-    {
       "id": "cdd7",
       "iconographyID": null,
       "taxonomy": {
         "species": "barbero",
-        "gender": "",
-        "family": "",
-        "order": "",
-        "commonName": "",
-        "AA": ""
-      },
-      "morphology": {
-        "cap": "",
-        "hymenophore": "",
-        "stalk": "",
-        "flesh": ""
-      },
-      "features": {
-        "habitat": "",
-        "edibility": "",
-        "note": ""
-      },
-      "microscopicFeatures": {
-        "spores": "",
-        "pileipellis": "",
-        "cystidia": ""
-      },
-      "type": "[Form Mushroom Page] Create Mushroom Request"
-    },
-    {
-      "id": "7b3d",
-      "iconographyID": null,
-      "taxonomy": {
-        "species": "panino",
         "gender": "",
         "family": "",
         "order": "",
@@ -440,6 +324,151 @@
       "iconographyID": null,
       "taxonomy": {
         "species": "prezzemolo",
+        "gender": "",
+        "family": "",
+        "order": "",
+        "commonName": "",
+        "AA": ""
+      },
+      "morphology": {
+        "cap": "",
+        "hymenophore": "",
+        "stalk": "",
+        "flesh": ""
+      },
+      "features": {
+        "habitat": "",
+        "edibility": "",
+        "note": ""
+      },
+      "microscopicFeatures": {
+        "spores": "",
+        "pileipellis": "",
+        "cystidia": ""
+      },
+      "type": "[Form Mushroom Page] Create Mushroom Request"
+    },
+    {
+      "id": "e181",
+      "iconographyID": null,
+      "taxonomy": {
+        "species": "gfgfgfgf",
+        "gender": "",
+        "family": "",
+        "order": "",
+        "commonName": "",
+        "AA": ""
+      },
+      "morphology": {
+        "cap": "",
+        "hymenophore": "",
+        "stalk": "",
+        "flesh": ""
+      },
+      "features": {
+        "habitat": "",
+        "edibility": "",
+        "note": ""
+      },
+      "microscopicFeatures": {
+        "spores": "",
+        "pileipellis": "",
+        "cystidia": ""
+      },
+      "type": "[Form Mushroom Page] Create Mushroom Request"
+    },
+    {
+      "id": "5c6a",
+      "iconographyID": null,
+      "taxonomy": {
+        "species": "argoment",
+        "gender": "",
+        "family": "",
+        "order": "",
+        "commonName": "",
+        "AA": ""
+      },
+      "morphology": {
+        "cap": "",
+        "hymenophore": "",
+        "stalk": "",
+        "flesh": ""
+      },
+      "features": {
+        "habitat": "",
+        "edibility": "",
+        "note": ""
+      },
+      "microscopicFeatures": {
+        "spores": "",
+        "pileipellis": "",
+        "cystidia": ""
+      },
+      "type": "[Form Mushroom Page] Create Mushroom Request"
+    },
+    {
+      "id": "8de9",
+      "iconographyID": null,
+      "taxonomy": {
+        "species": "dsdasdada",
+        "gender": "",
+        "family": "",
+        "order": "",
+        "commonName": "",
+        "AA": ""
+      },
+      "morphology": {
+        "cap": "",
+        "hymenophore": "",
+        "stalk": "",
+        "flesh": ""
+      },
+      "features": {
+        "habitat": "",
+        "edibility": "",
+        "note": ""
+      },
+      "microscopicFeatures": {
+        "spores": "",
+        "pileipellis": "",
+        "cystidia": ""
+      },
+      "type": "[Form Mushroom Page] Create Mushroom Request"
+    },
+    {
+      "id": "ea13",
+      "iconographyID": null,
+      "taxonomy": {
+        "species": "ghhgfhf",
+        "gender": "",
+        "family": "",
+        "order": "",
+        "commonName": "",
+        "AA": ""
+      },
+      "morphology": {
+        "cap": "",
+        "hymenophore": "",
+        "stalk": "",
+        "flesh": ""
+      },
+      "features": {
+        "habitat": "",
+        "edibility": "",
+        "note": ""
+      },
+      "microscopicFeatures": {
+        "spores": "",
+        "pileipellis": "",
+        "cystidia": ""
+      },
+      "type": "[Form Mushroom Page] Create Mushroom Request"
+    },
+    {
+      "id": "6b7f",
+      "iconographyID": null,
+      "taxonomy": {
+        "species": "sergiei",
         "gender": "",
         "family": "",
         "order": "",

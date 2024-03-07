@@ -5,9 +5,9 @@ import { MycologyState } from '../models/mycology.models';
 
 export const initialState: MycologyState = {
   mushrooms: null,
-  pagination: {totalItems: 0, page: 1},
+  pagination: { totalItems: 0, page: 1 },
   iconographicContainer: null,
-  notifications: null
+  notifications: null,
 };
 
 export const mycologyReducer = createReducer(
@@ -16,7 +16,7 @@ export const mycologyReducer = createReducer(
     MycologyActions.loadMushroomsSucces,
     (mycologystate, { items, mushrooms }) => ({
       ...mycologystate,
-      pagination: {...mycologystate.pagination, totalItems: items},
+      pagination: { ...mycologystate.pagination, totalItems: items },
       mushrooms: mushrooms.reduce(
         (collection: { [id: string]: Mushroom }, mushroom) => {
           collection[mushroom.id!] = mushroom;
@@ -27,8 +27,8 @@ export const mycologyReducer = createReducer(
     })
   ),
   on(MycologyActions.createMushroomSucces, (mycologystate, mushroom) => {
-    const type: NotificationsType = 'create'
-    const mycologyStateItems = mycologystate.pagination.totalItems + 1;
+    const type: NotificationsType = 'create';
+    const totalItems = mycologystate.pagination.totalItems + 1;
     return {
       ...mycologystate,
       mushrooms: {
@@ -37,9 +37,9 @@ export const mycologyReducer = createReducer(
       },
       notifications: {
         type,
-        message: 'created'
+        message: 'created',
       },
-      items: mycologyStateItems,
+      pagination: { ...mycologystate.pagination, totalItems: totalItems },
     };
   }),
   on(
@@ -66,16 +66,20 @@ export const mycologyReducer = createReducer(
   on(
     MycologyActions.deleteMushroomsSucces,
     (mycologystate, { deletedMushroomsNumber }) => {
-      const mycologyStateItems = mycologystate.pagination.totalItems - deletedMushroomsNumber;
+      const mycologyStateItems =
+        mycologystate.pagination.totalItems - deletedMushroomsNumber;
       return {
         ...mycologystate,
-        pagination: {...mycologystate.pagination, totalItems: mycologyStateItems},
+        pagination: {
+          ...mycologystate.pagination,
+          totalItems: mycologyStateItems,
+        },
       };
     }
   ),
 
   on(MycologyActions.updateMushroomSucces, (mycologystate, mushroom) => {
-    const type: NotificationsType = 'update'
+    const type: NotificationsType = 'update';
     return {
       ...mycologystate,
       mushrooms: {
@@ -84,9 +88,9 @@ export const mycologyReducer = createReducer(
       },
       notifications: {
         type,
-        message: 'updated'
+        message: 'updated',
       },
-    }
+    };
   }),
 
   on(
@@ -104,7 +108,13 @@ export const mycologyReducer = createReducer(
   })),
   on(MycologyActions.resetNotificationsState, (mycologystate) => ({
     ...mycologystate,
-    notifications: null
+    notifications: null,
   })),
-  on(MycologyActions.updatePageIndexSuccess, (mycologystate, {pageIndex})=> ({...mycologystate, pagination: {...mycologystate.pagination, page: pageIndex}}))
+  on(
+    MycologyActions.updatePageIndexSuccess,
+    (mycologystate, { pageIndex }) => ({
+      ...mycologystate,
+      pagination: { ...mycologystate.pagination, page: pageIndex },
+    })
+  )
 );

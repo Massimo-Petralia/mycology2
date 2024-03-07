@@ -33,10 +33,7 @@ import { FormFilteredSearch } from '../models/mycology.models';
 export class MushroomTablePageComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
-  constructor(
-    private store: Store<MycologyState>,
-    public paramsService: SharedParametersService
-  ) {}
+  constructor(private store: Store<MycologyState>) {}
   @ViewChild('paginator') paginator!: MatPaginator;
   @ViewChild(MushroomTableComponent) mushroomTable!: MushroomTableComponent;
 
@@ -63,10 +60,23 @@ export class MushroomTablePageComponent
     this.pagination$ = this.store.select(selectPaginationFeature);
     this.subs.add(
       this.pagination$.subscribe((pagination) => {
+        if (this.items !== 0) {
+          if (pagination.totalItems < this.items) {
+            this.store.dispatch(
+              MycologyActions.loadMushroomsRequest({
+                pageIndex: this.page,
+                filter: 'species',
+                search: '',
+              })
+            );
+          }
+        }
+
         this.page = pagination.page;
         this.items = pagination.totalItems;
       })
     );
+
     this.store.dispatch(
       MycologyActions.loadMushroomsRequest({
         pageIndex: this.page,
@@ -74,40 +84,18 @@ export class MushroomTablePageComponent
         search: '',
       })
     );
+
     this.subs.add(
       this.mushrooms$.subscribe((mushrooms) => {
         if (mushrooms !== null) {
-          this.mushrooms = Object.values(
-            mushrooms
-            //as { [id: string]: Mushroom }
-          );
+          this.mushrooms = Object.values(mushrooms);
         }
       })
     );
-
-    // this.subs.add(
-    //   this.pagination$.subscribe((paginator) => {
-    //     this.page = paginator.page;
-    //     if (this.items !== 0) {
-    //       if (paginator.totalItems < this.items) {
-    //         this.store.dispatch(
-    //           MycologyActions.loadMushroomsRequest({
-    //             pageIndex: this.page,
-    //             filter: null,
-    //             search: null,
-    //           })
-    //         );
-    //       }
-
-    //       this.items = paginator.totalItems;
-    //     }
-    //     this.page = paginator.page;
-    //   })
-    // );
   }
 
   ngAfterViewInit(): void {
-    if (this.page !== 1) {
+    if (this.page > 1) {
       this.paginator.pageIndex = this.page! - 1;
     }
   }

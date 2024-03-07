@@ -54,7 +54,6 @@ export class MushroomTableComponent
 {
   constructor(
     private router: Router,
-    private paramsService: SharedParametersService,
     private fb: FormBuilder,
     private dialog: MatDialog
   ) {}
@@ -127,8 +126,7 @@ export class MushroomTableComponent
   }
 
   onMushroom(id: number) {
-    this.paramsService.page = this.page!;
-    this.paramsService.length = this.mushrooms.length;
+  
 
     this.router.navigate([`mycology/mushrooms/${id}`]);
   }

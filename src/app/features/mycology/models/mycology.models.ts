@@ -1,15 +1,15 @@
 export interface MycologyState {
   pagination: {
-    totalItems: number,
-    page: number
-  }
+    totalItems: number;
+    page: number;
+  };
   mushrooms: { [id: string]: Mushroom } | null;
- // items: number;
+
   iconographicContainer: IconographicContainer | null;
   notifications: Notifications | null;
 }
 
-export type NotificationsType = 'create' | 'update'
+export type NotificationsType = 'create' | 'update';
 
 export interface Notifications {
   type: NotificationsType;
@@ -58,11 +58,9 @@ export interface Mushroom {
   iconographyID?: string | null;
 }
 
-export type CreateMushroomRequest =  Omit<Mushroom, 'id'>
+export type CreateMushroomRequest = Omit<Mushroom, 'id'>;
 
-export type UpdateMushroomRequest =  Mushroom & {id: string}
-
-
+export type UpdateMushroomRequest = Mushroom & { id: string };
 
 export interface Iconography {
   id?: number;

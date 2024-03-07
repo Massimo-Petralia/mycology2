@@ -302,11 +302,14 @@ export class MicologyEffects {
   // );
   //-------------------------------------------------------------------------------------------//
 
-updatePageIndex$ = createEffect(() => this.actions$.pipe(
-  ofType(MycologyActions.updatePageIndexRequest),
-  map(({pageIndex})=> MycologyActions.updatePageIndexSuccess({pageIndex: pageIndex}))
-))
-
+  updatePageIndex$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(MycologyActions.updatePageIndexRequest),
+      map(({ pageIndex }) =>
+        MycologyActions.updatePageIndexSuccess({ pageIndex: pageIndex })
+      )
+    )
+  );
 
   createMycology$ = createEffect(() =>
     this.actions$.pipe(
@@ -340,4 +343,60 @@ updatePageIndex$ = createEffect(() => this.actions$.pipe(
     )
   );
 
+  updateMycology$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(MycologyActions.updateMycologyRequest),
+      switchMap((requestPayload) => {
+        let actions: Action[] = [];
+        if (
+          requestPayload.mushroom.iconographyID === null &&
+          requestPayload.iconographicContainer.formiconographyarray.length === 0
+        ) {
+          actions = [
+            MycologyActions.updateMushroomRequest(requestPayload.mushroom),
+          ];
+        }
+        if (
+          requestPayload.mushroom.iconographyID === null &&
+          requestPayload.iconographicContainer.formiconographyarray.length !== 0
+        ) {
+          actions = [
+            MycologyActions.createIconographyRequest({
+              iconographicContainer: requestPayload.iconographicContainer,
+              mushroom: requestPayload.mushroom,
+            }),
+          ];
+        }
+        if (
+          requestPayload.mushroom.iconographyID !== null &&
+          requestPayload.iconographicContainer.formiconographyarray.length !== 0
+        ) {
+          actions = [
+            MycologyActions.updateIconographyRequest({
+              iconographicContainer: requestPayload.iconographicContainer,
+              mushroom: requestPayload.mushroom,
+            }),
+          ];
+        }
+        if (
+          requestPayload.mushroom.iconographyID !== null &&
+          requestPayload.iconographicContainer.formiconographyarray.length === 0
+        ) {
+          actions = [
+            MycologyActions.updateMushroomRequest({
+              ...requestPayload.mushroom,
+              iconographyID: null,
+            }),
+            MycologyActions.deleteIconographiesRequest({
+              mushroomsIconographyID: [
+                requestPayload.iconographicContainer.id!,
+              ],
+            }),
+          ];
+        }
+        return actions;
+      }),
+      catchError(() => of(MycologyActions.updateMycologyFailed()))
+    )
+  );
 }
