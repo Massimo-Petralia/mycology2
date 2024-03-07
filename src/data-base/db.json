@@ -59,64 +59,6 @@
       "type": "[Form Mushroom Page] Update Mushroom Request"
     },
     {
-      "id": "916b",
-      "iconographyID": "0bcb",
-      "taxonomy": {
-        "species": "saruman",
-        "gender": "",
-        "family": "",
-        "order": "",
-        "commonName": "",
-        "AA": ""
-      },
-      "morphology": {
-        "cap": "",
-        "hymenophore": "",
-        "stalk": "",
-        "flesh": ""
-      },
-      "features": {
-        "habitat": "",
-        "edibility": "",
-        "note": ""
-      },
-      "microscopicFeatures": {
-        "spores": "",
-        "pileipellis": "",
-        "cystidia": ""
-      },
-      "type": "[Form Mushroom Page] Create Mushroom Request"
-    },
-    {
-      "id": "b761",
-      "iconographyID": null,
-      "taxonomy": {
-        "species": "romanio bross",
-        "gender": "",
-        "family": "",
-        "order": "",
-        "commonName": "",
-        "AA": ""
-      },
-      "morphology": {
-        "cap": "",
-        "hymenophore": "",
-        "stalk": "",
-        "flesh": ""
-      },
-      "features": {
-        "habitat": "",
-        "edibility": "",
-        "note": ""
-      },
-      "microscopicFeatures": {
-        "spores": "",
-        "pileipellis": "",
-        "cystidia": ""
-      },
-      "type": "[Form Mushroom Page] Create Mushroom Request"
-    },
-    {
       "id": "e575",
       "iconographyID": null,
       "taxonomy": {
@@ -172,7 +114,7 @@
         "pileipellis": "",
         "cystidia": ""
       },
-      "type": "[Form Mushroom Page] Create Mushroom Request"
+      "type": "[Form Mushroom Page] Update Mushroom Request"
     },
     {
       "id": "6f4d",
@@ -411,64 +353,6 @@
       "iconographyID": null,
       "taxonomy": {
         "species": "dsdasdada",
-        "gender": "",
-        "family": "",
-        "order": "",
-        "commonName": "",
-        "AA": ""
-      },
-      "morphology": {
-        "cap": "",
-        "hymenophore": "",
-        "stalk": "",
-        "flesh": ""
-      },
-      "features": {
-        "habitat": "",
-        "edibility": "",
-        "note": ""
-      },
-      "microscopicFeatures": {
-        "spores": "",
-        "pileipellis": "",
-        "cystidia": ""
-      },
-      "type": "[Form Mushroom Page] Create Mushroom Request"
-    },
-    {
-      "id": "ea13",
-      "iconographyID": null,
-      "taxonomy": {
-        "species": "ghhgfhf",
-        "gender": "",
-        "family": "",
-        "order": "",
-        "commonName": "",
-        "AA": ""
-      },
-      "morphology": {
-        "cap": "",
-        "hymenophore": "",
-        "stalk": "",
-        "flesh": ""
-      },
-      "features": {
-        "habitat": "",
-        "edibility": "",
-        "note": ""
-      },
-      "microscopicFeatures": {
-        "spores": "",
-        "pileipellis": "",
-        "cystidia": ""
-      },
-      "type": "[Form Mushroom Page] Create Mushroom Request"
-    },
-    {
-      "id": "6b7f",
-      "iconographyID": null,
-      "taxonomy": {
-        "species": "sergiei",
         "gender": "",
         "family": "",
         "order": "",
