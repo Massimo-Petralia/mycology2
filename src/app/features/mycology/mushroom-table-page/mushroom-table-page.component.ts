@@ -131,7 +131,6 @@ export class MushroomTablePageComponent
 
   checkLastOneLeft() {
     if (this.mushrooms.length <= 1) {
-      this.page = this.page - 1;
       setTimeout(() => this.paginator.previousPage(), 0);
       return true
     }
