@@ -151,7 +151,7 @@ export const createMycologyRequest = createAction(
 
 export const createMycologyFailed = createAction(
   '[Mycology Effects] Create Mycology Failed'
-)
+);
 
 //2
 export const updateMycologyRequest = createAction(
@@ -161,15 +161,15 @@ export const updateMycologyRequest = createAction(
 
 export const updateMycologyFailed = createAction(
   '[Mycology Effects] Update Mycology Failed'
-)
+);
 
 //pagination
 export const updatePageIndexRequest = createAction(
   '[Mushrooms Page] Update Page Index Request',
-  props<{pageIndex: number}>()
-)
+  props<{ pageIndex: number }>()
+);
 
 export const updatePageIndexSuccess = createAction(
   '[Mycology Effects]  Update Page Index success',
-  props<{pageIndex: number}>()
-)
+  props<{ pageIndex: number }>()
+);

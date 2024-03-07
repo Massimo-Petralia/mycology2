@@ -166,7 +166,7 @@ export class MushroomTableComponent
           this.formFilteredSearch.reset({
             filter: 'species',
             search: '',
-          });
+          }, {emitEvent: false});
           this.delete.emit(mushroomID);
         }
       });
@@ -197,7 +197,7 @@ export class MushroomTableComponent
           this.formFilteredSearch.reset({
             filter: 'species',
             search: '',
-          });
+          }, {emitEvent: false});
           this.deleteSelected.emit(this.selection.selected);
         }
       });

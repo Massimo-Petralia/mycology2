@@ -211,9 +211,16 @@ export class MicologyEffects {
           .updateIconography(requestPayload.iconographicContainer)
           .pipe(
             switchMap((iconographicContainer) => {
-              let actions: Action[] = [MycologyActions.updateIconographySucces(iconographicContainer)]
+              let actions: Action[] = [
+                MycologyActions.updateIconographySucces(iconographicContainer),
+              ];
               if (iconographicContainer) {
-               actions = [...actions,  MycologyActions.updateMushroomRequest(requestPayload.mushroom)];
+                actions = [
+                  ...actions,
+                  MycologyActions.updateMushroomRequest(
+                    requestPayload.mushroom
+                  ),
+                ];
               }
               return actions;
             }),
@@ -222,85 +229,6 @@ export class MicologyEffects {
       )
     )
   );
-
-  // saveMycologyData$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(MycologyActions.saveMycologyRequest),
-  //     mergeMap((requestPayload) => {
-  //       if (
-  //         !requestPayload.mushroom.id &&
-  //         requestPayload.iconographicContainer.formiconographyarray.length === 0
-  //       ) {
-  //         return of(
-  //           MycologyActions.createMushroomRequest(requestPayload.mushroom)
-  //         );
-  //       }
-  //       if (
-  //         // NON HA SENSO QUESTA CONDIZIONE
-  //         !requestPayload.mushroom.id &&
-  //         requestPayload.iconographicContainer.formiconographyarray.length !== 0
-  //       ) {
-  //         return of(
-  //           MycologyActions.createIconographyRequest({
-  //             iconographicContainer: requestPayload.iconographicContainer,
-  //             mushroom: requestPayload.mushroom,
-  //           })
-  //         );
-  //       }
-  //       if (
-  //         // NON SAI SE QUESTO FUNGO ESISTE O NON ESISTE
-  //         requestPayload.mushroom.iconographyID === null &&
-  //         requestPayload.iconographicContainer.formiconographyarray.length === 0
-  //       ) {
-  //         return of(
-  //           MycologyActions.updateMushroomRequest(requestPayload.mushroom)
-  //         );
-  //       }
-  //       if (
-  //         requestPayload.mushroom.iconographyID === null &&
-  //         requestPayload.iconographicContainer.formiconographyarray.length !== 0
-  //       ) {
-  //         return of(
-  //           MycologyActions.createIconographyRequest({
-  //             iconographicContainer: requestPayload.iconographicContainer,
-  //             mushroom: requestPayload.mushroom,
-  //           })
-  //         );
-  //       }
-  //       if (
-  //         requestPayload.mushroom.id &&
-  //         requestPayload.iconographicContainer.formiconographyarray.length !== 0
-  //       ) {
-  //         return of(
-  //           MycologyActions.updateIconographyRequest({
-  //             iconographicContainer: requestPayload.iconographicContainer,
-  //             mushroom: requestPayload.mushroom,
-  //           })
-  //         );
-  //       }
-  //       if (
-  //         requestPayload.iconographicContainer.id &&
-  //         requestPayload.iconographicContainer.formiconographyarray.length === 0
-  //       ) {
-  //         return of(
-  //           MycologyActions.updateMushroomRequest({
-  //             ...requestPayload.mushroom,
-  //             iconographyID: null,
-  //           }),
-  //           MycologyActions.deleteIconographiesRequest({
-  //             mushroomsIconographyID: [
-  //               requestPayload.iconographicContainer.id!,
-  //             ],
-  //           })
-  //         );
-  //       }
-  //       return of();
-  //     }),
-
-  //     catchError(() => of(MycologyActions.saveMycologyFailed()))
-  //   )
-  // );
-  //-------------------------------------------------------------------------------------------//
 
   updatePageIndex$ = createEffect(() =>
     this.actions$.pipe(

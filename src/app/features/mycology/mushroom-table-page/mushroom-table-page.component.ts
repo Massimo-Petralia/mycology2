@@ -62,11 +62,15 @@ export class MushroomTablePageComponent
       this.pagination$.subscribe((pagination) => {
         if (this.items !== 0) {
           if (pagination.totalItems < this.items) {
+            //  const page = this.mushrooms.length <= 1 ? this.page -1 : this.page
+
             this.store.dispatch(
               MycologyActions.loadMushroomsRequest({
                 pageIndex: this.page,
-                filter: 'species',
-                search: '',
+                filter:
+                  this.mushroomTable.formFilteredSearch.controls.filter.value,
+                search:
+                  this.mushroomTable.formFilteredSearch.controls.search.value,
               })
             );
           }
@@ -125,7 +129,16 @@ export class MushroomTablePageComponent
     );
   }
 
-  onDelete(mushroomID: string) {
+  checkLastOneLeft() {
+    if (this.mushrooms.length <= 1) {
+      this.page = this.page - 1;
+      setTimeout(() => this.paginator.previousPage(), 0);
+      return true
+    }
+    return false
+  }
+
+  onDeleteOption(mushroomID: string) {
     const collection = this.mushrooms.reduce(
       (collection: { [id: string]: Mushroom }, mushroom) => {
         collection[mushroom.id!] = mushroom;
@@ -138,26 +151,16 @@ export class MushroomTablePageComponent
         mushrooms: [collection[mushroomID]],
       })
     );
-    if (this.mushrooms.length <= 1) {
-      const page = this.page - 1;
-
-      this.store.dispatch(
-        MycologyActions.updatePageIndexRequest({ pageIndex: page })
-      );
-    }
+    this.checkLastOneLeft();
+    console.log('check table length: ', this.checkLastOneLeft());
   }
 
   onDeleteSelected(mushrooms: Mushroom[]) {
     this.store.dispatch(
       MycologyActions.deleteMushroomsRequest({ mushrooms: mushrooms })
     );
-    if (this.mushrooms.length <= 1) {
-      const page = this.page - 1;
-
-      this.store.dispatch(
-        MycologyActions.updatePageIndexRequest({ pageIndex: page })
-      );
-    }
+    this.checkLastOneLeft();
+    console.log('check table length: ', this.checkLastOneLeft());
   }
 
   ngOnDestroy(): void {
