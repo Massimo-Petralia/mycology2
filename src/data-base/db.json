@@ -231,35 +231,6 @@
         "cystidia": ""
       },
       "type": "[Form Mushroom Page] Create Mushroom Request"
-    },
-    {
-      "id": "f80c",
-      "iconographyID": null,
-      "taxonomy": {
-        "species": "sdadsada",
-        "gender": "",
-        "family": "",
-        "order": "",
-        "commonName": "",
-        "AA": ""
-      },
-      "morphology": {
-        "cap": "",
-        "hymenophore": "",
-        "stalk": "",
-        "flesh": ""
-      },
-      "features": {
-        "habitat": "",
-        "edibility": "",
-        "note": ""
-      },
-      "microscopicFeatures": {
-        "spores": "",
-        "pileipellis": "",
-        "cystidia": ""
-      },
-      "type": "[Form Mushroom Page] Create Mushroom Request"
     }
   ],
   "iconographies": []

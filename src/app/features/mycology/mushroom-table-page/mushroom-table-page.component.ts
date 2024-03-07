@@ -21,7 +21,6 @@ import {
 } from '../mycology-state/mycology.selectors';
 import { Observable, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { SharedParametersService } from '../services/shared-parameters.service';
 import { FormFilteredSearch } from '../models/mycology.models';
 @Component({
   selector: 'app-mushroom-table-page',
@@ -39,16 +38,13 @@ export class MushroomTablePageComponent
 
   @Input() items: number = 0;
 
-  pagination$: Observable<{
-    totalItems: number;
-    page: number;
-  }> | null = null;
+  page: number = 1;
+
+  pagination$ = this.store.select(selectPaginationFeature);
 
   mushrooms$ = this.store.select(selectMushroomsFeature);
 
   mushrooms: Mushroom[] = [];
-
-  page: number = 1;
 
   subs = new Subscription();
 
@@ -56,36 +52,29 @@ export class MushroomTablePageComponent
 
   selectedMushrooms: { [key: string]: Mushroom } | null = null;
 
+  loadMushrooms(filters: string | null, search: string | null) {
+    this.store.dispatch(
+      MycologyActions.loadMushroomsRequest({
+        pageIndex: this.page,
+        filter: filters,
+        search: search,
+      })
+    );
+  }
+
   ngOnInit(): void {
-    this.pagination$ = this.store.select(selectPaginationFeature);
     this.subs.add(
       this.pagination$.subscribe((pagination) => {
         if (this.items !== 0) {
           if (pagination.totalItems < this.items) {
-            //  const page = this.mushrooms.length <= 1 ? this.page -1 : this.page
-
-            this.store.dispatch(
-              MycologyActions.loadMushroomsRequest({
-                pageIndex: this.page,
-                filter:
-                  this.mushroomTable.formFilteredSearch.controls.filter.value,
-                search:
-                  this.mushroomTable.formFilteredSearch.controls.search.value,
-              })
+            this.loadMushrooms(
+              this.mushroomTable.formFilteredSearch.controls.filter.value,
+              this.mushroomTable.formFilteredSearch.controls.search.value
             );
           }
         }
-
         this.page = pagination.page;
         this.items = pagination.totalItems;
-      })
-    );
-
-    this.store.dispatch(
-      MycologyActions.loadMushroomsRequest({
-        pageIndex: this.page,
-        filter: 'species',
-        search: '',
       })
     );
 
@@ -96,6 +85,7 @@ export class MushroomTablePageComponent
         }
       })
     );
+    this.loadMushrooms('species', '');
   }
 
   ngAfterViewInit(): void {
@@ -132,9 +122,9 @@ export class MushroomTablePageComponent
   checkLastOneLeft() {
     if (this.mushrooms.length <= 1) {
       setTimeout(() => this.paginator.previousPage(), 0);
-      return true
+      return true;
     }
-    return false
+    return false;
   }
 
   onDeleteOption(mushroomID: string) {
