@@ -1,13 +1,15 @@
 <div #container>
   <img
+    #image
     loading="lazy"
     [id]="index"
     [src]="value"
     (click)="
-      toggleZoom($event);
+      getIndex(index);
       container.parentElement?.parentElement?.scrollIntoView({
         behavior: 'smooth'
       })
     "
+    [classList]="selectedIndex === index ? toggleClass() : null"
   />
 </div>

@@ -1,5 +1,5 @@
 <div #parent class="flex-header">
-  <h4 class="title">{{mushroomspecies}} Iconography</h4>
+  <h4 class="title">{{ mushroomspecies }} Iconography</h4>
   <h4 class="subtitle">Image collection</h4>
   <mat-button-toggle
     (change)="
@@ -41,6 +41,8 @@
           </mat-card-header>
           <app-custom-img
             [index]="i + 1"
+            (imageIndex)="onImageIndex($event)"
+            [selectedIndex]="selectedIndex"
             mat-card-image
             formControlName="imageURL"
           ></app-custom-img>
