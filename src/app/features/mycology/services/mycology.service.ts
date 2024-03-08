@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { IconographicContainer, Mushroom } from '../models/mycology.models';
-import { Observable, catchError, of, map } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 const mushroomsDataURL = 'http://localhost:3000/mushrooms';
 const iconographiesDataURL = 'http://localhost:3000/iconographies';
