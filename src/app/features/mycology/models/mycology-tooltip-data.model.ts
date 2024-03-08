@@ -28,16 +28,16 @@ export const tooltip: Mushroom = {
     in Ascomycete mushrooms it is made up of aschi`,
     stalk: `Description of : Size, Shape, Color, Surface, Ring, Base, Consistency 
     These are just some of the main macroscopic features that can be observed on the stalk of a mushroom.`,
-    flesh: '',
+    flesh: 'flesh placeholder',
   },
   features: {
-    habitat: '',
-    edibility: '',
-    note: '',
+    habitat: 'habitat placeholder',
+    edibility: 'edibility placeholder',
+    note: 'note placeholder',
   },
   microscopicFeatures: {
-    spores: '',
-    pileipellis: '',
-    cystidia: '',
+    spores: 'spores placeholder',
+    pileipellis: 'pileipellis placeholder',
+    cystidia: 'cystidia placeholder',
   },
 };

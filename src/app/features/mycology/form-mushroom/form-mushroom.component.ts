@@ -53,12 +53,12 @@ export class FormMushroomComponent implements OnChanges, AfterViewInit {
 
   @ViewChild('invalidFieldDialogBox') invalidFieldDialogBox!: TemplateRef<any>;
 
-  @ViewChild('tooltipspecies') tooltipspecies!: MatTooltip;
-  @ViewChild('tooltipgender') tooltipgender!: MatTooltip;
-  @ViewChild('tooltipfamily') tooltipfamily!: MatTooltip;
-  @ViewChild('tooltiporder') tooltiporder!: MatTooltip;
-  @ViewChild('tooltipcommonName') tooltipcommonName!: MatTooltip;
-  @ViewChild('tooltipAA') tooltipAA!: MatTooltip;
+  // @ViewChild('tooltipspecies') tooltipspecies!: MatTooltip;
+  // @ViewChild('tooltipgender') tooltipgender!: MatTooltip;
+  // @ViewChild('tooltipfamily') tooltipfamily!: MatTooltip;
+  // @ViewChild('tooltiporder') tooltiporder!: MatTooltip;
+  // @ViewChild('tooltipcommonName') tooltipcommonName!: MatTooltip;
+  // @ViewChild('tooltipAA') tooltipAA!: MatTooltip;
 
   @Input() mushroom!: Mushroom | null;
 
@@ -81,7 +81,7 @@ export class FormMushroomComponent implements OnChanges, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    setTimeout(() => this.disabledTooltip(), 0);
+  //  setTimeout(() => this.disabledTooltip(), 0);
   }
 
   formMushroom = this.formbuilder.group({
@@ -140,19 +140,19 @@ export class FormMushroomComponent implements OnChanges, AfterViewInit {
     });
   }
 
-  disabledTooltip() {
-    this.tooltipspecies.disabled = true;
-    this.tooltipgender.disabled = true;
-    this.tooltipfamily.disabled = true;
-    this.tooltiporder.disabled = true;
-    this.tooltipcommonName.disabled = true;
-    this.tooltipAA.disabled = true;
-  }
+  // disabledTooltip() {
+  //   this.tooltipspecies.disabled = true;
+  //   this.tooltipgender.disabled = true;
+  //   this.tooltipfamily.disabled = true;
+  //   this.tooltiporder.disabled = true;
+  //   this.tooltipcommonName.disabled = true;
+  //   this.tooltipAA.disabled = true;
+  // }
 
-  toggleTooltip(tooltip: MatTooltip) {
-    if (!tooltip.disabled) {
-      tooltip.disabled = true;
-    } else tooltip.disabled = false;
-    tooltip.toggle();
-  }
+  // toggleTooltip(tooltip: MatTooltip) {
+  //   if (!tooltip.disabled) {
+  //     tooltip.disabled = true;
+  //   } else tooltip.disabled = false;
+  //   tooltip.toggle();
+  // }
 }
