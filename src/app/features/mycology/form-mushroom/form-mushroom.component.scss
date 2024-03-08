@@ -57,6 +57,7 @@ mat-button-toggle {
   flex-wrap: nowrap;
   border-top: 1px dotted lightgray;
   padding-top: 20px;
+  justify-content: space-evenly;
 }
 
 .flex-buttons {
@@ -85,19 +86,16 @@ mat-button-toggle {
 }
 
 .mat-form-field-taxonomy {
-  flex-basis: 30%;
+  flex-grow: 1;
 }
 
-@media (max-width: 775px) {
+@media (max-width: 823px) {
   .group-1-taxonomy {
     flex-direction: column;
   }
 
   .group-2-taxonomy {
     flex-direction: column;
-  }
-  mat-icon{
-    margin-bottom: 10px;
   }
 }
 
@@ -114,11 +112,19 @@ mat-button-toggle {
   border: 1px solid lightgray;
 }
 
-.tooltip{
-  position: relative;
-  left: 10%;
+mat-icon {
+  margin: 0px 5px 0px 5px;
 }
 
-mat-icon:hover{
- color:  lightskyblue;
+mat-icon:hover {
+  color: #69f0ae;
+}
+
+.info-icon {
+  align-self: self-end;
+}
+
+.input-flex-container {
+  display: flex;
+  flex-grow: 1;
 }

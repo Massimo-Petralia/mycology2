@@ -17,11 +17,10 @@ import * as MycologyActions from '../mycology-state/mycology.actions';
 import { Mushroom, MycologyState } from '../models/mycology.models';
 import {
   selectMushroomsFeature,
-  selectItemsFeature,
+  selectPaginationFeature,
 } from '../mycology-state/mycology.selectors';
 import { Observable, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { SharedParametersService } from '../services/shared-parameters.service';
 import { FormFilteredSearch } from '../models/mycology.models';
 @Component({
   selector: 'app-mushroom-table-page',
@@ -33,23 +32,19 @@ import { FormFilteredSearch } from '../models/mycology.models';
 export class MushroomTablePageComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
-  constructor(
-    private store: Store<MycologyState>,
-    public paramsService: SharedParametersService
-  ) {}
+  constructor(private store: Store<MycologyState>) {}
   @ViewChild('paginator') paginator!: MatPaginator;
   @ViewChild(MushroomTableComponent) mushroomTable!: MushroomTableComponent;
 
-  page: number | undefined;
-
-  mushrooms$ = this.store.select(selectMushroomsFeature);
-  mushrooms: Mushroom[] = [];
-
-  items$!: Observable<number>;
-
   @Input() items: number = 0;
 
-  previousValue: number | undefined;
+  page: number = 1;
+
+  pagination$ = this.store.select(selectPaginationFeature);
+
+  mushrooms$ = this.store.select(selectMushroomsFeature);
+
+  mushrooms: Mushroom[] = [];
 
   subs = new Subscription();
 
@@ -57,46 +52,44 @@ export class MushroomTablePageComponent
 
   selectedMushrooms: { [key: string]: Mushroom } | null = null;
 
-  ngOnInit(): void {
-    this.page = this.paramsService.page;
+  loadMushrooms(filters: string | null, search: string | null) {
     this.store.dispatch(
       MycologyActions.loadMushroomsRequest({
-        pageIndex: this.page!,
-        filter: 'species',
-        search: '',
-      })
-    );
-    this.subs.add(
-      this.mushrooms$.subscribe((mushrooms) => {
-        if (mushrooms !== null) {
-          this.mushrooms = Object.values(
-            mushrooms as { [id: string]: Mushroom }
-          );
-        }
-      })
-    );
-    this.items$ = this.store.select(selectItemsFeature);
-    this.subs.add(
-      this.items$.subscribe((newValue) => {
-        if (this.items !== 0) {
-          if (newValue < this.items) {
-            this.store.dispatch(
-              MycologyActions.loadMushroomsRequest({
-                pageIndex: this.page!,
-                filter: null,
-                search: null,
-              })
-            );
-          }
-
-          this.items = newValue;
-        }
+        pageIndex: this.page,
+        filter: filters,
+        search: search,
       })
     );
   }
 
+  ngOnInit(): void {
+    this.subs.add(
+      this.pagination$.subscribe((pagination) => {
+        if (this.items !== 0) {
+          if (pagination.totalItems < this.items) {
+            this.loadMushrooms(
+              this.mushroomTable.formFilteredSearch.controls.filter.value,
+              this.mushroomTable.formFilteredSearch.controls.search.value
+            );
+          }
+        }
+        this.page = pagination.page;
+        this.items = pagination.totalItems;
+      })
+    );
+
+    this.subs.add(
+      this.mushrooms$.subscribe((mushrooms) => {
+        if (mushrooms !== null) {
+          this.mushrooms = Object.values(mushrooms);
+        }
+      })
+    );
+    this.loadMushrooms('species', '');
+  }
+
   ngAfterViewInit(): void {
-    if (this.page !== 1) {
+    if (this.page > 1) {
       this.paginator.pageIndex = this.page! - 1;
     }
   }
@@ -104,6 +97,9 @@ export class MushroomTablePageComponent
   handlePagination(pageEvent: PageEvent) {
     this.page = pageEvent.pageIndex;
     this.page++;
+    this.store.dispatch(
+      MycologyActions.updatePageIndexRequest({ pageIndex: this.page })
+    );
     this.store.dispatch(
       MycologyActions.loadMushroomsRequest({
         pageIndex: this.page,
@@ -123,7 +119,15 @@ export class MushroomTablePageComponent
     );
   }
 
-  onDelete(mushroomID: string) {
+  checkLastOneLeft() {
+    if (this.mushrooms.length <= 1) {
+      setTimeout(() => this.paginator.previousPage(), 0);
+      return true;
+    }
+    return false;
+  }
+
+  onDeleteOption(mushroomID: string) {
     const collection = this.mushrooms.reduce(
       (collection: { [id: string]: Mushroom }, mushroom) => {
         collection[mushroom.id!] = mushroom;
@@ -136,12 +140,16 @@ export class MushroomTablePageComponent
         mushrooms: [collection[mushroomID]],
       })
     );
+    this.checkLastOneLeft();
+    console.log('check table length: ', this.checkLastOneLeft());
   }
 
   onDeleteSelected(mushrooms: Mushroom[]) {
     this.store.dispatch(
       MycologyActions.deleteMushroomsRequest({ mushrooms: mushrooms })
     );
+    this.checkLastOneLeft();
+    console.log('check table length: ', this.checkLastOneLeft());
   }
 
   ngOnDestroy(): void {

@@ -12,9 +12,9 @@ export const selectMushroomsFeature = createSelector(
   getMushrooms
 );
 
-export const selectItemsFeature = createSelector(
+export const selectPaginationFeature = createSelector(
   selectFeature,
-  ({ items }) => items
+  ({ pagination }) => pagination
 );
 
 export const selectIconographyFeature = createSelector(

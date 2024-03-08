@@ -54,7 +54,6 @@ export class MushroomTableComponent
 {
   constructor(
     private router: Router,
-    private paramsService: SharedParametersService,
     private fb: FormBuilder,
     private dialog: MatDialog
   ) {}
@@ -105,10 +104,11 @@ export class MushroomTableComponent
       this.formFilteredSearch.valueChanges
         .pipe(debounceTime(500))
         .subscribe((value) => {
-          this.formValue.emit({
-            filter: value.filter!,
-            search: value.search ? value.search : null,
-          });
+          if (value.search !== null)
+            this.formValue.emit({
+              filter: value.filter!,
+              search: value.search!,
+            });
         })
     );
     if (typeof window !== 'undefined') {
@@ -121,13 +121,12 @@ export class MushroomTableComponent
   }
 
   goToFormMushroom() {
-    this.paramsService.page = this.page!;
+    //this.paramsService.page = this.page!;
     this.router.navigate([`mycology/mushrooms/:id`]);
   }
 
   onMushroom(id: number) {
-    this.paramsService.page = this.page!;
-    this.paramsService.length = this.mushrooms.length;
+  
 
     this.router.navigate([`mycology/mushrooms/${id}`]);
   }
@@ -167,7 +166,7 @@ export class MushroomTableComponent
           this.formFilteredSearch.reset({
             filter: 'species',
             search: '',
-          });
+          }, {emitEvent: false});
           this.delete.emit(mushroomID);
         }
       });
@@ -198,7 +197,7 @@ export class MushroomTableComponent
           this.formFilteredSearch.reset({
             filter: 'species',
             search: '',
-          });
+          }, {emitEvent: false});
           this.deleteSelected.emit(this.selection.selected);
         }
       });

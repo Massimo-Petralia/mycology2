@@ -1,22 +1,13 @@
 import { createReducer, on } from '@ngrx/store';
-import { Mushroom } from '../models/mycology.models';
+import { Mushroom, NotificationsType } from '../models/mycology.models';
 import * as MycologyActions from '../mycology-state/mycology.actions';
 import { MycologyState } from '../models/mycology.models';
 
 export const initialState: MycologyState = {
   mushrooms: null,
-  items: 0,
+  pagination: { totalItems: 0, page: 1 },
   iconographicContainer: null,
-  notifications: {
-    creation: {
-      isCreated: false,
-      notification: 'Created',
-    },
-    update: {
-      isUpdate: false,
-      notification: 'Updated',
-    },
-  },
+  notifications: null,
 };
 
 export const mycologyReducer = createReducer(
@@ -25,7 +16,7 @@ export const mycologyReducer = createReducer(
     MycologyActions.loadMushroomsSucces,
     (mycologystate, { items, mushrooms }) => ({
       ...mycologystate,
-      items: items,
+      pagination: { ...mycologystate.pagination, totalItems: items },
       mushrooms: mushrooms.reduce(
         (collection: { [id: string]: Mushroom }, mushroom) => {
           collection[mushroom.id!] = mushroom;
@@ -36,7 +27,8 @@ export const mycologyReducer = createReducer(
     })
   ),
   on(MycologyActions.createMushroomSucces, (mycologystate, mushroom) => {
-    const mycologyStateItems = mycologystate.items + 1;
+    const type: NotificationsType = 'create';
+    const totalItems = mycologystate.pagination.totalItems + 1;
     return {
       ...mycologystate,
       mushrooms: {
@@ -44,11 +36,10 @@ export const mycologyReducer = createReducer(
         [mushroom.id as string]: mushroom,
       },
       notifications: {
-        ...mycologystate.notifications,
-        creation: { ...mycologystate.notifications.creation, isCreated: true },
-        update: { ...mycologystate.notifications.update, isUpdate: false },
+        type,
+        message: 'created',
       },
-      items: mycologyStateItems,
+      pagination: { ...mycologystate.pagination, totalItems: totalItems },
     };
   }),
   on(
@@ -75,26 +66,32 @@ export const mycologyReducer = createReducer(
   on(
     MycologyActions.deleteMushroomsSucces,
     (mycologystate, { deletedMushroomsNumber }) => {
-      const mycologyStateItems = mycologystate.items - deletedMushroomsNumber;
+      const mycologyStateItems =
+        mycologystate.pagination.totalItems - deletedMushroomsNumber;
       return {
         ...mycologystate,
-        items: mycologyStateItems,
+        pagination: {
+          ...mycologystate.pagination,
+          totalItems: mycologyStateItems,
+        },
       };
     }
   ),
 
-  on(MycologyActions.updateMushroomSucces, (mycologystate, mushroom) => ({
-    ...mycologystate,
-    mushrooms: {
-      ...mycologystate.mushrooms,
-      [mushroom.id as string]: mushroom,
-    },
-    notifications: {
-      ...mycologystate.notifications,
-      update: { ...mycologystate.notifications.update, isUpdate: true },
-      creation: { ...mycologystate.notifications.creation, isCreated: false },
-    },
-  })),
+  on(MycologyActions.updateMushroomSucces, (mycologystate, mushroom) => {
+    const type: NotificationsType = 'update';
+    return {
+      ...mycologystate,
+      mushrooms: {
+        ...mycologystate.mushrooms,
+        [mushroom.id as string]: mushroom,
+      },
+      notifications: {
+        type,
+        message: 'updated',
+      },
+    };
+  }),
 
   on(
     MycologyActions.updateIconographySucces,
@@ -111,10 +108,13 @@ export const mycologyReducer = createReducer(
   })),
   on(MycologyActions.resetNotificationsState, (mycologystate) => ({
     ...mycologystate,
-    notifications: {
-      ...mycologystate.notifications,
-      creation: { ...mycologystate.notifications.creation, isCreated: false },
-      update: { ...mycologystate.notifications.update, isUpdate: false },
-    },
-  }))
+    notifications: null,
+  })),
+  on(
+    MycologyActions.updatePageIndexSuccess,
+    (mycologystate, { pageIndex }) => ({
+      ...mycologystate,
+      pagination: { ...mycologystate.pagination, page: pageIndex },
+    })
+  )
 );

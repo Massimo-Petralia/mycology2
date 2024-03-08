@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IconographicContainer, Mushroom } from '../models/mycology.models';
-import { Observable, catchError } from 'rxjs';
+import { Observable, catchError, of } from 'rxjs';
 
 const mushroomsDataURL = 'http://localhost:3000/mushrooms';
 const iconographiesDataURL = 'http://localhost:3000/iconographies';
@@ -24,13 +24,11 @@ export class MycologyService {
   ): Observable<Response> {
     return this.http
       .get<Response>(
-        filter === 'species' && !search
-          ? `${mushroomsDataURL}?_page=${pageIndex}&_per_page=8`
-          : `${mushroomsDataURL}?taxonomy.${filter}=${search}&_page=${pageIndex}&_per_page=8`
+        `${mushroomsDataURL}?taxonomy.${filter}=${search}&_page=${pageIndex}&_per_page=8`
       )
       .pipe(
         catchError((error) => {
-          console.error('get request failed', error);
+          console.error('post mushroom failed', error);
           throw error;
         })
       );

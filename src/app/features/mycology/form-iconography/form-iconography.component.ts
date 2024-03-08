@@ -45,6 +45,8 @@ export class FormIconographyComponent implements OnChanges {
   @ViewChild('inputfile') inputfileElem!: ElementRef<HTMLInputElement>;
   constructor(private formBuilder: FormBuilder, private store: Store) {}
 
+  selectedIndex : number = 0
+
   @Input() mushroomspecies: string = '';
 
   @Input() iconographicContainer: IconographicContainer = {
@@ -117,4 +119,9 @@ export class FormIconographyComponent implements OnChanges {
   removeControl(index: number) {
     this.formIconography.controls.formiconographyarray.removeAt(index);
   }
+
+  onImageIndex(index: number){
+    this.selectedIndex = index
+  }
+  
 }

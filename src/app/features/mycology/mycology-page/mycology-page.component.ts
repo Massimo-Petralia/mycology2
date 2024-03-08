@@ -21,9 +21,10 @@ import {
   selectNotificationsFeature,
 } from '../mycology-state/mycology.selectors';
 import { Observable, Subscription, filter } from 'rxjs';
-import { SharedParametersService } from '../services/shared-parameters.service';
 
 import { Notifications } from '../models/mycology.models';
+
+import { selectPaginationFeature } from '../mycology-state/mycology.selectors';
 
 @Component({
   selector: 'app-mycology-page',
@@ -37,18 +38,12 @@ import { Notifications } from '../models/mycology.models';
   styleUrl: './mycology-page.component.scss',
 })
 export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
-  constructor(
-    private store: Store<MycologyState>,
-    private router: Router,
-    private paramsService: SharedParametersService
-  ) {}
+  constructor(private store: Store<MycologyState>, private router: Router) {}
 
-  parameters: { [k: string]: any } | undefined = {
-    page: <string>'',
-    length: <string>'',
-  };
-
-  mushroomspecies: string = '';
+  @ViewChild(FormMushroomComponent)
+  formMushroomComponent!: FormMushroomComponent;
+  @ViewChild(FormIconographyComponent)
+  formIconographyComponent!: FormIconographyComponent;
 
   @Input() set id(mushroomID: string) {
     this.mushroomID = mushroomID;
@@ -67,20 +62,27 @@ export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
     ) as Observable<IconographicContainer>;
 
   notifications$ = this.store.select(selectNotificationsFeature);
-  notifications!: Notifications;
+
+  pagination$ = this.store.select(selectPaginationFeature);
+
+  subs = new Subscription();
 
   mushroomID!: string;
+
   mushroom!: Mushroom | null;
+
+  notifications: Notifications | null = null;
+
+  mushroomspecies: string = '';
+
   iconographicContainer: IconographicContainer = {
     formiconographyarray: [],
   };
 
-  subs = new Subscription();
-
-  @ViewChild(FormMushroomComponent)
-  formMushroomComponent!: FormMushroomComponent;
-  @ViewChild(FormIconographyComponent)
-  formIconographyComponent!: FormIconographyComponent;
+  parameters: { [k: string]: number } = {
+    page: <number>0,
+    mushroomsLength: <number>0,
+  };
 
   ngOnChanges(changes: SimpleChanges): void {
     const { id } = changes;
@@ -95,8 +97,15 @@ export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subs.add(
+      this.pagination$.subscribe((pagination) => {
+        this.parameters['page'] = pagination.page;
+      })
+    );
+
+    this.subs.add(
       this.mushrooms$.subscribe((mushrooms) => {
         this.mushroom = mushrooms[this.mushroomID];
+        this.parameters['mushroomsLength'] = Object.keys(mushrooms).length;
       })
     );
 
@@ -109,9 +118,7 @@ export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
     this.subs.add(
       this.notifications$.subscribe((notifications) => {
         this.notifications = notifications;
-        if (
-          notifications.creation.isCreated !== notifications.update.isUpdate
-        ) {
+        if (this.notifications) {
           setTimeout(
             () =>
               this.store.dispatch(MycologyActions.resetNotificationsState()),
@@ -146,7 +153,12 @@ export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
     if (!payload.iconographicContainer.id) {
       delete payload.iconographicContainer['id'];
     }
-    this.store.dispatch(MycologyActions.saveMycologyRequest(payload));
+    if (!payload.mushroom.id) {
+      this.store.dispatch(MycologyActions.createMycologyRequest(payload));
+    }
+    if (payload.mushroom.id) {
+      this.store.dispatch(MycologyActions.updateMycologyRequest(payload));
+    }
   }
 
   onDelete() {
@@ -163,8 +175,11 @@ export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
       MycologyActions.deleteMushroomsRequest({ mushrooms: [payload.mushroom] })
     );
 
-    if (this.paramsService.length <= 1) {
-      this.paramsService.page = this.paramsService.page - 1;
+    if (this.parameters['mushroomsLength'] <= 1) {
+      const page = this.parameters['page'] - 1;
+      this.store.dispatch(
+        MycologyActions.updatePageIndexRequest({ pageIndex: page })
+      );
     }
   }
 
