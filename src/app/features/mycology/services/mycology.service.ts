@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { IconographicContainer, Mushroom } from '../models/mycology.models';
-import { Observable, catchError, of } from 'rxjs';
+import { Observable, catchError, of, map } from 'rxjs';
 
 const mushroomsDataURL = 'http://localhost:3000/mushrooms';
 const iconographiesDataURL = 'http://localhost:3000/iconographies';
 
 export interface Response {
-  items: number;
-  data: Mushroom[];
+  items: string | null;
+  data: Mushroom[] | null;
 }
 
 @Injectable({
@@ -21,112 +21,71 @@ export class MycologyService {
     pageIndex: number,
     filter: string | null,
     search: string | null
-  ): Observable<Response> {
+  ) {
     return this.http
-      .get<Response>(
-        `${mushroomsDataURL}?taxonomy.${filter}=${search}&_page=${pageIndex}&_per_page=8`
+      .get<Mushroom[]>(
+        `${mushroomsDataURL}?taxonomy.${filter}_like=${search}&_page=${pageIndex}&_limit=8`,
+        {
+          observe: 'response',
+          transferCache: { includeHeaders: ['X-Total-Count'] },
+        }
       )
       .pipe(
-        catchError((error) => {
-          console.error('post mushroom failed', error);
-          throw error;
+        map((response) => {
+          return {
+            items: Number(response.headers.get('X-Total-Count')),
+            data: response.body!,
+          };
         })
       );
   }
 
   createMushroom(mushroom: Mushroom) {
-    return this.http.post<Mushroom>(mushroomsDataURL, mushroom).pipe(
-      catchError((error) => {
-        console.error('post mushroom failed', error);
-        throw error;
-      })
-    );
+    return this.http.post<Mushroom>(mushroomsDataURL, mushroom);
   }
 
   createIconography(iconographicContainer: IconographicContainer) {
-    return this.http
-      .post<IconographicContainer>(iconographiesDataURL, iconographicContainer)
-      .pipe(
-        catchError((error) => {
-          console.error('post iconographicContainer failed');
-          throw error;
-        })
-      );
+    return this.http.post<IconographicContainer>(
+      iconographiesDataURL,
+      iconographicContainer
+    );
   }
 
   getMushroom(id: string): Observable<Mushroom> {
-    return this.http.get<Mushroom>(`${mushroomsDataURL}/${id}`).pipe(
-      catchError((error) => {
-        console.error('load mushroom failed', error);
-        throw error;
-      })
-    );
+    return this.http.get<Mushroom>(`${mushroomsDataURL}/${id}`);
   }
 
   getIconography(id: string): Observable<IconographicContainer> {
-    return this.http
-      .get<IconographicContainer>(`${iconographiesDataURL}/${id}`)
-      .pipe(
-        catchError((error) => {
-          console.error('load iconographic container failed', error);
-          throw error;
-        })
-      );
+    return this.http.get<IconographicContainer>(
+      `${iconographiesDataURL}/${id}`
+    );
   }
 
   deleteMushrooms(id: string) {
-    return this.http.delete(`${mushroomsDataURL}/${id}`).pipe(
-      catchError((error) => {
-        console.error('delete mushroom failed');
-        throw error;
-      })
-    );
+    return this.http.delete(`${mushroomsDataURL}/${id}`);
   }
 
   deleteIconographies(id: string) {
-    return this.http.delete(`${iconographiesDataURL}/${id}`).pipe(
-      catchError((error) => {
-        console.error('delete iconography failed');
-        throw error;
-      })
-    );
+    return this.http.delete(`${iconographiesDataURL}/${id}`);
   }
 
   updateMushroom(mushroom: Mushroom): Observable<Mushroom> {
-    return this.http
-      .put<Mushroom>(`${mushroomsDataURL}/${mushroom.id}`, mushroom)
-      .pipe(
-        catchError((error) => {
-          console.error('update mushroom failed');
-          throw error;
-        })
-      );
+    return this.http.put<Mushroom>(
+      `${mushroomsDataURL}/${mushroom.id}`,
+      mushroom
+    );
   }
 
   updateIconography(
     iconographicContainer: IconographicContainer
   ): Observable<IconographicContainer> {
-    return this.http
-      .put<IconographicContainer>(
-        `${iconographiesDataURL}/${iconographicContainer.id}`,
-        iconographicContainer
-      )
-      .pipe(
-        catchError((error) => {
-          console.error('update iconography failed');
-          throw error;
-        })
-      );
+    return this.http.put<IconographicContainer>(
+      `${iconographiesDataURL}/${iconographicContainer.id}`,
+      iconographicContainer
+    );
   }
 
   updateMushroomProperties(id: string, propertiesToChange: Partial<Mushroom>) {
-    return this.http
-      .patch(`${mushroomsDataURL}/${id}`, propertiesToChange)
-      .pipe(
-        catchError((error) => {
-          console.error('update properties failed');
-          throw error;
-        })
-      );
+    return this.http.patch(`${mushroomsDataURL}/${id}`, propertiesToChange);
   }
 }

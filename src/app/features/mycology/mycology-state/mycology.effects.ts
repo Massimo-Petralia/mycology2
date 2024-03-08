@@ -27,8 +27,8 @@ export class MicologyEffects {
           .pipe(
             map((response) => {
               return MycologyActions.loadMushroomsSucces({
-                items: response.items,
-                mushrooms: response.data,
+                items: response.items ,
+                mushrooms: response.data
               });
             }),
             catchError(() => of(MycologyActions.loadMushroomsFailed()))
