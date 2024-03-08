@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { createEffect, Actions, ofType, act } from '@ngrx/effects';
-import { catchError, forkJoin, from, map, mergeMap, of, switchMap } from 'rxjs';
+import { createEffect, Actions, ofType } from '@ngrx/effects';
+import { catchError, forkJoin, map, of, switchMap } from 'rxjs';
 import { MycologyService } from '../services/mycology.service';
 import * as MycologyActions from '../mycology-state/mycology.actions';
 import { Router } from '@angular/router';
@@ -27,8 +27,8 @@ export class MicologyEffects {
           .pipe(
             map((response) => {
               return MycologyActions.loadMushroomsSucces({
-                items: response.items ,
-                mushrooms: response.data
+                items: response.items,
+                mushrooms: response.data,
               });
             }),
             catchError(() => of(MycologyActions.loadMushroomsFailed()))
