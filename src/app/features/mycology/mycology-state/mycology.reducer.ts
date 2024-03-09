@@ -73,6 +73,7 @@ export const mycologyReducer = createReducer(
         pagination: {
           ...mycologystate.pagination,
           totalItems: mycologyStateItems,
+          //metti changePage a true
         },
       };
     }

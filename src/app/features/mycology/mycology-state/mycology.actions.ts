@@ -73,6 +73,8 @@ export const loadIconographyFailed = createAction(
 export const deleteMushroomsRequest = createAction(
   '[Form Mushroom] Delete Mushrooms Request',
   props<{ mushrooms: Mushroom[] }>()
+    //metti una proprietà opzionale changePage boolean | null
+
 );
 
 export const deleteMushroomsSucces = createAction(

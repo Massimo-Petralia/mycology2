@@ -144,7 +144,7 @@ export class MicologyEffects {
                 deletedMushroomsNumber: mushrooms.length,
               }),
             ];
-
+            // se changePage è su true restituisci anche chamgePage action <true>
             if (this.router.url === `/mycology/mushrooms/${mushrooms[0].id}`) {
               this.router.navigate(['mycology/mushrooms']);
             }

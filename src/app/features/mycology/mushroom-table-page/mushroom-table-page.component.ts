@@ -75,8 +75,13 @@ export class MushroomTablePageComponent
         }
         this.page = pagination.page;
         this.items = pagination.totalItems;
+       
       })
     );
+      //controlla se i paginatore esiste
+    //sottoscrivi a changePage => controlla se è a atrue  chiama this.paginator.previousPage() e dispaccia changePage <false>
+
+    this.loadMushrooms('species', ''); // è stato da poco spostato sopra la sottoscrizione
 
     this.subs.add(
       this.mushrooms$.subscribe((mushrooms) => {
@@ -85,7 +90,6 @@ export class MushroomTablePageComponent
         }
       })
     );
-    this.loadMushrooms('species', '');
   }
 
   ngAfterViewInit(): void {
@@ -121,7 +125,7 @@ export class MushroomTablePageComponent
 
   checkLastOneLeft() {
     if (this.mushrooms.length <= 1) {
-      setTimeout(() => this.paginator.previousPage(), 0);
+      setTimeout(() => this.paginator.previousPage(), 0); //sostituisci con azione changePage <true> 
       return true;
     }
     return false;
