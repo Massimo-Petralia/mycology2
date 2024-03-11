@@ -24,9 +24,6 @@ import { Observable, Subscription, filter } from 'rxjs';
 
 import { Notifications } from '../models/mycology.models';
 
-import { selectPaginationFeature } from '../mycology-state/mycology.selectors';
-import { Console } from 'console';
-
 @Component({
   selector: 'app-mycology-page',
   standalone: true,
@@ -39,7 +36,11 @@ import { Console } from 'console';
   styleUrl: './mycology-page.component.scss',
 })
 export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
-  constructor(private store: Store<MycologyState>, private router: Router,private route: ActivatedRoute) {}
+  constructor(
+    private store: Store<MycologyState>,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   @ViewChild(FormMushroomComponent)
   formMushroomComponent!: FormMushroomComponent;
@@ -63,8 +64,6 @@ export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
     ) as Observable<IconographicContainer>;
 
   notifications$ = this.store.select(selectNotificationsFeature);
-
-  //pagination$ = this.store.select(selectPaginationFeature);
 
   subs = new Subscription();
 
@@ -97,27 +96,16 @@ export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // this.subs.add(
-    //   this.pagination$.subscribe((pagination) => {
-    //     //this.parameters['page'] = pagination.page;
-    //     //prendi la proprietà tableLength è assegnala a parameters.mushroomsLength
-    //     //this.parameters['mushroomsLength'] = pagination.tableLength!
-    //   })
-    // );//TUTTA QUESTA SOTTOSCRIZIONE VA A CASA
-
-
-    this.parameters ={
+    this.parameters = {
       tableLength: Number(this.route.snapshot.paramMap.get('tableLength')!),
-      page: Number(this.route.snapshot.paramMap.get('page')!)
-    }
+      page: Number(this.route.snapshot.paramMap.get('page')!),
+    };
 
     this.subs.add(
       this.mushrooms$.subscribe((mushrooms) => {
         this.mushroom = mushrooms[this.mushroomID];
-   
       })
     );
-
 
     this.subs.add(
       this.iconographicContainer$.subscribe((iconographicContainer) => {
@@ -182,13 +170,11 @@ export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
       delete payload.iconographicContainer['id'];
     }
 
-
     if (this.parameters['mushroomsLength'] <= 1) {
       const page = this.parameters['page'] - 1;
       this.store.dispatch(
         MycologyActions.updatePageIndexRequest({ pageIndex: page })
       );
-  
     }
     this.store.dispatch(
       MycologyActions.deleteMushroomsRequest({
