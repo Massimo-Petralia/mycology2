@@ -5,7 +5,7 @@ import { MycologyState } from '../models/mycology.models';
 
 export const initialState: MycologyState = {
   mushrooms: null,
-  pagination: { totalItems: 0, page: 1 },
+  pagination: { totalItems: 0, page: 1, changePage: null, tableLength: null },
   iconographicContainer: null,
   notifications: null,
 };
@@ -117,5 +117,9 @@ export const mycologyReducer = createReducer(
       ...mycologystate,
       pagination: { ...mycologystate.pagination, page: pageIndex },
     })
-  )
+  ),
+  on(MycologyActions.changePageRequest, (mycologystate, {changePage})=> ({...mycologystate, pagination: {...mycologystate.pagination, changePage: changePage}})),
+//metti un riduttore per aggiornare tableLength
+on(MycologyActions.tableLengRequest, (mycologystate, {tableLength})=> ({...mycologystate, pagination: {...mycologystate.pagination, tableLength:tableLength}}))
+//tableLength:tableLength???
 );

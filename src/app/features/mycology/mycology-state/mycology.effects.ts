@@ -133,25 +133,32 @@ export class MicologyEffects {
   deleteMushrooms$ = createEffect(() =>
     this.actions$.pipe(
       ofType(MycologyActions.deleteMushroomsRequest),
-      switchMap(({ mushrooms }) => {
-        const observables = mushrooms.map((mushroom) =>
+      switchMap((requestPayload) => {
+        const observables = requestPayload.mushrooms.map((mushroom) =>
           this.mycologyService.deleteMushrooms(mushroom.id!)
         );
         return forkJoin(observables).pipe(
           switchMap(() => {
             let actions: Action[] = [
               MycologyActions.deleteMushroomsSucces({
-                deletedMushroomsNumber: mushrooms.length,
+                deletedMushroomsNumber: requestPayload.mushrooms.length,
+              }),
+              MycologyActions.changePageRequest({
+                changePage: requestPayload.changePage === true ? true : false,
               }),
             ];
-            // se changePage è su true restituisci anche chamgePage action <true>
-            if (this.router.url === `/mycology/mushrooms/${mushrooms[0].id}`) {
+            console.log('changePage effect: ', requestPayload.changePage);
+
+            if (
+              this.router.url ===
+              `/mycology/mushrooms/${requestPayload.mushrooms[0].id}`
+            ) {
               this.router.navigate(['mycology/mushrooms']);
             }
 
             return of(actions).pipe(
               switchMap(() => {
-                const mushroomsIconographyID = mushrooms
+                const mushroomsIconographyID = requestPayload.mushrooms
                   .filter((mushroom) => mushroom.iconographyID !== null)
                   .map((mushroom) => mushroom.iconographyID as string);
                 if (mushroomsIconographyID.length !== 0) {
