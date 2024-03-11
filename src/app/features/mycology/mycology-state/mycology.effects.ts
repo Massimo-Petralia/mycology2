@@ -3,7 +3,7 @@ import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { catchError, forkJoin, map, of, switchMap } from 'rxjs';
 import { MycologyService } from '../services/mycology.service';
 import * as MycologyActions from '../mycology-state/mycology.actions';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Action } from '@ngrx/store';
 
 @Injectable()
@@ -11,7 +11,9 @@ export class MicologyEffects {
   constructor(
     private actions$: Actions,
     private mycologyService: MycologyService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
+
   ) {}
 
   loadMushrooms$ = createEffect(() =>
@@ -150,10 +152,11 @@ export class MicologyEffects {
             console.log('changePage effect: ', requestPayload.changePage);
 
             if (
-              this.router.url ===
-              `/mycology/mushrooms/${requestPayload.mushrooms[0].id}`
+              this.router.routerState.snapshot.url !==
+              `/mycology/mushrooms`
             ) {
               this.router.navigate(['mycology/mushrooms']);
+              console.log('router state: ',  this.router.routerState.snapshot.url)
             }
 
             return of(actions).pipe(

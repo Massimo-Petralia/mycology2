@@ -128,7 +128,7 @@ export class MushroomTableComponent
   }
 
   onMushroom(id: number) {
-   this.router.navigate([`mycology/mushrooms/${id}`]);
+   this.router.navigate([`mycology/mushrooms/${id}`, {tableLength: this.mushrooms.length, page: this.page}]);
   //qui emetti l'evento per tableLength 
   this.tablelength.emit(this.mushrooms.length)
   }
