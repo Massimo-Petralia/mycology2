@@ -80,8 +80,8 @@ export class MushroomTablePageComponent
         // controlla se è a atrue  chiama this.paginator.previousPage() e dispaccia changePage <false>
         if(this.paginator){
           if(pagination.changePage === true){
-            this.paginator.previousPage();
-            this.store.dispatch(MycologyActions.changePageRequest({changePage: false}))
+            // this.paginator.previousPage();
+            // this.store.dispatch(MycologyActions.changePageRequest({changePage: false}))
           }
         }
        
@@ -147,10 +147,13 @@ export class MushroomTablePageComponent
       },
       {}
     );
+    if(this.mushrooms.length - [collection[mushroomID]].length === 0){
+      this.paginator.previousPage()
+    }
     this.store.dispatch(
       MycologyActions.deleteMushroomsRequest({
         mushrooms: [collection[mushroomID]],
-        changePage: this.checkLastOneLeft(this.mushrooms,  [collection[mushroomID]]) ? true : false//???
+        //changePage: this.checkLastOneLeft(this.mushrooms,  [collection[mushroomID]]) ? true : false//???
         // changePage: se  checkLastOneLeft() restituisce true assegna true altrimenti assegna false
       })
     );
@@ -159,10 +162,14 @@ export class MushroomTablePageComponent
   }
 
   onDeleteSelected(selectedMushrooms: Mushroom[]) {
+    if(this.mushrooms.length - selectedMushrooms.length === 0)
+    {
+      this.paginator.previousPage()
+    }
     this.store.dispatch(
       MycologyActions.deleteMushroomsRequest({
          mushrooms: selectedMushrooms, 
-         changePage: this.checkLastOneLeft(this.mushrooms, selectedMushrooms) ? true : false
+         //changePage: this.checkLastOneLeft(this.mushrooms, selectedMushrooms) ? true : false
         })
     );
     //this.checkLastOneLeft();
