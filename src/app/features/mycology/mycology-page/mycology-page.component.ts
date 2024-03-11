@@ -89,7 +89,7 @@ export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
     if (id) {
       if (this.mushroomID !== ':id') {
         this.store.dispatch(
-          MycologyActions.loadMushroomRequest({ id: this.mushroomID })
+          MycologyActions.loadMushroomRequest({ id: this.mushroomID }) //questo carica 1 fungo
         );
       }
     }
@@ -99,15 +99,19 @@ export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
     this.subs.add(
       this.pagination$.subscribe((pagination) => {
         this.parameters['page'] = pagination.page;
+        //prendi la proprietà tableLength è assegnala a parameters.mushroomsLength
+        this.parameters['mushroomsLength'] = pagination.tableLength!
       })
     );
 
     this.subs.add(
       this.mushrooms$.subscribe((mushrooms) => {
+        //sono sottoscritto ai funghi
         this.mushroom = mushrooms[this.mushroomID];
-        this.parameters['mushroomsLength'] = Object.keys(mushrooms).length;
+   
       })
     );
+
 
     this.subs.add(
       this.iconographicContainer$.subscribe((iconographicContainer) => {
@@ -171,16 +175,23 @@ export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
     if (!payload.iconographicContainer.id) {
       delete payload.iconographicContainer['id'];
     }
-    this.store.dispatch(
-      MycologyActions.deleteMushroomsRequest({ mushrooms: [payload.mushroom] })
-    );
+    // this.store.dispatch(
+    //   MycologyActions.deleteMushroomsRequest({ mushrooms: [payload.mushroom] })
+    // );
 
     if (this.parameters['mushroomsLength'] <= 1) {
       const page = this.parameters['page'] - 1;
       this.store.dispatch(
         MycologyActions.updatePageIndexRequest({ pageIndex: page })
       );
+  
+      console.log('table length: ', this.parameters['mushroomsLength'])
     }
+    this.store.dispatch(
+      MycologyActions.deleteMushroomsRequest({
+        mushrooms: [payload.mushroom],
+      })
+    );
   }
 
   onMushroomSpecies(mushroomspecies: string) {

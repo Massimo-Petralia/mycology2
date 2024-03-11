@@ -72,7 +72,9 @@ export const loadIconographyFailed = createAction(
 
 export const deleteMushroomsRequest = createAction(
   '[Form Mushroom] Delete Mushrooms Request',
-  props<{ mushrooms: Mushroom[] }>()
+  props<{ mushrooms: Mushroom[],  changePage? : boolean}>()
+    //metti una proprietà opzionale changePage boolean | null
+
 );
 
 export const deleteMushroomsSucces = createAction(
@@ -173,3 +175,25 @@ export const updatePageIndexSuccess = createAction(
   '[Mycology Effects]  Update Page Index success',
   props<{ pageIndex: number }>()
 );
+
+//azioni changePage
+
+export const changePageRequest = createAction(
+  '[Mycology Effects] Change Page Request',
+  props<{changePage : boolean | null}>()
+)
+
+export const changePageFailed = createAction(
+  '[Mycology Effects] Change Page Failed'
+)
+
+//azioni tableLength
+
+export const tableLengRequest = createAction(
+  '[Mushrooms Page] Table Length Request',
+  props<{tableLength: number | null}>()
+)
+
+export const tableLengFailed = createAction(
+  '[Mycology Effects] Table Length Failed'
+)

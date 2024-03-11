@@ -84,6 +84,8 @@ export class MushroomTableComponent
 
   @Output() deleteSelected = new EventEmitter<Mushroom[]>();
 
+  @Output() tablelength = new EventEmitter<number>()
+
   formFilteredSearch = this.fb.group({
     filter: this.fb.control<string>('species'),
     search: this.fb.control<string>(''),
@@ -120,15 +122,15 @@ export class MushroomTableComponent
     this.handleSorting(this.sort);
   }
 
-  goToFormMushroom() {
+  goToFormMushroom() {//meglio chiamarlo goToCreateMushroom
     //this.paramsService.page = this.page!;
     this.router.navigate([`mycology/mushrooms/:id`]);
   }
 
   onMushroom(id: number) {
-  
-
-    this.router.navigate([`mycology/mushrooms/${id}`]);
+   this.router.navigate([`mycology/mushrooms/${id}`]);
+  //qui emetti l'evento per tableLength 
+  this.tablelength.emit(this.mushrooms.length)
   }
 
   handleSorting(sortEvent: Sort | MatSort) {
