@@ -23,6 +23,7 @@ import {
 import { Observable, Subscription, filter } from 'rxjs';
 
 import { Notifications } from '../models/mycology.models';
+import { config } from 'process';
 
 @Component({
   selector: 'app-mycology-page',
@@ -160,6 +161,15 @@ export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
   }
 
   onDelete() {
+    const deleteMushroomsRequest = (config?: { changePage: boolean }) => {
+      this.store.dispatch(
+        MycologyActions.deleteMushroomsRequest({
+          mushrooms: [payload.mushroom],
+          changePage: config?.changePage,
+        })
+      );
+    };
+
     const payload = {
       mushroom: <Mushroom>this.formMushroomComponent.formMushroom.value,
       iconographicContainer: <IconographicContainer>(
@@ -170,17 +180,13 @@ export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
       delete payload.iconographicContainer['id'];
     }
 
-    if (this.parameters['mushroomsLength'] <= 1) {
+    if (this.parameters['tableLength'] <= 1) {
       const page = this.parameters['page'] - 1;
       this.store.dispatch(
         MycologyActions.updatePageIndexRequest({ pageIndex: page })
       );
-    }
-    this.store.dispatch(
-      MycologyActions.deleteMushroomsRequest({
-        mushrooms: [payload.mushroom],
-      })
-    );
+      deleteMushroomsRequest({ changePage: true });
+    } else deleteMushroomsRequest();
   }
 
   onMushroomSpecies(mushroomspecies: string) {

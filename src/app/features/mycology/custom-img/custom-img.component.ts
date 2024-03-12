@@ -8,12 +8,12 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
-import { IdManagementService } from '../services/id-management.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-custom-img',
   standalone: true,
-  imports: [MatCardModule],
+  imports: [CommonModule, MatCardModule],
   templateUrl: './custom-img.component.html',
   styleUrl: './custom-img.component.scss',
   providers: [
@@ -26,12 +26,9 @@ import { IdManagementService } from '../services/id-management.service';
   host: {},
 })
 export class CustomImgComponent implements ControlValueAccessor {
-  constructor(
-    private idManagement: IdManagementService,
-    private elementRef: ElementRef
-  ) {}
+  constructor() {}
 
-  @ViewChild('image') image?: ElementRef<HTMLImageElement>;
+  @ViewChild('image') image!: ElementRef<HTMLImageElement>;
 
   value: string = '';
 
@@ -57,9 +54,9 @@ export class CustomImgComponent implements ControlValueAccessor {
     this.imageIndex.emit(index);
   }
 
-  toggleClass() {
-    const _classList = this.image?.nativeElement.classList.value;
-    this.image?.nativeElement.classList.toggle('fullsize-img');
-    return _classList;
-  }
+  // toggleClass() {
+  //   const _classList = this.image.nativeElement.classList.value;
+  //   this.image.nativeElement.classList.toggle('fullsize-img');
+  //   return _classList;
+  // }
 }

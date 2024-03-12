@@ -2,10 +2,8 @@ export interface MycologyState {
   pagination: {
     totalItems: number;
     page: number;
-    // aggiungi proprietà chagePage : boolean | null
     changePage: boolean |null;
-    //aggiungi proprietà tableLength: number | null
-    tableLength: number | null
+  
   };
   mushrooms: { [id: string]: Mushroom } | null;
 

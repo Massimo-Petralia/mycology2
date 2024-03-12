@@ -4,7 +4,6 @@ import {
   AfterViewInit,
   OnDestroy,
   ViewChild,
-  Input,
 } from '@angular/core';
 import { MushroomTableComponent } from '../mushroom-table/mushroom-table.component';
 import {
@@ -19,7 +18,7 @@ import {
   selectMushroomsFeature,
   selectPaginationFeature,
 } from '../mycology-state/mycology.selectors';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormFilteredSearch } from '../models/mycology.models';
 @Component({
@@ -36,7 +35,7 @@ export class MushroomTablePageComponent
   @ViewChild('paginator') paginator!: MatPaginator;
   @ViewChild(MushroomTableComponent) mushroomTable!: MushroomTableComponent;
 
-  @Input() items: number = 0;//input ??
+  items: number = 0;
 
   page: number = 1;
 
@@ -60,43 +59,42 @@ export class MushroomTablePageComponent
         search: search,
       })
     );
-    console.log('page: ', this.page)
   }
 
   ngOnInit(): void {
     this.subs.add(
       this.pagination$.subscribe((pagination) => {
-       if (this.items !== 0) {
-          if (pagination.totalItems < this.items) {//??
+        if (this.items !== 0) {
+          if (pagination.totalItems < this.items) {
             this.loadMushrooms(
               this.mushroomTable.formFilteredSearch.controls.filter.value,
               this.mushroomTable.formFilteredSearch.controls.search.value
             );
-         }
+          }
         }
         this.page = pagination.page;
         this.items = pagination.totalItems;
-        //controlla se i paginatore esiste
-        // controlla se è a atrue  chiama this.paginator.previousPage() e dispaccia changePage <false>
-        if(this.paginator){
-          if(pagination.changePage === true){
-            // this.paginator.previousPage();
-            // this.store.dispatch(MycologyActions.changePageRequest({changePage: false}))
+
+        if (this.paginator) {
+          if (pagination.changePage === true) {
+            this.paginator.previousPage();
+            this.store.dispatch(
+              MycologyActions.changePageRequest({ changePage: false })
+            );
           }
         }
-       
       })
     );
 
-    
     this.subs.add(
       this.mushrooms$.subscribe((mushrooms) => {
         if (mushrooms !== null) {
           this.mushrooms = Object.values(mushrooms);
         }
       })
-      );
-      this.loadMushrooms('species', ''); // è stato da poco spostato sopra la sottoscrizione
+    );
+
+    this.loadMushrooms('species', '');
   }
 
   ngAfterViewInit(): void {
@@ -130,15 +128,6 @@ export class MushroomTablePageComponent
     );
   }
 
-  checkLastOneLeft(mushrooms: Mushroom[], selectedMushrooms: Mushroom[]) {
-   // if (mushrooms.length && selectedMushrooms.length <= 1) {//???se length - length = 0 
-   if (mushrooms.length - selectedMushrooms.length === 0) {
-    //  setTimeout(() => this.paginator.previousPage(), 0); //questo non serve
-      return true; //return true 
-    }else
-    return false; //return false
-  }
-
   onDeleteOption(mushroomID: string) {
     const collection = this.mushrooms.reduce(
       (collection: { [id: string]: Mushroom }, mushroom) => {
@@ -147,38 +136,25 @@ export class MushroomTablePageComponent
       },
       {}
     );
-    if(this.mushrooms.length - [collection[mushroomID]].length === 0){
-      this.paginator.previousPage()
+    if (this.mushrooms.length - [collection[mushroomID]].length === 0) {
+      this.paginator.previousPage();
     }
     this.store.dispatch(
       MycologyActions.deleteMushroomsRequest({
         mushrooms: [collection[mushroomID]],
-        //changePage: this.checkLastOneLeft(this.mushrooms,  [collection[mushroomID]]) ? true : false//???
-        // changePage: se  checkLastOneLeft() restituisce true assegna true altrimenti assegna false
       })
     );
-   // this.checkLastOneLeft();
-   // console.log('check table length: ', this.checkLastOneLeft());
   }
 
   onDeleteSelected(selectedMushrooms: Mushroom[]) {
-    if(this.mushrooms.length - selectedMushrooms.length === 0)
-    {
-      this.paginator.previousPage()
+    if (this.mushrooms.length - selectedMushrooms.length === 0) {
+      this.paginator.previousPage();
     }
     this.store.dispatch(
       MycologyActions.deleteMushroomsRequest({
-         mushrooms: selectedMushrooms, 
-         //changePage: this.checkLastOneLeft(this.mushrooms, selectedMushrooms) ? true : false
-        })
+        mushrooms: selectedMushrooms,
+      })
     );
-    //this.checkLastOneLeft();
-    console.log('check table length: ', this.checkLastOneLeft(this.mushrooms, selectedMushrooms));//???
-  }
-
-  //fai un metodo che quando ricevi l'evento pageLength da mushroom-table dispaccia tableLeng con mushrooms.length
-  onTableLength(tableLeng: number){
-    this.store.dispatch(MycologyActions.tableLengRequest({tableLength: tableLeng}))
   }
 
   ngOnDestroy(): void {

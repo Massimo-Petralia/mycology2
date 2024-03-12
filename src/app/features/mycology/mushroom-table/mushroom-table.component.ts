@@ -15,7 +15,6 @@ import { Mushroom, Taxonomy } from '../models/mycology.models';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSortModule, Sort, MatSort } from '@angular/material/sort';
-import { SharedParametersService } from '../services/shared-parameters.service';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
@@ -84,8 +83,6 @@ export class MushroomTableComponent
 
   @Output() deleteSelected = new EventEmitter<Mushroom[]>();
 
-  @Output() tablelength = new EventEmitter<number>()
-
   formFilteredSearch = this.fb.group({
     filter: this.fb.control<string>('species'),
     search: this.fb.control<string>(''),
@@ -122,15 +119,15 @@ export class MushroomTableComponent
     this.handleSorting(this.sort);
   }
 
-  goToFormMushroom() {//meglio chiamarlo goToCreateMushroom
-    //this.paramsService.page = this.page!;
+  goToCreateMushroom() {
     this.router.navigate([`mycology/mushrooms/:id`]);
   }
 
   onMushroom(id: number) {
-   this.router.navigate([`mycology/mushrooms/${id}`, {tableLength: this.mushrooms.length, page: this.page}]);
-  //qui emetti l'evento per tableLength 
-  this.tablelength.emit(this.mushrooms.length)
+    this.router.navigate([
+      `mycology/mushrooms/${id}`,
+      { tableLength: this.mushrooms.length, page: this.page },
+    ]);
   }
 
   handleSorting(sortEvent: Sort | MatSort) {
@@ -165,10 +162,13 @@ export class MushroomTableComponent
       .afterClosed()
       .subscribe((result) => {
         if (result === 'delete') {
-          this.formFilteredSearch.reset({
-            filter: 'species',
-            search: '',
-          }, {emitEvent: false});
+          this.formFilteredSearch.reset(
+            {
+              filter: 'species',
+              search: '',
+            },
+            { emitEvent: false }
+          );
           this.delete.emit(mushroomID);
         }
       });
@@ -196,10 +196,13 @@ export class MushroomTableComponent
       .afterClosed()
       .subscribe((result) => {
         if (result === 'delete') {
-          this.formFilteredSearch.reset({
-            filter: 'species',
-            search: '',
-          }, {emitEvent: false});
+          this.formFilteredSearch.reset(
+            {
+              filter: 'species',
+              search: '',
+            },
+            { emitEvent: false }
+          );
           this.deleteSelected.emit(this.selection.selected);
         }
       });
