@@ -23,7 +23,6 @@ import { CommonModule } from '@angular/common';
       useExisting: CustomImgComponent,
     },
   ],
-  host: {},
 })
 export class CustomImgComponent implements ControlValueAccessor {
   constructor() {}

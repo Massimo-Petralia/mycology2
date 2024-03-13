@@ -44,10 +44,6 @@ import { MatButtonModule } from '@angular/material/button';
   ],
   templateUrl: './mycology-page.component.html',
   styleUrl: './mycology-page.component.scss',
-  host: {
-    '(window:load)': 'updateView($event)',
-    '(window:resize)': 'updateView($event)',
-  },
 })
 export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
   constructor(
@@ -60,7 +56,6 @@ export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
   formMushroomComponent!: FormMushroomComponent;
   @ViewChild(FormIconographyComponent)
   formIconographyComponent!: FormIconographyComponent;
-  @ViewChild('container') container!: ElementRef<HTMLDivElement>;
 
   @Input() set id(mushroomID: string) {
     this.mushroomID = mushroomID;
@@ -207,21 +202,6 @@ export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
 
   onMushroomSpecies(mushroomspecies: string) {
     this.mushroomspecies = mushroomspecies;
-  }
-
-  updateView(event?: Event) {
-    let windowSize: number;
-    if (event?.type === 'resize') {
-      windowSize = (event.currentTarget as Window).innerWidth;
-    } else windowSize = window.innerWidth;
-    if (windowSize >= 950) {
-      this.container.nativeElement.className = 'flex-container-row';
-      this.isLargeWidth = true;
-    }
-    if (windowSize <= 950) {
-      this.container.nativeElement.className = 'flex-container-column';
-      this.isLargeWidth = false;
-    }
   }
 
   ngOnDestroy(): void {

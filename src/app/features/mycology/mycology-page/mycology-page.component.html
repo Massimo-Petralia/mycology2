@@ -1,26 +1,4 @@
-<div class="controls-container">
-  <div>
-    <mat-button-toggle
-      *ngIf="!isLargeWidth"
-      title="invert view"
-      class="invert"
-      (change)="container.classList.toggle('flex-container-column-reverse')"
-      ><mat-icon color="accent"> swap_vert </mat-icon></mat-button-toggle
-    >
-  </div>
-  <div style="margin-top: 10px" class="back-button-container">
-    <button
-      title="back to table"
-      mat-mini-fab
-      style="box-shadow: none; margin-right: 10px"
-      [routerLink]="['/mycology/mushrooms']"
-    >
-      <mat-icon>arrow_back</mat-icon>
-    </button>
-  </div>
-</div>
-
-<div #container class="flex-container-row">
+<div class="flex-container-row">
   <app-form-mushroom
     style="width: 100%"
     [mushroom]="mushroom"
