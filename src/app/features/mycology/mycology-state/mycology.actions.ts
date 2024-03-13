@@ -8,7 +8,7 @@ export const loadMushroomsRequest = createAction(
 
 export const loadMushroomsSucces = createAction(
   '[Mushrooms API] Load Paginated Mushrooms Table Succes',
-  props<{ items: number; mushrooms: Mushroom[] }>()
+  props<{ items: number; mushrooms: Mushroom[]; message: string }>()
 );
 
 export const loadMushroomsFailed = createAction(
@@ -72,9 +72,8 @@ export const loadIconographyFailed = createAction(
 
 export const deleteMushroomsRequest = createAction(
   '[Form Mushroom] Delete Mushrooms Request',
-  props<{ mushrooms: Mushroom[],  changePage? : boolean}>()
-    //metti una proprietà opzionale changePage boolean | null
-
+  props<{ mushrooms: Mushroom[]; changePage?: boolean }>()
+  //metti una proprietà opzionale changePage boolean | null
 );
 
 export const deleteMushroomsSucces = createAction(
@@ -133,8 +132,6 @@ export const resetNotificationsState = createAction(
   '[Mycology Page] Reset Notifications State'
 );
 
-//---------------------------------------------------------------------------------------------------------//
-
 export const saveMycologyRequest = createAction(
   '[Mycology Page] Save Mycology Data Request',
   props<{ mushroom: Mushroom; iconographicContainer: IconographicContainer }>()
@@ -144,8 +141,6 @@ export const saveMycologyFailed = createAction(
   '[Mycology API] Save Mycology Data Failed'
 );
 
-//---------------------------------------------------------------------------------------------------------//
-//1
 export const createMycologyRequest = createAction(
   '[Mycology Page] Create Mycology Request',
   props<{ mushroom: Mushroom; iconographicContainer: IconographicContainer }>()
@@ -155,7 +150,6 @@ export const createMycologyFailed = createAction(
   '[Mycology Effects] Create Mycology Failed'
 );
 
-//2
 export const updateMycologyRequest = createAction(
   '[Mycology Page] Update Mycology Request',
   props<{ mushroom: Mushroom; iconographicContainer: IconographicContainer }>()
@@ -165,7 +159,6 @@ export const updateMycologyFailed = createAction(
   '[Mycology Effects] Update Mycology Failed'
 );
 
-//pagination
 export const updatePageIndexRequest = createAction(
   '[Mushrooms Page] Update Page Index Request',
   props<{ pageIndex: number }>()
@@ -176,24 +169,11 @@ export const updatePageIndexSuccess = createAction(
   props<{ pageIndex: number }>()
 );
 
-//azioni changePage
-
 export const changePageRequest = createAction(
   '[Mycology Effects] Change Page Request',
-  props<{changePage : boolean | null}>()
-)
+  props<{ changePage: boolean | null }>()
+);
 
 export const changePageFailed = createAction(
   '[Mycology Effects] Change Page Failed'
-)
-
-//azioni tableLength
-
-export const tableLengRequest = createAction(
-  '[Mushrooms Page] Table Length Request',
-  props<{tableLength: number | null}>()
-)
-
-export const tableLengFailed = createAction(
-  '[Mycology Effects] Table Length Failed'
-)
+);

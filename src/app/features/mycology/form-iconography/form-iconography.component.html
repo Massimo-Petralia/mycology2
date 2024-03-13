@@ -1,12 +1,12 @@
 <div #parent class="flex-header">
   <h4 class="title">{{ mushroomspecies }} Iconography</h4>
   <h4 class="subtitle">Image collection</h4>
-  <mat-button-toggle
+  <!-- <mat-button-toggle
     (change)="
-      parent.parentElement?.parentElement?.classList?.toggle('flex-container')
+      parent.parentElement?.parentElement?.classList?.toggle('flex-container-column')
     "
     >Invert views</mat-button-toggle
-  >
+  > -->
 </div>
 <input
   #inputfile
@@ -22,7 +22,7 @@
     mat-stroked-button
     (click)="inputfile.click()"
   >
-    Choose File/s
+    Choose Image/s
   </button>
   <p
     class="collection-empty"

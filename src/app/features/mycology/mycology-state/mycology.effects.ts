@@ -29,6 +29,12 @@ export class MicologyEffects {
               return MycologyActions.loadMushroomsSucces({
                 items: response.items,
                 mushrooms: response.data,
+                message:
+                  requestPayload.search && response.data.length === 0
+                    ? 'no result !'
+                    : !requestPayload.search && response.data.length === 0
+                    ? 'table is empty !'
+                    : '',
               });
             }),
             catchError(() => of(MycologyActions.loadMushroomsFailed()))
@@ -147,11 +153,9 @@ export class MicologyEffects {
                 changePage: requestPayload.changePage === true ? true : false,
               }),
             ];
-            console.log('changePage effect: ', requestPayload.changePage);
 
             if (
-              this.router.url ===
-              `/mycology/mushrooms/${requestPayload.mushrooms[0].id}`
+              this.router.routerState.snapshot.url !== `/mycology/mushrooms`
             ) {
               this.router.navigate(['mycology/mushrooms']);
             }

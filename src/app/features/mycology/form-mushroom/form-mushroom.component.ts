@@ -7,9 +7,6 @@ import {
   SimpleChanges,
   TemplateRef,
   ViewChild,
-  ElementRef,
-  AfterViewInit,
-  viewChild,
 } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Mushroom } from '../models/mycology.models';
@@ -23,7 +20,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { DialogDeletionInformationComponent } from '../dialog-deletion-information/dialog-deletion-information.component';
-import { MatTooltipModule, MatTooltip } from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
 import { tooltip } from '../models/mycology-tooltip-data.model';
 
@@ -46,19 +43,14 @@ import { tooltip } from '../models/mycology-tooltip-data.model';
   templateUrl: './form-mushroom.component.html',
   styleUrl: './form-mushroom.component.scss',
 })
-export class FormMushroomComponent implements OnChanges, AfterViewInit {
+export class FormMushroomComponent implements OnChanges {
   constructor(private formbuilder: FormBuilder, public dialog: MatDialog) {}
+
 
   tooltip: Mushroom = tooltip;
 
-  @ViewChild('invalidFieldDialogBox') invalidFieldDialogBox!: TemplateRef<any>;
 
-  // @ViewChild('tooltipspecies') tooltipspecies!: MatTooltip;
-  // @ViewChild('tooltipgender') tooltipgender!: MatTooltip;
-  // @ViewChild('tooltipfamily') tooltipfamily!: MatTooltip;
-  // @ViewChild('tooltiporder') tooltiporder!: MatTooltip;
-  // @ViewChild('tooltipcommonName') tooltipcommonName!: MatTooltip;
-  // @ViewChild('tooltipAA') tooltipAA!: MatTooltip;
+  @ViewChild('invalidFieldDialogBox') invalidFieldDialogBox!: TemplateRef<any>;
 
   @Input() mushroom!: Mushroom | null;
 
@@ -78,10 +70,6 @@ export class FormMushroomComponent implements OnChanges, AfterViewInit {
       this.formMushroom.patchValue(this.mushroom!);
       this.mushroomspecies.emit(this.mushroom?.taxonomy.species!);
     }
-  }
-
-  ngAfterViewInit(): void {
-  //  setTimeout(() => this.disabledTooltip(), 0);
   }
 
   formMushroom = this.formbuilder.group({
@@ -110,7 +98,7 @@ export class FormMushroomComponent implements OnChanges, AfterViewInit {
     }),
     microscopicFeatures: this.formbuilder.group({
       spores: this.formbuilder.control<string>(''),
-      pileipellis: this.formbuilder.control<string>(''),
+      epicute: this.formbuilder.control<string>(''),
       cystidia: this.formbuilder.control<string>(''),
     }),
   });
@@ -140,19 +128,5 @@ export class FormMushroomComponent implements OnChanges, AfterViewInit {
     });
   }
 
-  // disabledTooltip() {
-  //   this.tooltipspecies.disabled = true;
-  //   this.tooltipgender.disabled = true;
-  //   this.tooltipfamily.disabled = true;
-  //   this.tooltiporder.disabled = true;
-  //   this.tooltipcommonName.disabled = true;
-  //   this.tooltipAA.disabled = true;
-  // }
 
-  // toggleTooltip(tooltip: MatTooltip) {
-  //   if (!tooltip.disabled) {
-  //     tooltip.disabled = true;
-  //   } else tooltip.disabled = false;
-  //   tooltip.toggle();
-  // }
 }

@@ -6,6 +6,7 @@ import {
   ViewChild,
   OnDestroy,
   SimpleChanges,
+  ElementRef,
 } from '@angular/core';
 import { FormMushroomComponent } from '../form-mushroom/form-mushroom.component';
 import { IconographicContainer, Mushroom } from '../models/mycology.models';
@@ -14,17 +15,19 @@ import { Store } from '@ngrx/store';
 import { MycologyState } from '../models/mycology.models';
 import * as MycologyActions from '../mycology-state/mycology.actions';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router, ActivatedRoute } from '@angular/router';
 import {
   selectMushroomsFeature,
   selectIconographyFeature,
   selectNotificationsFeature,
 } from '../mycology-state/mycology.selectors';
 import { Observable, Subscription, filter } from 'rxjs';
-
 import { Notifications } from '../models/mycology.models';
-
-import { selectPaginationFeature } from '../mycology-state/mycology.selectors';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatIconModule } from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-mycology-page',
@@ -33,12 +36,21 @@ import { selectPaginationFeature } from '../mycology-state/mycology.selectors';
     FormMushroomComponent,
     FormIconographyComponent,
     ReactiveFormsModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatIconModule,
+    CommonModule,
+    RouterLink,
   ],
   templateUrl: './mycology-page.component.html',
   styleUrl: './mycology-page.component.scss',
 })
 export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
-  constructor(private store: Store<MycologyState>, private router: Router) {}
+  constructor(
+    private store: Store<MycologyState>,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   @ViewChild(FormMushroomComponent)
   formMushroomComponent!: FormMushroomComponent;
@@ -63,7 +75,7 @@ export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
 
   notifications$ = this.store.select(selectNotificationsFeature);
 
-  pagination$ = this.store.select(selectPaginationFeature);
+  isLargeWidth: boolean = true;
 
   subs = new Subscription();
 
@@ -80,8 +92,8 @@ export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
   };
 
   parameters: { [k: string]: number } = {
-    page: <number>0,
-    mushroomsLength: <number>0,
+    page: 0,
+    tableLength: 0,
   };
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -89,29 +101,23 @@ export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
     if (id) {
       if (this.mushroomID !== ':id') {
         this.store.dispatch(
-          MycologyActions.loadMushroomRequest({ id: this.mushroomID }) //questo carica 1 fungo
+          MycologyActions.loadMushroomRequest({ id: this.mushroomID })
         );
       }
     }
   }
 
   ngOnInit(): void {
-    this.subs.add(
-      this.pagination$.subscribe((pagination) => {
-        this.parameters['page'] = pagination.page;
-        //prendi la proprietà tableLength è assegnala a parameters.mushroomsLength
-        this.parameters['mushroomsLength'] = pagination.tableLength!
-      })
-    );
+    this.parameters = {
+      tableLength: Number(this.route.snapshot.paramMap.get('tableLength')!),
+      page: Number(this.route.snapshot.paramMap.get('page')!),
+    };
 
     this.subs.add(
       this.mushrooms$.subscribe((mushrooms) => {
-        //sono sottoscritto ai funghi
         this.mushroom = mushrooms[this.mushroomID];
-   
       })
     );
-
 
     this.subs.add(
       this.iconographicContainer$.subscribe((iconographicContainer) => {
@@ -166,6 +172,15 @@ export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
   }
 
   onDelete() {
+    const deleteMushroomsRequest = (config?: { changePage: boolean }) => {
+      this.store.dispatch(
+        MycologyActions.deleteMushroomsRequest({
+          mushrooms: [payload.mushroom],
+          changePage: config?.changePage,
+        })
+      );
+    };
+
     const payload = {
       mushroom: <Mushroom>this.formMushroomComponent.formMushroom.value,
       iconographicContainer: <IconographicContainer>(
@@ -175,23 +190,14 @@ export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
     if (!payload.iconographicContainer.id) {
       delete payload.iconographicContainer['id'];
     }
-    // this.store.dispatch(
-    //   MycologyActions.deleteMushroomsRequest({ mushrooms: [payload.mushroom] })
-    // );
 
-    if (this.parameters['mushroomsLength'] <= 1) {
+    if (this.parameters['tableLength'] <= 1) {
       const page = this.parameters['page'] - 1;
       this.store.dispatch(
         MycologyActions.updatePageIndexRequest({ pageIndex: page })
       );
-  
-      console.log('table length: ', this.parameters['mushroomsLength'])
-    }
-    this.store.dispatch(
-      MycologyActions.deleteMushroomsRequest({
-        mushrooms: [payload.mushroom],
-      })
-    );
+      deleteMushroomsRequest({ changePage: true });
+    } else deleteMushroomsRequest();
   }
 
   onMushroomSpecies(mushroomspecies: string) {

@@ -6,11 +6,6 @@ import { Observable, map } from 'rxjs';
 const mushroomsDataURL = 'http://localhost:3000/mushrooms';
 const iconographiesDataURL = 'http://localhost:3000/iconographies';
 
-export interface Response {
-  items: string | null;
-  data: Mushroom[] | null;
-}
-
 @Injectable({
   providedIn: 'root',
 })

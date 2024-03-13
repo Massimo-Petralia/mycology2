@@ -1,4 +1,15 @@
-.flex-container{
-    display: flex;
-    flex-direction: column-reverse;
+.flex-container-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-container-row {
+  display: flex;
+  flex-direction: row;
+}
+
+@media (max-width: 950px) {
+  .flex-container-row {
+    flex-direction: column;
+  }
 }

@@ -2,10 +2,7 @@ export interface MycologyState {
   pagination: {
     totalItems: number;
     page: number;
-    // aggiungi proprietà chagePage : boolean | null
-    changePage: boolean |null;
-    //aggiungi proprietà tableLength: number | null
-    tableLength: number | null
+    changePage: boolean | null;
   };
   mushrooms: { [id: string]: Mushroom } | null;
 
@@ -13,7 +10,11 @@ export interface MycologyState {
   notifications: Notifications | null;
 }
 
-export type NotificationsType = 'create' | 'update';
+export type NotificationsType =
+  | 'create'
+  | 'update'
+  | 'table is empty !'
+  | 'no result !';
 
 export interface Notifications {
   type: NotificationsType;
@@ -49,7 +50,7 @@ export interface Features {
 
 export interface MicroscopicFeatures {
   spores: string | null;
-  pileipellis: string | null;
+  epicute: string | null;
   cystidia: string | null;
 }
 

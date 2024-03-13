@@ -5,7 +5,7 @@ import { MycologyState } from '../models/mycology.models';
 
 export const initialState: MycologyState = {
   mushrooms: null,
-  pagination: { totalItems: 0, page: 1, changePage: null, tableLength: null },
+  pagination: { totalItems: 0, page: 1, changePage: null },
   iconographicContainer: null,
   notifications: null,
 };
@@ -14,17 +14,27 @@ export const mycologyReducer = createReducer(
   initialState,
   on(
     MycologyActions.loadMushroomsSucces,
-    (mycologystate, { items, mushrooms }) => ({
-      ...mycologystate,
-      pagination: { ...mycologystate.pagination, totalItems: items },
-      mushrooms: mushrooms.reduce(
-        (collection: { [id: string]: Mushroom }, mushroom) => {
-          collection[mushroom.id!] = mushroom;
-          return collection;
-        },
-        {}
-      ),
-    })
+    (mycologystate, { items, mushrooms, message }) => {
+      const type: NotificationsType = 'table is empty !' || 'no result !';
+
+      return {
+        ...mycologystate,
+        pagination: { ...mycologystate.pagination, totalItems: items },
+        mushrooms: mushrooms.reduce(
+          (collection: { [id: string]: Mushroom }, mushroom) => {
+            collection[mushroom.id!] = mushroom;
+            return collection;
+          },
+          {}
+        ),
+        notifications: {
+          type,
+          message: message
+        }
+      }
+    }
+    
+
   ),
   on(MycologyActions.createMushroomSucces, (mycologystate, mushroom) => {
     const type: NotificationsType = 'create';
@@ -118,8 +128,8 @@ export const mycologyReducer = createReducer(
       pagination: { ...mycologystate.pagination, page: pageIndex },
     })
   ),
-  on(MycologyActions.changePageRequest, (mycologystate, {changePage})=> ({...mycologystate, pagination: {...mycologystate.pagination, changePage: changePage}})),
-//metti un riduttore per aggiornare tableLength
-on(MycologyActions.tableLengRequest, (mycologystate, {tableLength})=> ({...mycologystate, pagination: {...mycologystate.pagination, tableLength:tableLength}}))
-//tableLength:tableLength???
+  on(MycologyActions.changePageRequest, (mycologystate, { changePage }) => ({
+    ...mycologystate,
+    pagination: { ...mycologystate.pagination, changePage: changePage },
+  }))
 );

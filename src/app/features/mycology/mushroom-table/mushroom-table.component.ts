@@ -15,7 +15,6 @@ import { Mushroom, Taxonomy } from '../models/mycology.models';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSortModule, Sort, MatSort } from '@angular/material/sort';
-import { SharedParametersService } from '../services/shared-parameters.service';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
@@ -27,7 +26,7 @@ import { DialogDeletionInformationComponent } from '../dialog-deletion-informati
 import { MatDialog } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { SelectionModel } from '@angular/cdk/collections';
-
+import { Notifications } from '../models/mycology.models';
 @Component({
   selector: 'app-mushroom-table',
   standalone: true,
@@ -62,6 +61,8 @@ export class MushroomTableComponent
 
   @Input() page: number | undefined;
   @Input() mushrooms: Mushroom[] = [];
+  @Input() notifications: Notifications|null = null
+  @Output() resetnotifications = new EventEmitter()
   dataSource!: MatTableDataSource<Mushroom>;
 
   selection = new SelectionModel<Mushroom>(true, []);
@@ -83,8 +84,6 @@ export class MushroomTableComponent
   @Output() delete = new EventEmitter<string>();
 
   @Output() deleteSelected = new EventEmitter<Mushroom[]>();
-
-  @Output() tablelength = new EventEmitter<number>()
 
   formFilteredSearch = this.fb.group({
     filter: this.fb.control<string>('species'),
@@ -122,15 +121,16 @@ export class MushroomTableComponent
     this.handleSorting(this.sort);
   }
 
-  goToFormMushroom() {//meglio chiamarlo goToCreateMushroom
-    //this.paramsService.page = this.page!;
+  goToCreateMushroom() {
     this.router.navigate([`mycology/mushrooms/:id`]);
+    this.resetnotifications.emit()
   }
 
   onMushroom(id: number) {
-   this.router.navigate([`mycology/mushrooms/${id}`]);
-  //qui emetti l'evento per tableLength 
-  this.tablelength.emit(this.mushrooms.length)
+    this.router.navigate([
+      `mycology/mushrooms/${id}`,
+      { tableLength: this.mushrooms.length, page: this.page },
+    ]);
   }
 
   handleSorting(sortEvent: Sort | MatSort) {
@@ -165,10 +165,13 @@ export class MushroomTableComponent
       .afterClosed()
       .subscribe((result) => {
         if (result === 'delete') {
-          this.formFilteredSearch.reset({
-            filter: 'species',
-            search: '',
-          }, {emitEvent: false});
+          this.formFilteredSearch.reset(
+            {
+              filter: 'species',
+              search: '',
+            },
+            { emitEvent: false }
+          );
           this.delete.emit(mushroomID);
         }
       });
@@ -196,10 +199,13 @@ export class MushroomTableComponent
       .afterClosed()
       .subscribe((result) => {
         if (result === 'delete') {
-          this.formFilteredSearch.reset({
-            filter: 'species',
-            search: '',
-          }, {emitEvent: false});
+          this.formFilteredSearch.reset(
+            {
+              filter: 'species',
+              search: '',
+            },
+            { emitEvent: false }
+          );
           this.deleteSelected.emit(this.selection.selected);
         }
       });
