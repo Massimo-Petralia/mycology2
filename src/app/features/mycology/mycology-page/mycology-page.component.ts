@@ -6,6 +6,7 @@ import {
   ViewChild,
   OnDestroy,
   SimpleChanges,
+  ElementRef,
 } from '@angular/core';
 import { FormMushroomComponent } from '../form-mushroom/form-mushroom.component';
 import { IconographicContainer, Mushroom } from '../models/mycology.models';
@@ -21,9 +22,12 @@ import {
   selectNotificationsFeature,
 } from '../mycology-state/mycology.selectors';
 import { Observable, Subscription, filter } from 'rxjs';
-
 import { Notifications } from '../models/mycology.models';
-import { config } from 'process';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatIconModule } from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-mycology-page',
@@ -32,9 +36,18 @@ import { config } from 'process';
     FormMushroomComponent,
     FormIconographyComponent,
     ReactiveFormsModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatIconModule,
+    CommonModule,
+    RouterLink,
   ],
   templateUrl: './mycology-page.component.html',
   styleUrl: './mycology-page.component.scss',
+  host: {
+    '(window:load)': 'updateView($event)',
+    '(window:resize)': 'updateView($event)',
+  },
 })
 export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
   constructor(
@@ -47,6 +60,7 @@ export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
   formMushroomComponent!: FormMushroomComponent;
   @ViewChild(FormIconographyComponent)
   formIconographyComponent!: FormIconographyComponent;
+  @ViewChild('container') container!: ElementRef<HTMLDivElement>;
 
   @Input() set id(mushroomID: string) {
     this.mushroomID = mushroomID;
@@ -65,6 +79,8 @@ export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
     ) as Observable<IconographicContainer>;
 
   notifications$ = this.store.select(selectNotificationsFeature);
+
+  isLargeWidth: boolean = true;
 
   subs = new Subscription();
 
@@ -90,7 +106,7 @@ export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
     if (id) {
       if (this.mushroomID !== ':id') {
         this.store.dispatch(
-          MycologyActions.loadMushroomRequest({ id: this.mushroomID }) //questo carica 1 fungo
+          MycologyActions.loadMushroomRequest({ id: this.mushroomID })
         );
       }
     }
@@ -191,6 +207,21 @@ export class MycologyPageComponent implements OnChanges, OnInit, OnDestroy {
 
   onMushroomSpecies(mushroomspecies: string) {
     this.mushroomspecies = mushroomspecies;
+  }
+
+  updateView(event?: Event) {
+    let windowSize: number;
+    if (event?.type === 'resize') {
+      windowSize = (event.currentTarget as Window).innerWidth;
+    } else windowSize = window.innerWidth;
+    if (windowSize >= 950) {
+      this.container.nativeElement.className = 'flex-container-row';
+      this.isLargeWidth = true;
+    }
+    if (windowSize <= 950) {
+      this.container.nativeElement.className = 'flex-container-column';
+      this.isLargeWidth = false;
+    }
   }
 
   ngOnDestroy(): void {

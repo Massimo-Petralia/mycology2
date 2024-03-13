@@ -53,10 +53,4 @@ export class CustomImgComponent implements ControlValueAccessor {
   getIndex(index?: number) {
     this.imageIndex.emit(index);
   }
-
-  // toggleClass() {
-  //   const _classList = this.image.nativeElement.classList.value;
-  //   this.image.nativeElement.classList.toggle('fullsize-img');
-  //   return _classList;
-  // }
 }

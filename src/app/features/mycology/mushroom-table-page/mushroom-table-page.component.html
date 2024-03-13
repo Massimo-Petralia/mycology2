@@ -1,6 +1,5 @@
 <div class="flex-container">
   <h4 class="title">Mushroom table</h4>
-
   <div *ngIf="paginator" class="page-label">page: {{ page }}</div>
   <mat-paginator
     #paginator
@@ -15,8 +14,9 @@
 <app-mushroom-table
   [page]="page"
   [mushrooms]="mushrooms"
+  [notifications]="notifications"
   (formValue)="onFormSearch($event)"
   (delete)="onDeleteOption($event)"
   (deleteSelected)="onDeleteSelected($event)"
-  
+  (resetnotifications)="onResetNotifications()"
 ></app-mushroom-table>

@@ -29,6 +29,12 @@ export class MicologyEffects {
               return MycologyActions.loadMushroomsSucces({
                 items: response.items,
                 mushrooms: response.data,
+                message:
+                  requestPayload.search && response.data.length === 0
+                    ? 'no result !'
+                    : !requestPayload.search && response.data.length === 0
+                    ? 'table is empty !'
+                    : '',
               });
             }),
             catchError(() => of(MycologyActions.loadMushroomsFailed()))

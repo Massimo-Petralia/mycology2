@@ -46,7 +46,9 @@ import { tooltip } from '../models/mycology-tooltip-data.model';
 export class FormMushroomComponent implements OnChanges {
   constructor(private formbuilder: FormBuilder, public dialog: MatDialog) {}
 
+
   tooltip: Mushroom = tooltip;
+
 
   @ViewChild('invalidFieldDialogBox') invalidFieldDialogBox!: TemplateRef<any>;
 
@@ -125,4 +127,6 @@ export class FormMushroomComponent implements OnChanges {
       }
     });
   }
+
+
 }

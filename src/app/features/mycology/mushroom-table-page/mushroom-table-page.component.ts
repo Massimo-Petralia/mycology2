@@ -17,10 +17,13 @@ import { Mushroom, MycologyState } from '../models/mycology.models';
 import {
   selectMushroomsFeature,
   selectPaginationFeature,
+  selectNotificationsFeature,
 } from '../mycology-state/mycology.selectors';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormFilteredSearch } from '../models/mycology.models';
+import { Notifications } from '../models/mycology.models';
+
 @Component({
   selector: 'app-mushroom-table-page',
   standalone: true,
@@ -50,6 +53,10 @@ export class MushroomTablePageComponent
   formFilteredSearch?: FormFilteredSearch;
 
   selectedMushrooms: { [key: string]: Mushroom } | null = null;
+
+  notifications$ = this.store.select(selectNotificationsFeature);
+
+  notifications: Notifications|null = null;
 
   loadMushrooms(filters: string | null, search: string | null) {
     this.store.dispatch(
@@ -95,6 +102,14 @@ export class MushroomTablePageComponent
     );
 
     this.loadMushrooms('species', '');
+
+    this.subs.add(
+      this.notifications$.subscribe((notification) => {
+        if (notification) {
+          this.notifications = notification;
+        }
+      })
+    );
   }
 
   ngAfterViewInit(): void {
@@ -156,6 +171,10 @@ export class MushroomTablePageComponent
       })
     );
   }
+
+onResetNotifications(){
+  this.store.dispatch(MycologyActions.resetNotificationsState())
+}
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();

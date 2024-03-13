@@ -27,12 +27,6 @@ mat-button-toggle {
   margin-right: 40%;
 }
 
-.save-button {
-  margin-left: 10px;
-}
-.delete-button {
-  margin-right: 10px;
-}
 .delete-button:hover {
   color: rgba(255, 2, 2, 0.801);
 }
@@ -60,11 +54,19 @@ mat-button-toggle {
   justify-content: space-evenly;
 }
 
-.flex-buttons {
+.flex-buttons-editing {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   margin: 0px 10px 10px 10px;
+}
+
+.flex-nuttons-creation{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin: 0px 10px 10px 10px;
+
 }
 
 .notifications {

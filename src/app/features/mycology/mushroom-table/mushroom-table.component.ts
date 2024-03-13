@@ -26,7 +26,7 @@ import { DialogDeletionInformationComponent } from '../dialog-deletion-informati
 import { MatDialog } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { SelectionModel } from '@angular/cdk/collections';
-
+import { Notifications } from '../models/mycology.models';
 @Component({
   selector: 'app-mushroom-table',
   standalone: true,
@@ -61,6 +61,8 @@ export class MushroomTableComponent
 
   @Input() page: number | undefined;
   @Input() mushrooms: Mushroom[] = [];
+  @Input() notifications: Notifications|null = null
+  @Output() resetnotifications = new EventEmitter()
   dataSource!: MatTableDataSource<Mushroom>;
 
   selection = new SelectionModel<Mushroom>(true, []);
@@ -121,6 +123,7 @@ export class MushroomTableComponent
 
   goToCreateMushroom() {
     this.router.navigate([`mycology/mushrooms/:id`]);
+    this.resetnotifications.emit()
   }
 
   onMushroom(id: number) {

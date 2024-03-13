@@ -8,7 +8,7 @@ export const loadMushroomsRequest = createAction(
 
 export const loadMushroomsSucces = createAction(
   '[Mushrooms API] Load Paginated Mushrooms Table Succes',
-  props<{ items: number; mushrooms: Mushroom[] }>()
+  props<{ items: number; mushrooms: Mushroom[]; message: string }>()
 );
 
 export const loadMushroomsFailed = createAction(

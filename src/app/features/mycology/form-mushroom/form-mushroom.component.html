@@ -1,12 +1,12 @@
 <div #parent class="flex-header">
   <h4 class="title">Mushroom : {{ mushroom?.taxonomy?.species }}</h4>
   <h4 class="subtitle">Description</h4>
-  <mat-button-toggle
+  <!-- <mat-button-toggle
     (change)="
-      parent.parentElement?.parentElement?.classList?.toggle('flex-container')
+      parent.parentElement?.parentElement?.classList?.toggle('flex-container-column');
     "
     >Invert views</mat-button-toggle
-  >
+  > -->
 </div>
 <form class="form-mushroom" [formGroup]="formMushroom" (ngSubmit)="onSave()">
   <mat-expansion-panel
@@ -433,7 +433,7 @@
       </mat-form-field>
     </form>
   </mat-expansion-panel>
-  <div class="flex-buttons">
+  <div [ngClass]="mushroom ? 'flex-buttons-editing' : 'flex-nuttons-creation'">
     <button
       class="delete-button"
       mat-stroked-button

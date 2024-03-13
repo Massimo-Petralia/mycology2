@@ -2,8 +2,7 @@ export interface MycologyState {
   pagination: {
     totalItems: number;
     page: number;
-    changePage: boolean |null;
-  
+    changePage: boolean | null;
   };
   mushrooms: { [id: string]: Mushroom } | null;
 
@@ -11,7 +10,11 @@ export interface MycologyState {
   notifications: Notifications | null;
 }
 
-export type NotificationsType = 'create' | 'update';
+export type NotificationsType =
+  | 'create'
+  | 'update'
+  | 'table is empty !'
+  | 'no result !';
 
 export interface Notifications {
   type: NotificationsType;

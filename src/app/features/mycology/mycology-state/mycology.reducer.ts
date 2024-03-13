@@ -14,17 +14,27 @@ export const mycologyReducer = createReducer(
   initialState,
   on(
     MycologyActions.loadMushroomsSucces,
-    (mycologystate, { items, mushrooms }) => ({
-      ...mycologystate,
-      pagination: { ...mycologystate.pagination, totalItems: items },
-      mushrooms: mushrooms.reduce(
-        (collection: { [id: string]: Mushroom }, mushroom) => {
-          collection[mushroom.id!] = mushroom;
-          return collection;
-        },
-        {}
-      ),
-    })
+    (mycologystate, { items, mushrooms, message }) => {
+      const type: NotificationsType = 'table is empty !' || 'no result !';
+
+      return {
+        ...mycologystate,
+        pagination: { ...mycologystate.pagination, totalItems: items },
+        mushrooms: mushrooms.reduce(
+          (collection: { [id: string]: Mushroom }, mushroom) => {
+            collection[mushroom.id!] = mushroom;
+            return collection;
+          },
+          {}
+        ),
+        notifications: {
+          type,
+          message: message
+        }
+      }
+    }
+    
+
   ),
   on(MycologyActions.createMushroomSucces, (mycologystate, mushroom) => {
     const type: NotificationsType = 'create';
