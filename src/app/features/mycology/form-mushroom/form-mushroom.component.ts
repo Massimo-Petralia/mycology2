@@ -96,7 +96,7 @@ export class FormMushroomComponent implements OnChanges {
     }),
     microscopicFeatures: this.formbuilder.group({
       spores: this.formbuilder.control<string>(''),
-      pileipellis: this.formbuilder.control<string>(''),
+      epicute: this.formbuilder.control<string>(''),
       cystidia: this.formbuilder.control<string>(''),
     }),
   });

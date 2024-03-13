@@ -47,7 +47,7 @@ export interface Features {
 
 export interface MicroscopicFeatures {
   spores: string | null;
-  pileipellis: string | null;
+  epicute: string | null;
   cystidia: string | null;
 }
 

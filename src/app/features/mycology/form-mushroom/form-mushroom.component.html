@@ -9,23 +9,6 @@
   >
 </div>
 <form class="form-mushroom" [formGroup]="formMushroom" (ngSubmit)="onSave()">
-  <div class="flex-buttons">
-    <button class="save-button" mat-stroked-button type="submit">Save</button>
-    <div class="notifications" *ngIf="notifications">
-      {{ notifications.message }}
-    </div>
-
-    <button
-      class="delete-button"
-      mat-stroked-button
-      *ngIf="mushroom"
-      type="button"
-      (click)="openDialog()"
-    >
-      Delete
-    </button>
-  </div>
-
   <mat-expansion-panel
     class="subForm-container"
     disabled="true"
@@ -187,7 +170,7 @@
           </mat-form-field>
           <mat-icon
             (mouseover)="tooltipAA.disabled = false; tooltipAA.show()"
-            (mouseleave)="tooltipAA.disabled = true "
+            (mouseleave)="tooltipAA.disabled = true"
             >info</mat-icon
           >
         </div>
@@ -404,29 +387,25 @@
       </mat-form-field>
       <mat-icon
         class="info-icon"
-        (mouseover)="
-          tooltippileipellis.disabled = false; tooltippileipellis.show()
-        "
-        (mouseleave)="tooltippileipellis.disabled = true"
+        (mouseover)="tooltipepicute.disabled = false; tooltipepicute.show()"
+        (mouseleave)="tooltipepicute.disabled = true"
         >info</mat-icon
       >
 
       <mat-form-field
-        #tooltippileipellis="matTooltip"
+        #tooltipepicute="matTooltip"
         matTooltipDisabled
-        matTooltip="{{ tooltip.microscopicFeatures.pileipellis }}"
+        matTooltip="{{ tooltip.microscopicFeatures.epicute }}"
         matTooltipPosition="above"
       >
-        <label #pileipellislabel for="pileipellis" className=""
-          >Pileipellis</label
-        >
+        <label #epicutelabel for="epicute" className="">Epicute</label>
         <textarea
-          id="pileipellis"
+          id="epicute"
           matInput
           cdkTextareaAutosize
-          formControlName="pileipellis"
-          (focus)="pileipellislabel.className = 'isFocused'"
-          (blur)="pileipellislabel.className = ''"
+          formControlName="epicute"
+          (focus)="epicutelabel.className = 'isFocused'"
+          (blur)="epicutelabel.className = ''"
         ></textarea>
       </mat-form-field>
       <mat-icon
@@ -454,6 +433,21 @@
       </mat-form-field>
     </form>
   </mat-expansion-panel>
+  <div class="flex-buttons">
+    <button
+      class="delete-button"
+      mat-stroked-button
+      *ngIf="mushroom"
+      type="button"
+      (click)="openDialog()"
+    >
+      Delete
+    </button>
+    <div class="notifications" *ngIf="notifications">
+      {{ notifications.message }}
+    </div>
+    <button class="save-button" mat-stroked-button type="submit">Save</button>
+  </div>
 </form>
 
 <ng-template #invalidFieldDialogBox>
