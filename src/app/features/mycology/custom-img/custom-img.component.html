@@ -1,0 +1,17 @@
+<div #container>
+  <img
+    #image
+    class=""
+    loading="lazy"
+    [id]="index"
+    [src]="value"
+    (click)="
+      getIndex(index);
+      image.classList.toggle('fullsize-img');
+      container.parentElement?.parentElement?.scrollIntoView({
+        behavior: 'smooth'
+      })
+    "
+    [ngClass]="selectedIndex === index ? 'fullsize-img' : ''"
+  />
+</div>

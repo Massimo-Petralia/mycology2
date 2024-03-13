@@ -1,0 +1,49 @@
+.note {
+  max-width: fit-content;
+  border: 1px solid lightgrey;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+}
+
+@media (max-width: 480px) {
+  .flex-container {
+    flex-direction: column-reverse;
+  }
+}
+
+.flex-container-add-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 10px 10px 10px 10px;
+  align-items: center;
+}
+
+.filteredSearch-text {
+  margin-bottom: 0;
+}
+
+.filteredSearch-legend {
+  text-align: left;
+}
+
+.filteredSearch-fieldset {
+  width: fit-content;
+  margin: 10px;
+}
+
+.delete-button:hover {
+  color: #f44336;
+}
+
+.notifications{
+  margin-left: 15px;
+}

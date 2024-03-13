@@ -1,0 +1,22 @@
+<div class="flex-container">
+  <h4 class="title">Mushroom table</h4>
+  <div *ngIf="paginator" class="page-label">page: {{ page }}</div>
+  <mat-paginator
+    #paginator
+    pageSize="8"
+    [length]="items"
+    (page)="handlePagination($event)"
+    showFirstLastButtons=""
+  >
+  </mat-paginator>
+</div>
+
+<app-mushroom-table
+  [page]="page"
+  [mushrooms]="mushrooms"
+  [notifications]="notifications"
+  (formValue)="onFormSearch($event)"
+  (delete)="onDeleteOption($event)"
+  (deleteSelected)="onDeleteSelected($event)"
+  (resetnotifications)="onResetNotifications()"
+></app-mushroom-table>

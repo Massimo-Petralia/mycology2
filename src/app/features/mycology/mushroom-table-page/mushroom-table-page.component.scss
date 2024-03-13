@@ -1,0 +1,45 @@
+.flex-container {
+  background-color: #672f80;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: flex-end;
+}
+
+.title {
+  flex-grow: 1;
+  font-style: italic;
+  margin-left: 10px;
+  font-weight: bolder;
+  border-left: 5px solid;
+  border-top-left-radius: 20px;
+  padding-left: 10px;
+}
+
+@media (max-width: 492px) {
+  .title {
+    margin-top: 10px;
+  }
+
+  .page-label {
+    padding-bottom: 5px;
+  }
+  mat-paginator {
+    padding-top: 5px;
+  }
+}
+
+mat-paginator {
+  background-color: #672f80;
+}
+
+// ::ng-deep .mat-mdc-paginator-range-label {
+//   display: none;
+// }
+
+.page-label {
+  margin-right: 10px;
+  font-size: 12px;
+}

@@ -1,0 +1,16 @@
+<div class="flex-container-row">
+  <app-form-mushroom
+    style="width: 100%"
+    [mushroom]="mushroom"
+    (save)="onSave()"
+    (delete)="onDelete()"
+    (mushroomspecies)="onMushroomSpecies($event)"
+    [notifications]="notifications"
+    ngSkipHydration
+  ></app-form-mushroom>
+  <app-form-iconography
+    style="width: 100%"
+    [mushroomspecies]="mushroomspecies"
+    [iconographicContainer]="iconographicContainer"
+  ></app-form-iconography>
+</div>

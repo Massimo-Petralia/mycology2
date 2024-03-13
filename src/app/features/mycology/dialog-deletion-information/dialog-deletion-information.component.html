@@ -1,0 +1,14 @@
+<h2 class="deleteDialogBox-title" mat-dialog-title>Attention !</h2>
+<mat-dialog-content>
+  <p [innerHTML]="text">
+  
+  </p>
+
+</mat-dialog-content>
+
+<mat-dialog-actions class="buttons-container">
+  <button class="yes-button" mat-stroked-button (click)="closeDialog('delete')">
+    Yes
+  </button>
+  <button class="no-button" mat-stroked-button (click)="closeDialog()">No</button>
+</mat-dialog-actions>

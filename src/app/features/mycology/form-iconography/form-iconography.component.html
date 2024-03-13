@@ -1,0 +1,68 @@
+<div #parent class="flex-header">
+  <h4 class="title">{{ mushroomspecies }} Iconography</h4>
+  <h4 class="subtitle">Image collection</h4>
+  <!-- <mat-button-toggle
+    (change)="
+      parent.parentElement?.parentElement?.classList?.toggle('flex-container-column')
+    "
+    >Invert views</mat-button-toggle
+  > -->
+</div>
+<input
+  #inputfile
+  hidden
+  class="hiddenButton"
+  type="file"
+  multiple
+  (change)="handleFiles()"
+/>
+<div class="form-iconography" [formGroup]="formIconography">
+  <button
+    class="shose-file-button"
+    mat-stroked-button
+    (click)="inputfile.click()"
+  >
+    Choose Image/s
+  </button>
+  <p
+    class="collection-empty"
+    *ngIf="formIconography.controls.formiconographyarray.length === 0"
+  >
+    Collection empty
+  </p>
+  <div formArrayName="formiconographyarray" class="flex-container">
+    <div
+      *ngFor="let _iconography of formiconographyarray.controls; let i = index"
+    >
+      <div [formGroupName]="i">
+        <mat-card #card class="card">
+          <mat-card-header>
+            <mat-card-subtitle>Image N°{{ i + 1 }}</mat-card-subtitle>
+          </mat-card-header>
+          <app-custom-img
+            [index]="i + 1"
+            (imageIndex)="onImageIndex($event)"
+            [selectedIndex]="selectedIndex"
+            mat-card-image
+            formControlName="imageURL"
+          ></app-custom-img>
+          <mat-card-content>
+            <mat-form-field>
+              <mat-label>Description</mat-label>
+              <textarea
+                matInput
+                formControlName="description"
+                cdkTextareaAutosize
+              ></textarea>
+            </mat-form-field>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-stroked-button (click)="removeControl(i)">
+              Remove
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

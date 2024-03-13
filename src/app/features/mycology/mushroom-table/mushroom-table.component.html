@@ -1,0 +1,126 @@
+<fieldset class="filteredSearch-fieldset">
+  <legend class="filteredSearch-legend">
+    <p class="filteredSearch-text">Filtered search</p>
+  </legend>
+  <form [formGroup]="formFilteredSearch" class="flex-container">
+    <mat-form-field>
+      <label style="font-size: 14px">Filters</label>
+      <mat-select formControlName="filter">
+        <mat-option value="species">Species</mat-option>
+        <mat-option value="gender">Gender</mat-option>
+        <mat-option value="family">Family</mat-option>
+        <mat-option value="order">Order</mat-option>
+        <mat-option value="AA">A.A.</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label for="search">Search</mat-label>
+
+      <input id="search" matInput type="search" formControlName="search" />
+    </mat-form-field>
+  </form>
+</fieldset>
+<div *ngIf="notifications" class="notifications">{{ notifications.message }}</div>
+<table
+  mat-table
+  matSort
+  [dataSource]="dataSource"
+  matSortActive="gender"
+  matSortDirection="asc"
+  matSortDisableClear
+  (matSortChange)="handleSorting($event)"
+>
+  <ng-container matColumnDef="select">
+    <th mat-header-cell *matHeaderCellDef>
+      <mat-checkbox
+        (change)="$event ? toggleAllRows() : null"
+        [checked]="selection.hasValue() && isAllSelected()"
+        [indeterminate]="selection.hasValue() && !isAllSelected()"
+      ></mat-checkbox>
+    </th>
+    <td mat-cell *matCellDef="let row">
+      <mat-checkbox
+        (click)="$event.stopPropagation()"
+        (change)="$event ? selection.toggle(row) : null"
+        [checked]="selection.isSelected(row)"
+      ></mat-checkbox>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="species">
+    <th mat-header-cell *matHeaderCellDef>Species</th>
+    <td mat-cell *matCellDef="let mushroom">
+      <a mat-button (click)="onMushroom(mushroom.id)">{{
+        mushroom.taxonomy.species
+      }}</a>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="gender">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Gender</th>
+    <td mat-cell *matCellDef="let mushroom">
+      {{ mushroom.taxonomy.gender }}
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="family">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Family</th>
+    <td mat-cell *matCellDef="let mushroom">
+      {{ mushroom.taxonomy.family }}
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="order">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Order</th>
+    <td mat-cell *matCellDef="let mushroom">{{ mushroom.taxonomy.order }}</td>
+  </ng-container>
+  <ng-container matColumnDef="AA">
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      mat-sort-header
+      title="Authoritative Author"
+    >
+      A.A.
+    </th>
+    <td mat-cell *matCellDef="let mushroom" style="font-family: cursive">
+      {{ mushroom.taxonomy.AA }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="options">
+    <th mat-header-cell *matHeaderCellDef>
+      <button
+        mat-mini-fab
+        color="warn"
+        [disabled]="!selection.hasValue()"
+        (click)="onDeleteSelected()"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </th>
+    <td mat-cell *matCellDef="let mushroom">
+      <button mat-icon-button [matMenuTriggerFor]="menu" title="Options">
+        <mat-icon>more_vert</mat-icon>
+        <mat-menu #menu="matMenu">
+          <a mat-menu-item (click)="onMushroom(mushroom.id)">edit</a>
+          <a
+            mat-menu-item
+            class="delete-button"
+            (click)="onDeleteOption(mushroom.id)"
+            >delete</a
+          >
+        </mat-menu>
+      </button>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="columsToDisplay"></tr>
+  <tr mat-row *matRowDef="let rowData; columns: columsToDisplay"></tr>
+</table>
+<div class="flex-container-add-button">
+  <p class="note">
+    NOTE:
+    <span style="font-style: italic"
+      >Each new mushroom is added at the last page of the table</span
+    >
+  </p>
+  <button mat-stroked-button type="button" (click)="goToCreateMushroom()">
+    Add
+  </button>
+</div>
