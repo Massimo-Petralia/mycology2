@@ -87,6 +87,7 @@ selectedIndex: number = 0;
           );
         }
       );
+      this.selectedIndex = 0
     }
   }
 
